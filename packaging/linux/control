@@ -1,0 +1,17 @@
+Package: consulente-digitale
+Version: @VERSIONE@
+Section: utils
+Priority: optional
+Architecture: all
+Depends: python3 (>= 3.7)
+Recommends: policykit-1 | pkexec, chromium | chromium-browser | google-chrome-stable | firefox | firefox-esr, smartmontools, fwupd, flatpak
+Suggests: espeak-ng, speech-dispatcher
+Maintainer: Danilo D'Auria <danilodauria.site@gmail.com>
+Homepage: https://danilodauria.github.io/consulente-digitale/
+Description: Consulente Digitale - il cervello che sceglie, aggiorna e ottimizza
+ Programma con intelligenza artificiale locale (Ollama) e il cervello digitale
+ «Neura» che ascolta e parla. Aiuta persone, famiglie, ditte, scuole e centri
+ anziani a scegliere computer, tablet, smartphone e TV e il momento migliore per
+ comprarli; analizza il computer, consiglia il sistema operativo, aggiorna sistema,
+ programmi, driver e firmware, ottimizza e ripara con script pronti all'uso.
+ Codice MIT, contenuti CC BY-NC-SA 4.0 - un progetto FeniceOS.

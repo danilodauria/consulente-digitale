@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="it" data-tema="notte">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="author" content="Danilo D'Auria">
+<meta name="description" content="Consulente Digitale: il cervello che sceglie, aggiorna e ottimizza i tuoi dispositivi. Windows, Linux e macOS, con intelligenza artificiale sul computer.">
+<title>Consulente Digitale</title>
+<link rel="icon" href="img/logo-piccolo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/cervello.css">
+<link rel="stylesheet" href="css/pagine.css">
+<link rel="stylesheet" href="css/stampa.css">
+</head>
+<body>
+<a class="salta" href="#principale">Vai al contenuto</a>
+<div class="cielo" aria-hidden="true"><div class="griglia"></div><div class="nebulosa n1"></div><div class="nebulosa n2"></div></div>
+
+<div class="app" id="app">
+  <header class="barra" role="banner">
+    <button class="icona-btn menu-btn" id="menu-btn" aria-label="Apri il menu" aria-expanded="false">☰</button>
+    <a class="marchio" href="#/" aria-label="Consulente Digitale, pagina iniziale">
+      <img src="img/logo-piccolo.svg" alt="" width="42" height="42">
+      <span><b>Consulente Digitale</b><small id="sottotitolo">il cervello che sceglie, aggiorna e ottimizza</small></span>
+    </a>
+    <div class="orologio" id="orologio" title="Ora del computer e ora ufficiale da Internet">
+      <div class="ora-grande" id="ora-locale">--:--:--</div>
+      <div class="ora-piccola"><span id="data-locale"></span> · <span id="ora-sync" class="sync">ora del PC</span></div>
+    </div>
+    <div class="spie" id="spie" aria-live="polite">
+      <span class="spia" id="spia-rete" title="Connessione a Internet">● rete</span>
+      <span class="spia" id="spia-ia" title="Intelligenza artificiale locale">● IA</span>
+      <span class="spia" id="spia-sistema" title="Sistema operativo"></span>
+    </div>
+    <div class="strumenti-barra">
+      <button class="icona-btn evidenza" id="btn-cerca" aria-label="Cerca nel programma" title="Cerca (Ctrl+K)">🔎<span class="eti-btn">Cerca</span></button>
+      <button class="icona-btn evidenza" id="btn-stampa" aria-label="Stampa questa pagina" title="Stampa questa pagina (Ctrl+P)">🖨️<span class="eti-btn">Stampa</span></button>
+      <button class="icona-btn" id="btn-voce" aria-label="Voce di Neura accesa" title="Voce di Neura (accesa/spenta)">🔊</button>
+      <button class="icona-btn" id="btn-tema" aria-label="Cambia tema" title="Tema: notte, giorno, alto contrasto">🌓</button>
+      <button class="icona-btn" id="btn-testo" aria-label="Testo più grande" title="Testo più grande">A+</button>
+    </div>
+  </header>
+
+  <nav class="menu" id="menu" aria-label="Menu principale">
+    <a href="#/" data-v="inizio"><span>🏠</span>Inizio</a>
+    <a href="#/neura" data-v="neura"><span>🧠</span>Parla con Neura</a>
+    <a href="#/acquisti" data-v="acquisti"><span>🛒</span>Cosa comprare</a>
+    <a href="#/analisi" data-v="analisi"><span>🔬</span>Analisi del PC</a>
+    <a href="#/hardware" data-v="hardware"><span>🧬</span>Hardware e sensori</a>
+    <a href="#/interventi" data-v="interventi"><span>🛠️</span>Diagnosi e interventi</a>
+    <a href="#/aggiornamenti" data-v="aggiornamenti"><span>⬇️</span>Aggiornamenti e driver</a>
+    <a href="#/ottimizza" data-v="ottimizza"><span>🚀</span>Ottimizza</a>
+    <a href="#/strumenti" data-v="strumenti"><span>🩺</span>Salute e riparazioni</a>
+    <a href="#/programmi" data-v="programmi"><span>📦</span>Programmi consigliati</a>
+    <a href="#/circolare" data-v="circolare"><span>♻️</span>Economia circolare</a>
+    <a href="#/nonni" data-v="nonni"><span>🎙️</span>Nonni Teach</a>
+    <a href="#/sapere" data-v="sapere"><span>💡</span>Cose da sapere</a>
+    <a href="#/storia" data-v="storia"><span>📜</span>Storia dei computer</a>
+    <div class="menu-sep"></div>
+    <a href="#/programma" data-v="programma"><span>🔄</span>Scarica gli aggiornamenti</a>
+    <a href="#/impostazioni" data-v="impostazioni"><span>⚙️</span>Impostazioni</a>
+    <a href="#/sostieni" data-v="sostieni"><span>❤️</span>Sostieni il progetto</a>
+    <a href="#/licenza" data-v="licenza"><span>📜</span>Licenza e autore</a>
+    <a href="docs/Vademecum_Consulente_Digitale.pdf" target="_blank" rel="noopener" id="menu-vademecum"><span>📘</span>Vademecum (PDF)</a>
+    <div class="menu-piede">
+      <div id="profilo-breve" class="profilo-breve"></div>
+      <small>Ideato e sviluppato da<br><b>Danilo D'Auria</b></small>
+    </div>
+  </nav>
+
+  <main id="principale" class="principale" tabindex="-1"></main>
+</div>
+
+<!-- Neura sempre presente: il piccolo cervello in basso a destra -->
+<div class="neura-dock" id="neura-dock">
+  <div class="dock-pannello" id="dock-pannello" hidden>
+    <div class="dock-testa"><b>🧠 Neura</b><span id="dock-stato" class="dock-stato">pronta</span>
+      <button class="icona-btn piccolo" id="dock-chiudi" aria-label="Chiudi">✕</button></div>
+    <div class="chat chat-dock" id="chat-dock" aria-live="polite"></div>
+    <form class="chat-modulo" id="dock-modulo" autocomplete="off">
+      <button type="button" class="mic" id="dock-mic" aria-label="Parla">🎤</button>
+      <input id="dock-input" placeholder="Scrivi o premi il microfono…" aria-label="Domanda per Neura">
+      <button class="invia" aria-label="Invia">➤</button>
+    </form>
+  </div>
+  <button class="dock-cervello" id="dock-cervello" aria-label="Apri Neura, il cervello digitale" title="Neura: chiedimi qualsiasi cosa (Ctrl+Spazio per parlare)">
+    <canvas id="cervello-mini" width="96" height="96" aria-hidden="true"></canvas>
+  </button>
+</div>
+
+<div class="avvisi" id="avvisi" aria-live="polite"></div>
+<div id="modale-sfondo" class="modale-sfondo" hidden></div>
+<iframe id="cornice-stampa" class="cornice-stampa" title="Stampa" aria-hidden="true" tabindex="-1"></iframe>
+<noscript><p style="padding:2rem;color:#fff">Il Consulente Digitale ha bisogno di JavaScript attivo nel browser.</p></noscript>
+
+<script src="js/core.js"></script>
+<script src="js/licenza.js"></script>
+<script src="js/cervello.js"></script>
+<script src="js/voce.js"></script>
+<script src="js/lavori.js"></script>
+<script src="js/cerca.js"></script>
+<script src="js/data-sapere.js"></script>
+<script src="js/data-acquisti.js"></script>
+<script src="js/data-storia.js"></script>
+<script src="js/data-sostieni.js"></script>
+<script src="js/neura.js"></script>
+<script src="js/benvenuto.js"></script>
+<script src="js/inizio.js"></script>
+<script src="js/acquisti.js"></script>
+<script src="js/analisi.js"></script>
+<script src="js/scheda-madre.js"></script>
+<script src="js/hardware.js"></script>
+<script src="js/interventi.js"></script>
+<script src="js/circolare.js"></script>
+<script src="js/data-nonni.js"></script>
+<script src="js/nonni.js"></script>
+<script src="js/aggiornamenti.js"></script>
+<script src="js/ottimizza.js"></script>
+<script src="js/strumenti.js"></script>
+<script src="js/programmi.js"></script>
+<script src="js/sapere.js"></script>
+<script src="js/storia.js"></script>
+<script src="js/impostazioni.js"></script>
+<script src="js/programma.js"></script>
+<script src="js/aperture.js"></script>
+<script src="js/avvio.js"></script>
+</body>
+</html>

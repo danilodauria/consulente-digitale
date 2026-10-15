@@ -1,0 +1,92 @@
+/* Consulente Digitale - stili delle pagine
+ * Ideato e sviluppato da Danilo D'Auria - Codice MIT, grafica CC BY-NC-SA 4.0 */
+.grande { font-size: 1.12rem; } .grande-em { font-size: 2.6rem; }
+.em { line-height: 1; }
+
+/* plancia (inizio) */
+.plancia { display: grid; grid-template-columns: minmax(16rem, 26rem) 1fr; gap: 1.5rem; align-items: center; margin-bottom: 1.4rem; }
+.plancia-cervello { position: relative; }
+.plancia-testo h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); margin-bottom: .4rem; }
+.sopratitolo { font-family: var(--mono); font-size: .85rem; color: var(--neon3); letter-spacing: .06em; text-transform: uppercase; margin: 0; }
+.nome-grad { background: linear-gradient(90deg, var(--neon3), var(--neon), var(--neon2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+:root[data-tema="contrasto"] .nome-grad { color: var(--neon); background: none; }
+.cruscotto { margin-bottom: 1.4rem; }
+.cruscotto .scheda { margin-top: 0; }
+.titolo-sezioni { margin-top: 1.4rem; }
+.metri { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-around; }
+@media (max-width: 760px) { .plancia { grid-template-columns: 1fr; text-align: center; } .plancia .riga { justify-content: center; } .plancia-cervello canvas { max-width: 16rem; margin: 0 auto; } }
+
+/* benvenuto */
+.benvenuto { max-width: 1100px; margin: 0 auto; }
+.benv-testa { display: grid; grid-template-columns: 13rem 1fr; gap: 1.2rem; align-items: center; margin-bottom: 1rem; }
+.benv-testa canvas { width: 13rem; height: 13rem; }
+@media (max-width: 640px) { .benv-testa { grid-template-columns: 1fr; text-align: center; } .benv-testa canvas { margin: 0 auto; } }
+
+/* acquisti */
+.avanzamento { display: flex; gap: .4rem; margin-bottom: 1rem; }
+.avanzamento span { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; border: 1px solid var(--vetro-bordo); font-weight: 700; font-size: .85rem; color: var(--inchiostro2); }
+.avanzamento span.fatto { background: linear-gradient(135deg, #0ea5e9, #6366f1); color: #fff; border: none; }
+.opzioni.grandi .opzione { padding: .7rem 1rem; font-size: 1rem; }
+.opzioni.verticali { flex-direction: column; align-items: stretch; }
+.opzione.sbagliata { border-color: var(--male); background: var(--male-tenue); }
+button.opzione { color: inherit; text-align: left; }
+.momento { border-radius: 16px; padding: .9rem 1rem; border: 1px solid var(--vetro-bordo); margin-bottom: .8rem; }
+.momento-ora { background: var(--ok-tenue); border-color: rgba(52, 211, 153, .45); }
+.momento-aspetta { background: var(--att-tenue); border-color: rgba(251, 191, 36, .45); }
+.momento-libero { background: var(--neon-tenue); }
+.momento-testa { display: flex; gap: .7rem; align-items: flex-start; } .momento-testa .em { font-size: 1.6rem; } .momento-testa p { margin: .2rem 0; }
+.rovescia { display: flex; gap: .4rem; margin-top: .6rem; }
+.rov { flex: 1; text-align: center; padding: .4rem 0; border-radius: 12px; background: rgba(2, 6, 23, .55); border: 1px solid var(--vetro-bordo); }
+:root[data-tema="giorno"] .rov { background: #fff; }
+.rov b { display: block; font-family: var(--mono); font-size: 1.5rem; color: var(--neon3); }
+.rov small { font-size: .7rem; }
+.calendario { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .4rem; }
+.calendario li { display: flex; gap: .7rem; align-items: flex-start; padding: .5rem .6rem; border-radius: 12px; border: 1px solid var(--linea); }
+.calendario li.in-corso { border-color: var(--ok); background: var(--ok-tenue); }
+.calendario .em { font-size: 1.3rem; }
+.negozi { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: .5rem; }
+.negozi .btn { flex-direction: column; align-items: flex-start; text-align: left; }
+.negozi .btn small { font-weight: 400; font-size: .72rem; color: var(--inchiostro2); }
+
+/* analisi */
+.so .em { font-size: 1.6rem; } .so.primo { border-color: rgba(52, 211, 153, .5); }
+.so h3 { margin: 0; }
+
+/* programmi */
+.programma p { font-size: .9rem; margin: .3rem 0 .6rem; }
+
+/* problemi */
+details.problema summary { cursor: pointer; font-size: 1.02rem; list-style: none; }
+details.problema summary::-webkit-details-marker { display: none; }
+details.problema summary::after { content: " ▸"; color: var(--neon); } details.problema[open] summary::after { content: " ▾"; }
+
+/* strumenti */
+.ora-mega { text-align: center; margin: .5rem 0 1rem; }
+.ora-mega b { display: block; font-family: var(--mono); font-size: clamp(2.4rem, 6vw, 3.6rem); color: var(--neon3); text-shadow: 0 0 18px rgba(94, 234, 212, .5); letter-spacing: .06em; }
+.pilota li span { font-size: .85rem; color: var(--inchiostro2); margin-left: .4rem; } .pilota li span.ok { color: var(--ok); } .pilota li span.att { color: var(--attenzione); } .pilota li span.male { color: var(--male); }
+.esito:empty { display: none; }
+
+/* sapere */
+.sapere-art .punti li { margin: .55rem 0; font-size: 1.05rem; }
+.glossario { display: grid; grid-template-columns: minmax(10rem, 16rem) 1fr; gap: .4rem 1rem; }
+.glossario dt { font-weight: 700; color: var(--neon); } .glossario dd { margin: 0; }
+@media (max-width: 640px) { .glossario { grid-template-columns: 1fr; } .glossario dd { margin-bottom: .5rem; } }
+
+/* storia */
+.curiosita { display: flex; gap: .8rem; align-items: center; } .curiosita .em { font-size: 2rem; } .curiosita p { margin: .2rem 0; }
+.linea-tempo { list-style: none; padding: 0 0 0 1.4rem; margin: 0; border-left: 2px solid rgba(56, 189, 248, .4); }
+.linea-tempo li { position: relative; margin: 0 0 1rem; padding-left: 1rem; }
+.linea-tempo li::before { content: ""; position: absolute; left: -1.95rem; top: .35rem; width: .9rem; height: .9rem; border-radius: 50%; background: var(--neon); box-shadow: 0 0 12px var(--neon); }
+.linea-tempo li.italia::before { background: linear-gradient(90deg, #16a34a 33%, #fff 33% 66%, #dc2626 66%); box-shadow: 0 0 12px rgba(255, 255, 255, .4); }
+.linea-tempo .anno { font-family: var(--mono); font-weight: 700; color: var(--neon3); font-size: .95rem; }
+.tappa { display: flex; gap: .7rem; padding: .7rem .9rem; border-radius: 14px; border: 1px solid var(--vetro-bordo); background: var(--pannello); margin-top: .3rem; }
+.tappa .em { font-size: 1.6rem; } .tappa p { margin: .2rem 0 0; font-size: .93rem; }
+.ramo { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .3rem; }
+.ramo li { display: flex; justify-content: space-between; padding: .35rem .6rem; border-radius: 10px; background: var(--neon-tenue); position: relative; }
+.ramo li:not(:last-child)::after { content: "↓"; position: absolute; left: 50%; bottom: -.85rem; font-size: .7rem; color: var(--inchiostro2); }
+
+/* licenza e sostieni */
+.citazione { font-style: italic; padding: .6rem .9rem; border-left: 3px solid var(--neon); background: var(--neon-tenue); border-radius: 8px; }
+.qr { width: 11rem; height: 11rem; background: #fff; padding: .4rem; border-radius: 12px; margin: .6rem 0; }
+.qr svg { width: 100%; height: 100%; }
+.cc-badge { flex: none; }

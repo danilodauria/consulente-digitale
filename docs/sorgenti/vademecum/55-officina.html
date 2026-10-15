@@ -1,0 +1,119 @@
+<!-- Vademecum del Consulente Digitale - Parte V (seguito): hardware, diagnosi, aggiornamenti del programma
+     Testi di Danilo D'Auria - CC BY-NC-SA 4.0 -->
+<div class="pagina">
+
+<!-- ======================================================= 25 -->
+<section class="capitolo"><span class="marca">§§c25§§</span>
+<div class="capitolo-testa"><span class="num">25</span><div><div class="eti">CAPITOLO</div><h1>Hardware e sensori</h1></div></div>
+<p class="intro">La pagina <b>🧬 Hardware e sensori</b> fa quello che fanno programmi da esperti come HWiNFO, CPU-Z e GPU-Z, ma in parole semplici: mostra <b>ogni componente</b>
+del computer con i suoi dati tecnici e le <b>temperature, le ventole, i consumi e il lavoro</b> del processore in diretta. Il codice è originale del Consulente Digitale
+(licenza MIT) e usa solo gli strumenti del sistema o programmi liberi.</p>
+<figure><img src="img/hardware.jpg" alt=""><figcaption><b>Figura 25.1</b> La scheda «In diretta»: otto riquadri con i valori di questo istante, la curva degli ultimi due minuti e il lavoro di ogni thread del processore.</figcaption></figure>
+
+<h2>Le nove schede della pagina</h2>
+<table class="compatta"><thead><tr><th>Scheda</th><th>Cosa mostra</th><th>Come «Programma di»</th></tr></thead><tbody>
+<tr><td><b>📊 In diretta</b></td><td>Uso del processore, temperatura e consumo, memoria, attività del disco, grafica, rete, batteria, ventola; un grafico per ognuno; barre per ogni thread. Si aggiorna ogni 2 secondi <b>solo mentre la pagina è aperta</b>.</td><td>Gestione attività, HWiNFO (sensori)</td></tr>
+<tr><td><b>🧩 Scheda madre</b></td><td>Lo <b>schema disegnato</b> della scheda (capitolo 26), produttore e modello, revisione, BIOS/UEFI e la sua data, avvio UEFI e TPM, slot di espansione e porte.</td><td>CPU-Z (Mainboard), HWiNFO</td></tr>
+<tr><td><b>⚙️ Processore</b></td><td>Nome, core e thread, frequenza massima, zoccolo (socket), architettura, cache L1/L2/L3, generazione e anno stimati, virtualizzazione, istruzioni speciali (AVX2, AES, SHA…).</td><td>CPU-Z (CPU, Caches)</td></tr>
+<tr><td><b>🧠 Memoria</b></td><td>Totale e in uso, slot sulla scheda e massimo supportato; per ogni modulo: posizione, capacità, tipo (DDR4, DDR5…), velocità, marca, codice, formato. Avvisa se una parte è <b>saldata</b> e se c'è uno slot libero.</td><td>CPU-Z (Memory, SPD)</td></tr>
+<tr><td><b>🎮 Grafica</b></td><td>Per ogni scheda video: memoria, driver e data, risoluzione dello schermo; con i sensori: uso, temperatura, memoria in uso, frequenza e consumo.</td><td>GPU-Z</td></tr>
+<tr><td><b>💽 Dischi</b></td><td>Modello, tipo (NVMe, SSD, HDD), collegamento, capacità, firmware, salute; lo spazio di ogni unità; l'ultimo controllo SMART salvato.</td><td>CrystalDiskInfo</td></tr>
+<tr><td><b>🔋 Batteria</b></td><td>Modello e chimica, capacità di progetto e attuale (in Wh), <b>salute in percentuale</b>, cicli di carica, carica, tensione e potenza di questo momento.</td><td>BatteryInfoView, rapporto powercfg</td></tr>
+<tr><td><b>🔌 Rete e periferiche</b></td><td>Schede di rete con velocità e indirizzo fisico, dispositivi audio, dispositivi USB.</td><td>HWiNFO</td></tr>
+<tr><td><b>🌡️ Tutti i sensori</b></td><td>Ogni sensore leggibile, diviso per tipo (temperature, ventole, tensioni, potenza, correnti, frequenze, carico…), con <b>attuale, minimo e massimo</b> della sessione e il limite indicato dal produttore. In rosso quelli vicini al limite.</td><td>HWiNFO (Sensors)</td></tr>
+</tbody></table>
+<figure class="media"><img src="img/hardware-cpu.jpg" alt=""><figcaption><b>Figura 25.2</b> La scheda tecnica del processore.</figcaption></figure>
+<figure class="media"><img src="img/hardware-sensori.jpg" alt=""><figcaption><b>Figura 25.3</b> Tutti i sensori, con minimo e massimo.</figcaption></figure>
+
+<h2>Da dove arrivano i dati, sistema per sistema</h2>
+<table class="compatta"><thead><tr><th>Dato</th><th>🪟 Windows</th><th>🐧 Linux</th><th>🍎 macOS</th></tr></thead><tbody>
+<tr><td>Componenti</td><td>CIM/WMI: Win32_Processor, CacheMemory, BaseBoard, BIOS, PhysicalMemory, VideoController (memoria video dal registro), PhysicalDisk, SystemSlot, PortConnector, NetworkAdapter, SoundDevice</td><td>lscpu, /proc/cpuinfo, /sys (cache, DMI, drm, power_supply), udevadm, lspci, lsblk, lsusb, nvidia-smi</td><td>sysctl, system_profiler</td></tr>
+<tr><td>Uso, memoria, dischi, rete</td><td>contatori delle prestazioni</td><td>/proc/stat, /proc/meminfo, /proc/diskstats, /proc/net/dev</td><td>ps, vm_stat</td></tr>
+<tr><td>Temperature, ventole, tensioni</td><td>zone termiche ACPI; con i <b>sensori avanzati</b>: LibreHardwareMonitor</td><td>hwmon e thermal zone del kernel (coretemp, k10temp, nvme, acpitz, ventole)</td><td>batteria; processore solo con <b>sensori avanzati</b> (powermetrics)</td></tr>
+<tr><td>Schede video NVIDIA</td><td colspan="2">nvidia-smi (uso, temperatura, memoria, frequenza, consumo)</td><td>—</td></tr>
+<tr><td>Batteria</td><td>root\wmi (capacità di progetto e piena, cicli)</td><td>/sys/class/power_supply</td><td>ioreg, pmset</td></tr>
+<tr><td>Banchi di RAM, slot, porte</td><td>CIM</td><td>dmidecode con <b>🧬 Inventario completo</b> (password)</td><td>system_profiler</td></tr>
+</tbody></table>
+<p>Su Windows e sul Mac i sensori si leggono con una piccola <b>sonda</b> che parte quando aprite la pagina e si ferma da sola 60 secondi dopo che l'avete chiusa:
+così il programma non consuma nulla quando non serve.</p>
+
+<h2>I pulsanti in alto</h2>
+<ul>
+<li><b>🔄 Rileggi tutto</b>: rilegge componenti e sensori (i dettagli restano in memoria 10 minuti).</li>
+<li><b>🌡️ Sensori avanzati</b> (Windows e Mac): su Windows installa da winget e avvia <b>LibreHardwareMonitor</b> (software libero, licenza MPL 2.0), che rende leggibili temperature dei core,
+ventole, tensioni e consumi; sul Mac legge per 5 secondi lo strumento di Apple <code>powermetrics</code>. Chiede la conferma da amministratore.</li>
+<li><b>🧬 Inventario completo</b> (Linux): legge con <code>dmidecode</code> le tabelle del BIOS (banchi di memoria, slot, porte) e le salva per la pagina. Solo lettura.</li>
+<li><b>💽 Controlla la salute dei dischi</b>: esegue il controllo SMART (capitolo 23) e ne ricorda il risultato per lo schema e la diagnosi.</li>
+<li><b>🛠️ Diagnosi e lavori</b>: apre la pagina del capitolo 26.</li>
+</ul>
+{{DETTAGLIO_HARDWARE}}
+<div class="box consiglio"><span class="t">Quando una temperatura è «normale»</span>Sotto sforzo un processore moderno sta spesso tra 60 e 85 °C: è normale. Preoccupa se resta oltre gli 85 °C,
+se il computer rallenta di colpo, se la ventola è sempre al massimo o se la temperatura è alta anche a riposo. Quasi sempre la causa è <b>polvere</b> o <b>pasta termica secca</b>.</div>
+</section>
+
+<!-- ======================================================= 26 -->
+<section class="capitolo"><span class="marca">§§c26§§</span>
+<div class="capitolo-testa"><span class="num">26</span><div><div class="eti">CAPITOLO</div><h1>Lo schema della scheda madre, la diagnosi e i lavori</h1></div></div>
+<p class="intro">Dai dati del capitolo 25 il programma <b>disegna lo schema della scheda madre</b> del computer in uso, colora ogni componente secondo la sua salute e mette un
+<b>segnale pulsante</b> dove c'è il rischio di un guasto. Poi prepara la <b>diagnosi</b>, l'elenco dei <b>lavori da eseguire</b> e, alla fine, la <b>scheda dei lavori eseguiti</b>.</p>
+<figure><img src="img/hardware-schema.jpg" alt=""><figcaption><b>Figura 26.1</b> Lo schema di un portatile: ventola e tubi di calore, processore, chipset (PCH), memoria saldata e slot SO-DIMM, SSD M.2, Wi-Fi, BIOS, porte sui lati e batteria. I numeri gialli e rossi indicano i punti da controllare.</figcaption></figure>
+
+<h2>Come si legge lo schema</h2>
+<ul>
+<li><b>Forma</b>: per i computer fissi il disegno è una scheda <b>ATX</b> con pannello posteriore, alimentazione del processore (VRM), zoccolo e ventola, slot della RAM, connettore ATX a 24 poli,
+slot M.2, porte SATA, slot PCIe con l'eventuale scheda video, chipset, chip del BIOS e batteria tampone CR2032. Per i portatili è una scheda sagomata con ventola e tubi di calore, memoria saldata o slot SO-DIMM e la batteria sotto.</li>
+<li><b>Componenti veri</b>: nomi, quantità di slot e moduli, dischi NVMe o SATA, scheda video dedicata o integrata sono quelli <b>letti</b> dal computer; uno slot vuoto è tratteggiato.</li>
+<li><b>Colori</b>: <span class="et v">verde</span> in salute, <span class="et b">giallo</span> da tenere d'occhio, <span class="et g">rosso</span> guasto possibile, grigio non verificabile.</li>
+<li><b>Segnali numerati</b>: ogni componente giallo o rosso ha un numero; sotto il disegno, lo stesso numero spiega il problema e cosa fare. Quelli rossi pulsano.</li>
+<li>Passando il mouse su un pezzo compaiono nome, valore e problemi.</li>
+</ul>
+<figure class="media"><img src="img/hardware-legenda.jpg" alt=""><figcaption><b>Figura 26.2</b> L'elenco numerato dei punti da controllare.</figcaption></figure>
+<div class="box attenzione"><span class="t">È uno schema, non una fotografia</span>Il disegno è generato dal programma con i componenti letti: aiuta a capire dove sono le parti e quale controllare,
+ma non riproduce la forma esatta della vostra scheda. Prima di aprire un computer consultate il <b>manuale di servizio</b> del produttore, staccate la corrente e, nei portatili, la batteria.</div>
+
+<h2>Le regole che accendono i segnali</h2>
+<p>Il programma confronta i valori con queste soglie (scritte una sola volta nel codice, in <code>scheda-madre.js</code>):</p>
+{{SOGLIE_HW}}
+<p>Inoltre: disco che segnala un guasto (stato SMART non buono, settori riallocati, previsione di guasto) → <b>rosso</b>, con l'invito a fare subito la copia dei dati;
+disco meccanico → giallo (consiglio SSD); meno di 8 GB di RAM → giallo; ventola ferma con processore oltre 70 °C → rosso; BIOS di 4 o più anni → giallo (controllare un aggiornamento);
+dispositivi con errori in Gestione dispositivi → giallo sul chipset.</p>
+
+<h2>La pagina «🛠️ Diagnosi e interventi»</h2>
+<figure><img src="img/interventi.jpg" alt=""><figcaption><b>Figura 26.3</b> Una scheda di intervento: dati, diagnosi, lavori da eseguire con i pulsanti «Esegui ora» e lavori eseguiti.</figcaption></figure>
+<ol class="passi">
+<li><b>🔬 Fai la diagnosi</b>: il programma rilegge componenti, sensori e analisi e crea una <b>scheda numerata</b> (codice tipo CD-20261015-AB12) con il computer, il sistema e lo stato.</li>
+<li>Scrivete <b>Cliente / utente</b>, <b>Tecnico</b> e le <b>Note</b>: si salvano da sole.</li>
+<li>La sezione <b>🔎 Diagnosi</b> elenca i componenti con problemi e la spiegazione.</li>
+<li>I <b>📋 Lavori da eseguire</b> sono proposti in automatico, in ordine di priorità: 🔴 urgente, 🟠 da fare presto, 🔵 consigliato, ⚪ controllo. Ci sono sempre il punto di ripristino,
+il controllo SMART (se non fatto), gli aggiornamenti e la sicurezza, più i lavori legati ai problemi trovati (pulizia e pasta termica, copia dei dati e sostituzione del disco, SSD, RAM, BIOS, batteria…).</li>
+<li>Se il programma sa fare il lavoro, accanto c'è <b>▶ Esegui ora</b>: si apre la solita conferma con la console e, se l'azione riesce, il lavoro si <b>spunta da solo</b>.</li>
+<li>Gli altri lavori (per esempio cambiare la pasta termica) si spuntano a mano: si apre una finestrella per scrivere l'<b>esito</b> («pasta termica nuova, temperatura scesa a 62 °C»).</li>
+<li><b>➕ Aggiungi</b> un lavoro vostro, con la sua priorità.</li>
+<li>Quando tutti i lavori sono fatti, la scheda risulta <b>chiusa</b> con data e ora.</li>
+</ol>
+<h2>Le due schede da stampare</h2>
+<div class="affianca"><figure><img src="img/stampa-diagnosi.jpg" alt=""><figcaption><b>Figura 26.4</b> «Scheda di diagnosi e lavori da eseguire»: dati, esito, schema della scheda madre, lavori con la casella da spuntare, firme del tecnico e del cliente per presa visione.</figcaption></figure>
+<figure><img src="img/stampa-lavori.jpg" alt=""><figcaption><b>Figura 26.5</b> «Scheda lavori eseguiti»: lavori fatti con data, ora ed esito, lavori ancora aperti, firme per accettazione.</figcaption></figure></div>
+<p>Le schede restano nell'<b>🗂️ Archivio</b> in fondo alla pagina (le ultime 60): si riaprono, si ristampano o si eliminano. Sono perfette per chi ripara computer per amici, associazioni,
+scuole e centri anziani, e per consegnare al proprietario un documento chiaro di cosa è stato fatto.</p>
+</section>
+
+<!-- ======================================================= 27 -->
+<section class="capitolo"><span class="marca">§§c27§§</span>
+<div class="capitolo-testa"><span class="num">27</span><div><div class="eti">CAPITOLO</div><h1>Scaricare gli aggiornamenti del programma</h1></div></div>
+<p class="intro">Il Consulente Digitale si aggiorna <b>da solo, ma solo quando lo chiedete</b>: menu <b>🔄 Scarica gli aggiornamenti</b>. Come nel Professore Digitale,
+all'avvio non si collega a nessun sito.</p>
+<figure class="media"><img src="img/programma.jpg" alt=""><figcaption><b>Figura 27.1</b> La pagina degli aggiornamenti dopo il controllo.</figcaption></figure>
+<ol class="passi">
+<li><b>🔎 Controlla aggiornamenti</b>: il programma legge il file <code>aggiornamenti.json</code> sul sito ufficiale <code>danilodauria.github.io/consulente-digitale</code> e confronta le versioni.</li>
+<li>Se c'è una versione nuova vedete il numero, la data e le <b>novità</b>. Premete <b>⬇️ Scarica e installa</b>: viene scaricato solo il pacchetto per il vostro tipo di installazione.</li>
+<li>Il file viene controllato con l'<b>impronta SHA-256</b> pubblicata nel manifesto: se non coincide viene <b>scartato</b>. Si accettano solo indirizzi del sito del progetto e di GitHub.</li>
+<li><b>🛠️ Installa ora</b>: su <b>Windows</b> si apre l'installatore e il programma si chiude (alla fine dell'installazione potete riaprirlo dall'ultima schermata);
+su <b>Linux</b> vi viene chiesta la password e il pacchetto .deb viene aggiornato, poi chiudete e riaprite; sul <b>Mac</b> e con la versione <b>portatile</b> il programma vi mostra il file scaricato da aprire al posto del vecchio.</li>
+</ol>
+<div class="box consiglio"><span class="t">I vostri dati non si toccano</span>Impostazioni, profilo, conversazioni, schede salvate, diagnosi, interviste e podcast di Nonni Teach sono nella cartella dei dati (capitolo 38), separata dal programma: gli aggiornamenti non la modificano.</div>
+<p>Si può anche chiedere a Neura: <span class="frase">aggiorna il programma</span> <span class="frase">c'è una nuova versione del Consulente?</span></p>
+<h2>Le novità, versione per versione</h2>
+{{NOVITA}}
+</section>
+</div>

@@ -1,0 +1,140 @@
+/* Consulente Digitale - stile del vademecum stampato (A4). Danilo D'Auria - Codice MIT, grafica CC BY-NC-SA 4.0
+ * Si stampa con tools/pdf-da-html.py (Chromium). Caratteri: Inter, Inter Display, DejaVu Sans Mono, Noto Color Emoji. */
+@page { size: A4; }
+:root { --notte: #0a1128; --notte2: #13224a; --neon: #0ea5e9; --neon-scuro: #0369a1; --viola: #6d28d9; --turchese: #0d9488; --oro: #d97706;
+        --ink: #0f1d36; --ink2: #4a5b78; --linea: #d5deea; --azz: #e8f3fc; --verde: #047857; --verde2: #e7f7ef; --giallo: #a16207; --giallo2: #fdf6dc;
+        --rosso: #b91c1c; --rosso2: #fdecec; --crema: #f5f8fc; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font: 9.9pt/1.55 "Inter", "DejaVu Sans", "Noto Color Emoji", sans-serif; color: var(--ink); }
+.pagina { padding: 0 17mm; }
+h1, h2, h3 { font-family: "Inter Display", "Inter", sans-serif; color: var(--neon-scuro); font-weight: 800; line-height: 1.2; letter-spacing: -.01em; }
+h2 { font-size: 13.5pt; margin: 1.25em 0 .45em; break-after: avoid; }
+h2::before { content: ""; display: inline-block; width: 3.2mm; height: 3.2mm; border-radius: 50%; background: linear-gradient(135deg, var(--neon), var(--viola)); margin-right: 2.4mm; vertical-align: .05em; }
+h3 { font-size: 10.6pt; margin: 1em 0 .35em; break-after: avoid; color: var(--ink); }
+p { margin: .45em 0; text-align: justify; hyphens: auto; }
+b, strong { font-weight: 700; }
+code, kbd { font-family: "DejaVu Sans Mono", monospace; font-size: .84em; }
+code { background: #eaf1f8; padding: .05em .35em; border-radius: 4px; color: #0b3b63; word-break: break-word; }
+kbd { display: inline-block; border: 1px solid #b6c3d3; border-bottom-width: 2px; border-radius: 5px; padding: 0 .35em; background: #fff; font-size: .8em; }
+pre { background: var(--notte); color: #d1fae5; padding: .7em .9em; border-radius: 8px; font: 8pt/1.5 "DejaVu Sans Mono", monospace; white-space: pre-wrap; break-inside: avoid; border-left: 4px solid var(--neon); }
+pre .c { color: #7dd3fc; }
+a { color: var(--neon-scuro); text-decoration: none; }
+ul, ol { margin: .4em 0; padding-left: 1.3em; }
+li { margin: .16em 0; }
+.small { font-size: 8.6pt; color: var(--ink2); }
+.centro { text-align: center; }
+
+/* capitoli */
+.parte { break-before: page; height: 250mm; display: flex; flex-direction: column; justify-content: center; padding: 0 22mm;
+  background: radial-gradient(120mm 90mm at 85% 15%, rgba(14, 165, 233, .18), transparent 70%), radial-gradient(110mm 80mm at 10% 90%, rgba(109, 40, 217, .14), transparent 70%); }
+.parte .eti { font: 800 9pt "Inter"; letter-spacing: .35em; color: var(--neon); }
+.parte h1 { font-size: 34pt; margin: 3mm 0 4mm; color: var(--notte); }
+.parte p { font-size: 11.5pt; color: var(--ink2); max-width: 140mm; text-align: left; }
+.parte .capitoli { margin-top: 8mm; font-size: 10pt; color: var(--ink); }
+.parte .capitoli div { padding: 1.4mm 0; border-bottom: 1px solid var(--linea); }
+.parte .capitoli b { color: var(--oro); display: inline-block; width: 10mm; }
+.capitolo { break-before: page; padding-top: 3mm; }
+.capitolo-testa { display: flex; align-items: flex-end; gap: 4mm; border-bottom: 1.6px solid transparent; border-image: linear-gradient(90deg, var(--neon), var(--viola)) 1;
+  padding-bottom: 2.5mm; margin-bottom: 4mm; }
+.capitolo-testa .num { font: 800 36pt/0.9 "Inter Display"; background: linear-gradient(135deg, var(--neon), var(--viola)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.capitolo-testa .eti { font: 700 6.8pt "Inter"; letter-spacing: .24em; color: var(--ink2); }
+.capitolo-testa h1 { margin: 0; font-size: 19pt; color: var(--notte); }
+.marca { font-size: 1px; color: #fff; display: block; height: 1px; overflow: hidden; }
+.intro { font-size: 10.7pt; margin-bottom: 1em; color: var(--ink); }
+
+/* figure */
+figure { margin: .8em 0 1em; break-inside: avoid; }
+figure img { width: 100%; border-radius: 6px; box-shadow: 0 1px 6px rgba(10, 17, 40, .3); display: block; }
+figure.media img { width: 74%; margin: 0 auto; }
+figure.piccola img { width: 50%; margin: 0 auto; }
+figure.mini img { width: 27%; margin: 0 auto; }
+figcaption { font-size: 8.2pt; color: var(--ink2); margin-top: .45em; }
+figcaption b { color: var(--neon-scuro); }
+.affianca { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; align-items: start; }
+.affianca3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 4mm; align-items: start; }
+.affianca4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; align-items: start; }
+.affianca figure, .affianca3 figure, .affianca4 figure { margin: .3em 0; }
+
+/* tabelle */
+table { width: 100%; border-collapse: collapse; margin: .6em 0 1em; font-size: 8.7pt; break-inside: auto; }
+th { background: var(--notte); color: #fff; text-align: left; padding: .42em .55em; font-weight: 700; }
+th:first-child { border-top-left-radius: 5px; } th:last-child { border-top-right-radius: 5px; }
+td { padding: .36em .55em; border-bottom: 1px solid var(--linea); vertical-align: top; }
+tr { break-inside: avoid; }
+tbody tr:nth-child(even) td { background: #f5f8fc; }
+td.ico { width: 2em; font-size: 11.5pt; }
+td.nw { white-space: nowrap; }
+table.compatta { font-size: 7.9pt; } table.compatta td { padding: .25em .45em; }
+.si { color: var(--verde); font-weight: 700; } .no { color: var(--rosso); font-weight: 700; }
+.et { display: inline-block; border-radius: 99px; padding: 0 .55em; font-size: 7.4pt; font-weight: 700; border: 1px solid currentColor; white-space: nowrap; }
+.et.v { color: var(--verde); } .et.g { color: var(--giallo); } .et.r { color: var(--rosso); } .et.b { color: var(--neon-scuro); }
+
+/* riquadri */
+.box { border-radius: 8px; padding: .65em .9em; margin: .8em 0; break-inside: avoid; border-left: 5px solid var(--neon); background: var(--azz); }
+.box .t { font: 800 7.4pt "Inter"; letter-spacing: .16em; text-transform: uppercase; color: var(--neon-scuro); display: block; margin-bottom: .2em; }
+.box p { text-align: left; }
+.box.consiglio { background: var(--verde2); border-color: var(--verde); } .box.consiglio .t { color: var(--verde); }
+.box.attenzione { background: var(--giallo2); border-color: var(--giallo); } .box.attenzione .t { color: var(--giallo); }
+.box.pericolo { background: var(--rosso2); border-color: var(--rosso); } .box.pericolo .t { color: var(--rosso); }
+.box.neura { background: linear-gradient(135deg, #eef6ff, #f3eefe); border-color: var(--viola); } .box.neura .t { color: var(--viola); }
+.box.tecnico { background: #f1f5f9; border-color: #475569; } .box.tecnico .t { color: #334155; }
+.passi { list-style: none; padding: 0; counter-reset: p; }
+.passi > li { counter-increment: p; position: relative; padding-left: 2.2em; margin: .5em 0; break-inside: avoid; }
+.passi > li::before { content: counter(p); position: absolute; left: 0; top: -.05em; width: 1.55em; height: 1.55em; border-radius: 50%;
+  background: linear-gradient(135deg, var(--neon), var(--viola)); color: #fff; font-weight: 800; font-size: .88em; display: flex; align-items: center; justify-content: center; }
+.colonne { columns: 2; column-gap: 7mm; }
+.colonne > * { break-inside: avoid; }
+.glossario dt { font-weight: 700; color: var(--neon-scuro); margin-top: .45em; }
+.glossario dd { margin: 0 0 .15em; }
+.check { list-style: none; padding: 0; }
+.check li::before { content: "☐  "; color: var(--neon-scuro); }
+.pill { display: inline-block; border: 1.3px solid var(--neon-scuro); color: var(--neon-scuro); border-radius: 99px; padding: .1em .7em; font: 700 7.5pt "Inter"; margin: 0 .3em .35em 0; }
+.citazione { font-style: italic; padding: .5em .9em; border-left: 3px solid var(--neon); background: var(--azz); border-radius: 6px; }
+.frase { display: inline-block; background: #f3eefe; border: 1px solid #ddd0fb; color: #4c1d95; border-radius: 99px; padding: .05em .65em; margin: .12em .15em; font-size: 8.6pt; }
+.schema { display: flex; align-items: stretch; gap: 2mm; margin: .8em 0; break-inside: avoid; }
+.schema > div { flex: 1; border: 1.3px solid var(--neon); border-radius: 7px; padding: .5em .6em; font-size: 8.4pt; background: #fff; }
+.schema > div b { display: block; color: var(--neon-scuro); font-size: 9pt; }
+.schema > span { align-self: center; color: var(--viola); font-weight: 800; }
+
+/* indice */
+.toc { list-style: none; padding: 0; margin: 0; }
+.toc li { display: grid; grid-template-columns: 9mm 1fr auto; padding: .15mm 0; border-bottom: 1px solid #edf1f6; line-height: 1.15; }
+.toc li.p { grid-template-columns: 1fr; border: none; padding-top: 1.6mm; font: 800 7.2pt "Inter"; letter-spacing: .22em; color: var(--neon); }
+.toc .n { color: var(--oro); font: 800 10pt "Inter Display"; }
+.toc .tt { font-weight: 700; font-size: 9pt; }
+.toc .tt small { display: block; font-weight: 400; color: var(--ink2); font-size: 7.2pt; }
+.toc .toc-p { color: var(--neon-scuro); font-weight: 800; }
+
+/* copertina e quarta */
+.cover, .back { display: none; }
+body[data-modo="cover"] > *:not(.cover), body[data-modo="back"] > *:not(.back) { display: none !important; }
+body[data-modo="cover"] .cover, body[data-modo="back"] .back { display: block; width: 210mm; height: 297mm; overflow: hidden; position: relative; }
+body[data-modo="corpo"] .segnaposto { display: block; height: 10mm; break-after: page; }
+body[data-modo="corpo"] .segnaposto.fine { break-after: auto; break-before: page; }
+.segnaposto { display: none; }
+.cover { background: radial-gradient(160mm 120mm at 75% 30%, #1e3a8a 0%, transparent 65%), radial-gradient(140mm 110mm at 0% 100%, #3b1d7a 0%, transparent 60%), #050816; color: #fff; }
+.cover .griglia { position: absolute; left: -20mm; right: -20mm; bottom: 0; height: 120mm; opacity: .55;
+  background-image: linear-gradient(rgba(56, 189, 248, .22) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, .22) 1px, transparent 1px);
+  background-size: 11mm 11mm; transform: perspective(160mm) rotateX(58deg); transform-origin: 50% 100%; }
+.cover .ka { position: absolute; left: 18mm; top: 20mm; font: 800 8pt "Inter"; letter-spacing: .38em; color: #7dd3fc; }
+.cover h1 { position: absolute; left: 18mm; top: 27mm; color: #fff; font: 800 44pt/1 "Inter Display"; margin: 0; }
+.cover h1 span { color: #5eead4; text-shadow: 0 0 6mm rgba(56, 189, 248, .45); }
+.cover .sotto { position: absolute; left: 18mm; top: 72mm; font: 400 14pt/1.4 "Inter"; color: #c7dcf5; }
+.cover .cervello { position: absolute; left: 50%; top: 88mm; width: 150mm; transform: translateX(-50%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 42%, transparent 66%); mask-image: radial-gradient(circle at 50% 50%, #000 42%, transparent 66%); }
+.cover .pillole { position: absolute; left: 18mm; right: 18mm; top: 222mm; }
+.cover .pill { border-color: #7dd3fc; color: #e0f2fe; background: rgba(14, 165, 233, .12); }
+.cover .firma { position: absolute; left: 18mm; right: 18mm; bottom: 15mm; display: flex; justify-content: space-between; align-items: flex-end; border-top: 1px solid rgba(125, 211, 252, .35); padding-top: 5mm; }
+.cover .firma b { font: 800 13pt "Inter Display"; color: #fff; }
+.cover .firma small { display: block; color: #9fb3cf; font: 8pt "Inter"; }
+.cover .firma .v { text-align: right; font: 800 22pt "Inter Display"; color: #fbbf24; }
+.back { background: radial-gradient(140mm 110mm at 80% 20%, #1e3a8a 0%, transparent 65%), #050816; color: #fff; }
+.back .dentro { padding: 55mm 22mm 0; }
+.back h1 { color: #fff; font-size: 24pt; }
+.back p { color: #c7dcf5; font-size: 10pt; max-width: 130mm; text-align: left; }
+.back .logo { position: absolute; right: 20mm; top: 20mm; width: 40mm; }
+.back .piede { position: absolute; left: 22mm; right: 22mm; bottom: 24mm; border-top: 1px solid rgba(125, 211, 252, .35); padding-top: 5mm;
+  display: flex; justify-content: space-between; font-size: 8.5pt; color: #c7dcf5; gap: 8mm; }
+.back .piede b { font: 800 11pt "Inter Display"; color: #fff; }
+.back .qr { width: 26mm; height: 26mm; background: #fff; padding: 1.5mm; border-radius: 2mm; }

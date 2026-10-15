@@ -1,0 +1,114 @@
+
+<div class="pagina">
+<section class="parte"><div class="eti">PARTE II</div><h1>Installare</h1>
+<p>Come mettere il Consulente Digitale su Windows, Linux e Mac, come portarlo su una chiavetta e come toglierlo senza lasciare tracce.</p>
+<div class="capitoli"><div><b>4</b> Installare su Windows</div><div><b>5</b> Installare su Linux</div><div><b>6</b> Installare su macOS</div><div><b>7</b> Versione portatile e telefoni</div></div></section>
+
+<!-- ======================================================= 4 -->
+<section class="capitolo"><span class="marca">§§c4§§</span>
+<div class="capitolo-testa"><span class="num">4</span><div><div class="eti">CAPITOLO</div><h1>Installare su Windows</h1></div></div>
+<p class="intro">L'installatore mette il programma <b>solo per il vostro utente</b>: non servono permessi di amministratore e non tocca il resto del sistema.</p>
+<ol class="passi">
+<li>Fate doppio clic su <code>ConsulenteDigitale-Setup-{{VERSIONE}}.exe</code>.</li>
+<li>Se compare la finestra blu <b>«Windows ha protetto il PC»</b>, premete <b>Ulteriori informazioni</b> e poi <b>Esegui comunque</b> (vedi il riquadro sotto).</li>
+<li>Leggete il benvenuto e la licenza, premete <b>Avanti</b>. La cartella proposta è <code>%LOCALAPPDATA%\Programs\ConsulenteDigitale</code>: lasciatela così.</li>
+<li>Premete <b>Installa</b>, poi <b>Fine</b> con la casella «Apri il Consulente Digitale» spuntata.</li>
+<li>Al <b>primo avvio</b> il programma cerca Python 3.7 o successivo. Se non c'è, scarica in silenzio il Python ufficiale da <code>python.org</code> (circa 10 MB),
+controlla che la <b>firma digitale</b> sia della Python Software Foundation e lo tiene nella sua cartella, senza installarlo nel sistema. Serve Internet solo questa volta.</li>
+<li>Dopo qualche secondo si apre la finestra del programma con la scelta iniziale (capitolo 8).</li>
+</ol>
+<p>Trovate le icone <b>Consulente Digitale</b> sul <b>desktop</b> e nel <b>menu Start</b>. Riaprendo l'icona mentre il programma è già acceso, si riapre la stessa finestra senza avviare un secondo motore.</p>
+<div class="box attenzione"><span class="t">«Windows ha protetto il PC» e il Controllo intelligente delle app</span>
+<p>Questa prima versione non ha ancora la <b>firma digitale</b> di un certificato a pagamento: per questo <b>SmartScreen</b> mostra l'avviso blu la prima volta.
+«Ulteriori informazioni → Esegui comunque» è sicuro se il file arriva dalla pagina ufficiale del progetto e la sua impronta coincide con quella del file <code>SHA256SUMS</code> (capitolo 35).</p>
+<p>Su alcuni PC con Windows 11 è attivo il <b>Controllo intelligente delle app</b> (Sicurezza di Windows → Controllo app e browser), che blocca i programmi non firmati <b>senza</b> il pulsante
+«Esegui comunque». In quel caso <b>non spegnetelo</b> (una volta spento non si riaccende senza reinstallare Windows): aspettate la versione firmata o chiedete al vostro tecnico.</p></div>
+<h2>Come si apre il programma, dietro le quinte</h2>
+<p>L'icona avvia <code>avvia.vbs</code>, che lancia senza finestre nere <code>avvia.ps1</code>: trova Python (prima quello nella cartella del programma, poi quello installato, poi il lanciatore <code>py</code>,
+ignorando il finto «python» del Microsoft Store) e avvia il motore con <code>cd_server.py --apri</code>. Il motore apre la finestra con Edge (o Chrome o Brave) in «modalità app»
+con un profilo separato, così non mescola le vostre schede e i vostri dati di navigazione.</p>
+<h2>Disinstallare</h2>
+<ol class="passi">
+<li>Chiudete il programma (Impostazioni → <b>⏻ Chiudi il programma</b>).</li>
+<li><b>Start → Impostazioni → App → App installate → Consulente Digitale → Disinstalla</b> (oppure Start → Consulente Digitale → Disinstalla).</li>
+<li>Vengono tolti il programma, il Python scaricato e le icone. Le vostre impostazioni e la conversazione restano in <code>%APPDATA%\ConsulenteDigitale</code>:
+se volete cancellare anche quelle, eliminate la cartella (scrivete <code>%APPDATA%</code> nella barra degli indirizzi di Esplora file).</li>
+<li>Ollama e i programmi installati dal catalogo sono programmi a sé: si tolgono anch'essi da <b>Impostazioni → App</b>.</li>
+</ol>
+</section>
+
+<!-- ======================================================= 5 -->
+<section class="capitolo"><span class="marca">§§c5§§</span>
+<div class="capitolo-testa"><span class="num">5</span><div><div class="eti">CAPITOLO</div><h1>Installare su Linux</h1></div></div>
+<p class="intro">Su Debian, Ubuntu, Linux Mint, Zorin OS, FeniceOS e derivate si usa il pacchetto <code>.deb</code>. Il programma non ha dipendenze oltre a Python 3, già presente in tutte le distribuzioni.</p>
+<h2>Con il doppio clic</h2>
+<ol class="passi">
+<li>Fate doppio clic su <code>consulente-digitale_{{VERSIONE}}_all.deb</code>: si apre l'installatore della distribuzione (Gestione software, GDebi, Programmi…).</li>
+<li>Premete <b>Installa</b> e scrivete la password del vostro utente.</li>
+<li>Aprite <b>Consulente Digitale</b> dal menu delle applicazioni (categoria Strumenti di sistema / Accessori).</li>
+</ol>
+<h2>Dal terminale</h2>
+<pre>sudo apt install ./consulente-digitale_{{VERSIONE}}_all.deb   <span class="c"># installa con i pacchetti consigliati</span>
+consulente-digitale                                     <span class="c"># apre il programma</span>
+consulente-digitale --versione                          <span class="c"># mostra la versione</span>
+consulente-digitale --server --port 8810 --inattivo 0   <span class="c"># solo il motore, senza finestra, sempre acceso</span></pre>
+<p>Insieme al programma <code>apt</code> propone alcuni pacchetti <b>consigliati</b>, utili ma non obbligatori: <code>pkexec</code> (la finestra della password per le azioni),
+<code>smartmontools</code> (salute del disco), <code>fwupd</code> (firmware), <code>flatpak</code> (programmi da Flathub), un browser Chromium/Chrome per la finestra dedicata.
+Facoltativi: <code>espeak-ng</code> e <code>speech-dispatcher</code> per la voce.</p>
+<div class="box consiglio"><span class="t">Con il Professore Digitale</span>Se sul computer c'è già il Professore Digitale, Neura usa automaticamente la sua <b>voce naturale Piper</b>
+(Giorgio, Serena o Paola): basta sceglierla in Impostazioni → Voce.</div>
+<h2>Altre distribuzioni (Fedora, openSUSE, Arch…)</h2>
+<p>Usate la versione portatile (capitolo 7): estraete lo zip e lanciate <code>sh avvia-linux-mac.sh</code>. Gli script riconoscono da soli <code>dnf</code>, <code>zypper</code> e <code>pacman</code>.</p>
+<h2>Le azioni da amministratore</h2>
+<p>Le azioni che modificano il sistema chiedono la password con la finestra di <b>polkit</b> (<code>pkexec</code>). Se il programma gira senza desktop grafico
+(per esempio collegati da remoto) e non c'è un permesso <code>sudo</code> senza password, l'azione si ferma e il registro indica il comando da scrivere in un terminale:
+<code>sudo bash …/lavori/XXXX.sh</code>.</p>
+<h2>Disinstallare</h2>
+<pre>sudo apt remove consulente-digitale                 <span class="c"># toglie il programma</span>
+rm -rf ~/.local/share/consulente-digitale           <span class="c"># (facoltativo) toglie impostazioni e conversazione</span></pre>
+</section>
+
+<!-- ======================================================= 6 -->
+<section class="capitolo"><span class="marca">§§c6§§</span>
+<div class="capitolo-testa"><span class="num">6</span><div><div class="eti">CAPITOLO</div><h1>Installare su macOS</h1></div></div>
+<p class="intro">Per il Mac il programma è un'app normale, da trascinare nella cartella Applicazioni.</p>
+<ol class="passi">
+<li>Fate doppio clic su <code>ConsulenteDigitale-{{VERSIONE}}-macOS.zip</code>: compare <b>Consulente Digitale.app</b>.</li>
+<li>Trascinatela nella cartella <b>Applicazioni</b>.</li>
+<li><b>La prima volta</b>: tasto destro (o <kbd>Ctrl</kbd> + clic) sull'app → <b>Apri</b> → <b>Apri</b>. Su macOS 15 e successivi, se non compare il pulsante:
+<b>Impostazioni di Sistema → Privacy e sicurezza</b>, in fondo alla pagina <b>Apri comunque</b>. Serve una volta sola.</li>
+<li>Se sul Mac non c'è Python 3, un messaggio lo spiega e macOS propone gli <b>Strumenti da riga di comando</b>: premete <b>Installa</b> (alcuni minuti), poi riaprite l'app.</li>
+<li>La finestra si apre con Chrome, Edge o Brave se presenti, altrimenti in Safari.</li>
+</ol>
+<div class="box consiglio"><span class="t">Homebrew</span>Per installare con un clic i programmi consigliati e aggiornarli tutti insieme serve <b>Homebrew</b>, il gestore di programmi più usato sul Mac.
+Si installa dal Consulente: <b>Ottimizza → Strumenti esperti → Installa Homebrew</b> (capitolo 22).</div>
+<h2>Permessi del Mac</h2>
+<ul>
+<li>Le azioni da amministratore mostrano la richiesta della <b>password del Mac</b> con la frase «Consulente Digitale chiede il permesso per: …».</li>
+<li>Il <b>microfono</b> lo chiede il browser la prima volta che premete 🎤.</li>
+<li>Alcuni controlli (per esempio sulla cartella Libreria) funzionano meglio se concedete al Terminale o a Python l'<b>Accesso completo al disco</b>
+(Impostazioni di Sistema → Privacy e sicurezza): non è obbligatorio.</li>
+</ul>
+<h2>Disinstallare</h2>
+<p>Trascinate <b>Consulente Digitale.app</b> nel Cestino. Le impostazioni restano in <code>~/Library/Application Support/ConsulenteDigitale</code>: cancellate la cartella se volete togliere anche quelle.</p>
+</section>
+
+<!-- ======================================================= 7 -->
+<section class="capitolo"><span class="marca">§§c7§§</span>
+<div class="capitolo-testa"><span class="num">7</span><div><div class="eti">CAPITOLO</div><h1>Versione portatile e telefoni</h1></div></div>
+<p class="intro">La versione portatile è pensata per <b>tecnici, volontari e scuole</b>: si mette su una chiavetta e si usa su qualsiasi computer, Windows, Linux o Mac, senza installare nulla.</p>
+<ol class="passi">
+<li>Estraete <code>ConsulenteDigitale-{{VERSIONE}}-portatile.zip</code> sulla chiavetta (o in una cartella).</li>
+<li>Avviate il file giusto: 🪟 <b>Avvia su Windows.bat</b> · 🐧 <b>avvia-linux-mac.sh</b> (o <code>sh avvia-linux-mac.sh</code>) · 🍎 <b>Avvia su Mac.command</b> (la prima volta tasto destro → Apri).</li>
+<li>Le impostazioni e la conversazione restano nella cartella <code>dati</code> accanto al programma (lo riconosce dal file <code>portatile.txt</code>). Su Windows, se serve, Python viene scaricato nella cartella <code>python</code> della chiavetta.</li>
+</ol>
+<div class="box consiglio"><span class="t">Il kit del tecnico</span>Una chiavetta con il Consulente portatile, gli script stampati (capitolo 21) e una seconda chiavetta Ventoy con FeniceOS e Linux Mint
+è un kit completo per analizzare, ripulire e far rinascere un computer a domicilio o in un centro anziani: analisi → scheda tecnica stampata → ottimizzazione o nuovo sistema → rapporto per il proprietario.</div>
+<h2>Telefoni e tablet</h2>
+<p>Telefoni e tablet non possono far girare il motore. Le pagine del Consulente aperte senza motore funzionano in <b>modalità guida</b>: la spia del sistema in alto diventa «📱 dispositivo»
+e restano disponibili la <b>scelta guidata per comprare</b> con il calendario delle occasioni e il controllo degli annunci, le <b>cose da sapere</b>, la <b>storia</b> e Neura con le risposte
+della guida interna. Le azioni sul computer, l'analisi e l'IA locale richiedono il programma installato sul computer. Quando le pagine saranno pubblicate sul sito del progetto
+basterà aprirle dal telefono; nel frattempo la modalità guida si può aprire su qualsiasi computer, anche senza Python, facendo doppio clic sulla pagina <code>app/web/index.html</code> della versione portatile (senza il catalogo dei programmi).</p>
+<figure class="mini"><img src="img/telefono.jpg" alt=""><figcaption><b>Figura 7.1</b> La plancia su un telefono: il menu si apre con ☰.</figcaption></figure>
+</section>
+</div>

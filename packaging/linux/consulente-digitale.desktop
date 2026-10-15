@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Consulente Digitale
+GenericName=Assistente per computer e acquisti
+Comment=Il cervello che sceglie, aggiorna e ottimizza i vostri dispositivi
+Exec=consulente-digitale
+Icon=consulente-digitale
+Terminal=false
+Categories=System;Utility;Settings;
+Keywords=aggiornamenti;driver;ottimizza;acquisti;IA;neura;computer;
+StartupNotify=true

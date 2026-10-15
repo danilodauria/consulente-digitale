@@ -1,0 +1,10 @@
+CONSULENTE DIGITALE per macOS — Ideato e sviluppato da Danilo D'Auria
+
+1. Trascinate «Consulente Digitale.app» nella cartella Applicazioni.
+2. La prima volta: tasto destro (o Ctrl+clic) sull'app → «Apri» → «Apri».
+   (L'app non è ancora firmata da Apple: macOS lo chiede una volta sola.)
+   Su macOS 15 e successivi: Impostazioni di Sistema → Privacy e sicurezza → «Apri comunque».
+3. Se manca Python 3, macOS propone gli «Strumenti da riga di comando»: Installa, poi riaprite.
+
+Il programma si apre in una finestra di Chrome, Edge o Brave se presenti, altrimenti in Safari.
+Codice MIT, contenuti CC BY-NC-SA 4.0.

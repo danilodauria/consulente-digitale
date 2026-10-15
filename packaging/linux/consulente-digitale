@@ -1,0 +1,8 @@
+#!/bin/sh
+# Consulente Digitale - avvio su Linux. Ideato e sviluppato da Danilo D'Auria - Codice MIT
+QUI="${CD_SHARE_DIR:-/usr/share/consulente-digitale}"
+case "$1" in
+  --versione|--version) exec python3 "$QUI/server/cd_server.py" --versione ;;
+  --server) shift; exec python3 "$QUI/server/cd_server.py" "$@" ;;
+esac
+CD_SHARE_DIR="$QUI" exec python3 "$QUI/server/cd_server.py" --apri "$@"

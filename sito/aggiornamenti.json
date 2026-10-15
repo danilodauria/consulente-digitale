@@ -1,0 +1,56 @@
+{
+ "app": "Consulente Digitale",
+ "autore": "Danilo D'Auria",
+ "versione": "1.1.0",
+ "data": "2026-10-15",
+ "novita": [
+  "Hardware e sensori: temperature, ventole, consumi e lavoro di ogni core in diretta; schede tecniche di processore, scheda madre, memoria, grafica, dischi e batteria (come HWiNFO, CPU-Z e GPU-Z)",
+  "Schema della scheda madre disegnato dai componenti letti, con i punti di un guasto imminente evidenziati",
+  "Diagnosi e interventi: lavori da eseguire (anche con un clic), lavori fatti e due schede professionali da stampare",
+  "Nonni Teach: Neura intervista i nonni con centinaia di domande per centro anziani, scuola, biblioteca, famiglia e quartiere; registra le risposte e crea il podcast con i capitoli, il sito e il feed RSS",
+  "Economia circolare: percorso «cosa ne faccio?», regole RAEE e diritti UE (riparazione, USB-C, batterie), consigli, quiz e patto da stampare",
+  "Neura apre impostazioni, programmi e servizi del sistema, sempre dopo il vostro consenso",
+  "Pulsanti Cerca e Stampa in alto a destra (anche Ctrl+K e Ctrl+P)",
+  "Scarica gli aggiornamenti: il programma si aggiorna dal sito ufficiale con verifica SHA-256",
+  "Nuova icona di Neura",
+  "Correzione: i PC con Intel di 10ª-14ª generazione (es. i5-1235U) con Windows 11 non risultano più «non compatibili»; lettura del TPM migliorata"
+ ],
+ "sito": "https://danilodauria.github.io/consulente-digitale/",
+ "progetto": "https://github.com/danilodauria/consulente-digitale",
+ "scarica": {
+  "windows": {
+   "nome": "ConsulenteDigitale-Setup-1.1.0.exe",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.1.0.exe",
+   "sha256": "1d9522f3e7d94559cc351fe9d06499df7951b12ecfaf1116795f799b5761563a",
+   "byte": 9686687
+  },
+  "linux": {
+   "nome": "consulente-digitale_1.1.0_all.deb",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.1.0_all.deb",
+   "sha256": "07029a6240d5387f0b0dbd1ec785d84d4dc4fd1ff7d7e736adf5a81d01d18436",
+   "byte": 9546280
+  },
+  "mac": {
+   "nome": "ConsulenteDigitale-1.1.0-macOS.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.1.0-macOS.zip",
+   "sha256": "0b86329f0c85eb41cc213d780e24e61a8309c1955e22d841f5492f136e8278f9",
+   "byte": 11188137
+  },
+  "portatile": {
+   "nome": "ConsulenteDigitale-1.1.0-portatile.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.1.0-portatile.zip",
+   "sha256": "05fef87af64b73f27d6bf9ba0756cd7648b372b2757cb8fab8fc14a76fc3ab7f",
+   "byte": 9924451
+  },
+  "vademecum": {
+   "nome": "Vademecum_Consulente_Digitale_1.1.0.pdf",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.1.0.pdf",
+   "sha256": "fc6c00b9803002c461073c215c50c88df609d899b4f8521e5af87dc73f0acd21",
+   "byte": 11500947
+  }
+ },
+ "licenze": {
+  "codice": "MIT",
+  "contenuti": "CC BY-NC-SA 4.0"
+ }
+}

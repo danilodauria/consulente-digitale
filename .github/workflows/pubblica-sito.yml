@@ -1,0 +1,32 @@
+# Consulente Digitale - pubblica la cartella «sito/» su GitHub Pages a ogni Push sul ramo main.
+# La cartella si prepara con: python3 tools/prepara-pubblicazione.py (dopo ./build.sh).
+# Ideato e sviluppato da Danilo D'Auria - Codice MIT
+name: Pubblica il sito
+on:
+  push:
+    branches: [main]
+    paths: ["sito/**", ".github/workflows/pubblica-sito.yml"]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  pubblica:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Controllo del manifesto degli aggiornamenti
+        run: python3 -c "import json;m=json.load(open('sito/aggiornamenti.json'));print('Versione', m['versione'])"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: sito
+      - id: deploy
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,201 @@
+
+<div class="pagina">
+<section class="parte"><div class="eti">PARTE IX</div><h1>Tecnica e sicurezza</h1>
+<p>Cosa esce dal computer e cosa no, come tornare indietro da ogni modifica, come risolvere i problemi, dove sta ogni file e come è costruito il programma.</p>
+<div class="capitoli"><div><b>35</b> Privacy e sicurezza</div><div><b>36</b> Tornare indietro</div><div><b>37</b> Risoluzione dei problemi</div><div><b>38</b> Riferimento rapido</div><div><b>39</b> Per chi sviluppa</div></div></section>
+
+<!-- ======================================================= 30 -->
+<section class="capitolo"><span class="marca">§§c35§§</span>
+<div class="capitolo-testa"><span class="num">35</span><div><div class="eti">CAPITOLO</div><h1>Privacy e sicurezza</h1></div></div>
+<p class="intro">Un programma che può aggiornare e modificare il computer deve essere <b>più sicuro</b> di un programma qualsiasi. Ecco tutte le difese e l'elenco completo di ciò che esce dal computer.</p>
+<h2>Le difese</h2>
+<ul>
+<li><b>Solo questo computer</b>: il motore ascolta su <code>127.0.0.1</code>; rifiuta richieste con un nome di computer (Host) o un'origine diversi dai propri, così una pagina web aperta nel browser
+non può comandarlo.</li>
+<li><b>Lista chiusa di azioni</b>: nessuna API esegue comandi liberi; solo le {{N_AZIONI}} azioni del catalogo, con parametri in lista bianca (capitolo 2).</li>
+<li><b>Codice di sessione</b> nuovo a ogni avvio, obbligatorio per avviare o fermare un'azione e per spegnere il programma.</li>
+<li><b>Permessi del sistema</b>: le modifiche passano sempre da UAC, polkit o dalla password del Mac. Il programma non conserva e non vede mai le vostre password.</li>
+<li><b>Download verificati</b>: Python per Windows e Ollama sono controllati con la <b>firma digitale</b> del produttore; tutto il resto arriva da gestori ufficiali che verificano da soli
+(Windows Update, winget, apt/dnf, Flathub, fwupd, Apple, Homebrew).</li>
+<li><b>File di lavoro temporanei</b>: gli script delle azioni vengono scritti nella cartella <code>lavori</code> dei vostri dati, leggibili solo da voi su Linux e Mac, e cancellati dopo un giorno.</li>
+<li><b>Nessuna libreria da Internet</b>: le pagine non caricano nulla dal web (niente caratteri, script o statistiche esterne).</li>
+</ul>
+<h2>Tutto ciò che può uscire dal computer</h2>
+<table class="compatta"><thead><tr><th>Cosa</th><th>Quando</th><th>Verso</th><th>Cosa viene inviato</th></tr></thead><tbody>
+<tr><td>Controllo «online»</td><td>Al massimo 1 volta al minuto, se Internet è permesso</td><td>1.1.1.1, 9.9.9.9, 8.8.8.8</td><td>Nulla: si apre e si chiude una connessione</td></tr>
+<tr><td>Ora ufficiale</td><td>All'avvio e ogni 30 minuti, se permesso</td><td>Server NTP (INRiM, pool.ntp.org…)</td><td>Una richiesta d'ora di 48 byte, senza dati personali</td></tr>
+<tr><td>Python per Windows</td><td>Solo al primo avvio, se manca</td><td>python.org</td><td>La richiesta del file</td></tr>
+<tr><td>Azioni che scaricano</td><td>Solo dopo il vostro clic</td><td>Fonti ufficiali (Microsoft, distribuzione, Apple, Homebrew, ollama.com, christitus.com…)</td><td>Le richieste dei pacchetti, come fa il sistema da solo</td></tr>
+<tr><td>Prova della velocità</td><td>Solo con «Misura adesso»</td><td>speed.cloudflare.com</td><td>5 MB di dati di prova</td></tr>
+<tr><td>Link alle offerte e ai siti ufficiali</td><td>Solo cliccandoli</td><td>Il sito scelto, nel browser</td><td>La ricerca che vedete (es. «notebook 16GB»)</td></tr>
+<tr><td>Riconoscimento vocale del browser</td><td>Solo dopo il consenso, se manca la trascrizione locale</td><td>Google o Microsoft</td><td>La voce mentre parlate a Neura</td></tr>
+<tr><td>Voci «online»</td><td>Solo se le scegliete voi</td><td>Microsoft o Google</td><td>Il testo che Neura legge</td></tr>
+</tbody></table>
+<p><b>Mai</b>: le domande a Neura con l'IA locale, l'analisi del computer, il profilo, le impostazioni, i registri. Nessuna telemetria, nessuna statistica all'autore.
+Spegnendo <b>Impostazioni → Può usare Internet</b> spariscono anche le prime due righe.</p>
+<h2>Controllare che i file siano originali</h2>
+<p>Ogni versione ha il file <code>SHA256SUMS</code> con le «impronte digitali» dei pacchetti. Se un solo byte cambia, l'impronta cambia.</p>
+<pre><span class="c"># Windows (PowerShell)</span>
+Get-FileHash .\ConsulenteDigitale-Setup-{{VERSIONE}}.exe -Algorithm SHA256
+<span class="c"># Linux, nella cartella dei file</span>
+sha256sum -c SHA256SUMS --ignore-missing
+<span class="c"># macOS</span>
+shasum -a 256 ConsulenteDigitale-{{VERSIONE}}-macOS.zip</pre>
+<p>Confrontate il risultato con la riga corrispondente di <code>SHA256SUMS</code>, pubblicato sulla pagina ufficiale del progetto.</p>
+</section>
+
+<!-- ======================================================= 31 -->
+<section class="capitolo"><span class="marca">§§c36§§</span>
+<div class="capitolo-testa"><span class="num">36</span><div><div class="eti">CAPITOLO</div><h1>Tornare indietro</h1></div></div>
+<p class="intro">Ogni modifica si può annullare. Il modo più semplice è il <b>punto di ripristino</b> (Windows) o l'<b>istantanea</b> (Linux con Timeshift, Mac con Time Machine) creati prima
+delle azioni con rischio medio e dal pulsante «Crea un punto di ripristino».</p>
+<h2>🪟 Windows</h2>
+<ol class="passi">
+<li><b>Punto di ripristino</b>: Start → scrivete <code>rstrui</code> → <kbd>Invio</kbd> → scegliete il punto «Consulente Digitale…» → Avanti → Fine. Il computer si riavvia com'era. I vostri documenti non vengono toccati.
+(Il Consulente attiva la protezione del sistema sul disco C: se era spenta e permette di creare punti anche a distanza di pochi minuti.)</li>
+<li><b>Copie del registro</b>: prima di «Più privacy», «Ottimizzazione completa» e «Modalità PC vecchio» le chiavi modificate vengono salvate in
+<code>%APPDATA%\ConsulenteDigitale\copie\&lt;azione&gt;-&lt;data&gt;\</code>. Un doppio clic su un file <code>.reg</code> rimette i valori di prima.</li>
+<li><b>Singole impostazioni</b>: piano energetico in Pannello di controllo → Opzioni risparmio energia; effetti visivi in <code>sysdm.cpl</code> → Avanzate → Prestazioni; servizio «Windows Search» in <code>services.msc</code>.</li>
+</ol>
+<h2>🐧 Linux</h2>
+<ul>
+<li><b>Timeshift</b> (o Snapper): aprite il programma, scegliete l'istantanea «Consulente Digitale» → Ripristina.</li>
+<li>Senza Timeshift il Consulente salva <code>/etc</code> e l'elenco dei pacchetti in <code>/var/backups/consulente-digitale/</code>. Per ripristinare un file: <code>sudo tar -xzf etc-DATA.tar.gz -C / etc/NOMEFILE</code>.</li>
+<li>Memoria: <code>sudo rm /etc/sysctl.d/90-consulente-digitale.conf</code> e riavvio. zram: <code>sudo apt remove zram-tools</code>.</li>
+<li>Avvio: <code>sudo systemctl enable NetworkManager-wait-online.service</code>. Animazioni GNOME: <code>gsettings set org.gnome.desktop.interface enable-animations true</code>.
+Indicizzazione: <code>balooctl enable</code> (KDE) o <code>systemctl --user unmask tracker-miner-fs-3.service</code> (GNOME).</li>
+</ul>
+<h2>🍎 macOS</h2>
+<ul>
+<li>L'<b>istantanea locale</b> di Time Machine resta circa 24 ore: Time Machine → scegliete la data, oppure dal ripristino di macOS.</li>
+<li>Modalità PC vecchio: Impostazioni di Sistema → Accessibilità → Schermo, togliete «Riduci movimento» e «Riduci trasparenza»; per il Dock: <code>defaults delete com.apple.dock launchanim; killall Dock</code>.</li>
+<li>Privacy: Impostazioni di Sistema → Privacy e sicurezza → Pubblicità di Apple.</li>
+</ul>
+<div class="box attenzione"><span class="t">Cosa non si annulla</span>Gli <b>aggiornamenti installati</b> di solito non si tolgono (e non si dovrebbe: sono di sicurezza), salvo da Windows Update → Cronologia → Disinstalla aggiornamenti.
+I file eliminati dalla <b>pulizia</b> (temporanei, cache) non tornano, ma non servono: i programmi li ricreano.</div>
+</section>
+
+<!-- ======================================================= 32 -->
+<section class="capitolo"><span class="marca">§§c37§§</span>
+<div class="capitolo-testa"><span class="num">37</span><div><div class="eti">CAPITOLO</div><h1>Risoluzione dei problemi</h1></div></div>
+<p class="intro">Il primo posto dove guardare è il <b>registro del motore</b>, <code>server.log</code> nella cartella dei dati (capitolo 38), e il registro dell'azione nella console.</p>
+<table class="compatta"><thead><tr><th>Sintomo</th><th>Causa probabile</th><th>Rimedio</th></tr></thead><tbody>
+<tr><td>🪟 «Windows ha protetto il PC»</td><td>Programma non ancora firmato</td><td>Ulteriori informazioni → Esegui comunque (capitolo 4), dopo aver controllato l'impronta.</td></tr>
+<tr><td>🪟 Doppio clic sull'icona e non succede nulla</td><td>Primo avvio: si sta scaricando Python; oppure il download è fallito</td><td>Attendete un minuto. Se compare il messaggio su Python: collegatevi a Internet o installate Python da python.org e riaprite.</td></tr>
+<tr><td>🍎 «L'app è danneggiata» o «non si può aprire»</td><td>Gatekeeper e quarantena</td><td>Tasto destro → Apri; oppure Impostazioni → Privacy e sicurezza → Apri comunque; in ultimo, nel Terminale:
+<code>xattr -dr com.apple.quarantine "/Applications/Consulente Digitale.app"</code></td></tr>
+<tr><td>Si apre come scheda del browser e non in una finestra</td><td>Manca Edge, Chrome o Brave</td><td>Funziona lo stesso; per la finestra dedicata installate Chrome o Brave.</td></tr>
+<tr><td>Errori «server locale non disponibile» o pagina che non risponde</td><td>Il motore si è spento (15 minuti senza finestra) o è stato chiuso</td><td>Riaprite il programma dall'icona.</td></tr>
+<tr><td>Spia «IA da installare» anche dopo aver installato Ollama</td><td>Ollama non è avviato o manca il modello</td><td>Aprite l'app Ollama (o <code>ollama serve</code>), scaricate il modello, poi Impostazioni → 🔄 Ricontrolla.</td></tr>
+<tr><td>Neura risponde molto lentamente</td><td>Modello troppo grande per il computer</td><td>Impostazioni → Cervello: scegliete un modello più piccolo; chiudete i programmi pesanti.</td></tr>
+<tr><td>Neura non parla</td><td>Voce spenta (🔇), nessuna voce italiana, audio bloccato dal browser</td><td>Premete 🔊; Impostazioni → ▶ Prova la voce; su Linux installate <code>speech-dispatcher</code> ed <code>espeak-ng</code> o Piper.</td></tr>
+<tr><td>Il microfono non funziona</td><td>Permesso del browser negato; Firefox/Safari senza trascrizione locale</td><td>Consentite il microfono (icona nella barra degli indirizzi); usate Chrome/Edge o installate la trascrizione locale (capitolo 12).</td></tr>
+<tr><td>Azione «🔐 permesso non concesso»</td><td>Avete risposto No o chiuso la richiesta; su Linux manca <code>pkexec</code></td><td>Riprovate e rispondete Sì; su Linux <code>sudo apt install pkexec</code> (o <code>policykit-1</code>).</td></tr>
+<tr><td>Un'azione resta «in corso» a lungo</td><td>Windows Update, DISM e i grandi aggiornamenti richiedono anche 20–40 minuti</td><td>Lasciate lavorare (anche in sottofondo). Se è davvero bloccata: ⏹ Ferma.</td></tr>
+<tr><td>Gli aggiornamenti di Windows falliscono</td><td>Componenti di Windows Update danneggiati, poco spazio</td><td>Pulizia sicura → Ripara i file di sistema → riavvio → riprovate; per esperti WinUtil → «Fix Windows Update».</td></tr>
+<tr><td>«winget non disponibile»</td><td>Manca «Programma di installazione app»</td><td>Lo script apre il Microsoft Store sulla pagina giusta: Installa, poi riprovate.</td></tr>
+<tr><td>🍎 «Serve Homebrew»</td><td>Homebrew non installato</td><td>Ottimizza → Strumenti esperti → Installa Homebrew.</td></tr>
+<tr><td>L'ora resta «ora del PC (Internet non risponde)»</td><td>Rete aziendale che blocca NTP e il sito dell'INRiM, oppure Internet spento nelle impostazioni</td><td>Controllate Impostazioni → Internet; chiedete all'amministratore di rete di permettere NTP (UDP 123).</td></tr>
+<tr><td>Analisi con valori «?» o vuoti</td><td>Su Windows PowerShell limitato da criteri aziendali; su Linux mancano <code>lsblk</code>/<code>lspci</code>; in macchina virtuale molti dati non esistono</td><td>Installate <code>util-linux</code> e <code>pciutils</code>; su PC aziendali chiedete all'amministratore.</td></tr>
+<tr><td>La stampa non parte</td><td>Il browser blocca la finestra di stampa</td><td>Riprovate; in alternativa la scheda si apre in una nuova finestra: <kbd>Ctrl</kbd>+<kbd>P</kbd>.</td></tr>
+<tr><td>«Nessuna porta libera»</td><td>Le porte 8810–8849 sono occupate</td><td>Riavviate il computer; oppure avviate il motore con <code>--port</code> su un'altra porta.</td></tr>
+<tr><td>🐧 Un'azione si ferma su «Snap»</td><td>Il servizio snapd non è attivo</td><td>Gli script saltano Snap se il servizio non risponde; per usarlo: <code>sudo systemctl enable --now snapd</code>.</td></tr>
+</tbody></table>
+<div class="box consiglio"><span class="t">Chiedere aiuto</span>Scrivete all'autore (danilodauria.site@gmail.com) indicando: versione (Impostazioni → Informazioni), sistema, cosa stavate facendo,
+e allegando <code>server.log</code> e la stampa in PDF del registro dell'azione.</div>
+</section>
+
+<!-- ======================================================= 33 -->
+<section class="capitolo"><span class="marca">§§c38§§</span>
+<div class="capitolo-testa"><span class="num">38</span><div><div class="eti">CAPITOLO</div><h1>Riferimento rapido</h1></div></div>
+<h2>Dove stanno i file</h2>
+<table class="compatta"><thead><tr><th></th><th>Programma</th><th>Dati (impostazioni, conversazione, registri)</th></tr></thead><tbody>
+<tr><td>🪟 Windows</td><td><code>%LOCALAPPDATA%\Programs\ConsulenteDigitale</code></td><td><code>%APPDATA%\ConsulenteDigitale</code></td></tr>
+<tr><td>🐧 Linux</td><td><code>/usr/share/consulente-digitale</code>, comando <code>/usr/bin/consulente-digitale</code></td><td><code>~/.local/share/consulente-digitale</code></td></tr>
+<tr><td>🍎 macOS</td><td><code>/Applications/Consulente Digitale.app</code></td><td><code>~/Library/Application Support/ConsulenteDigitale</code></td></tr>
+<tr><td>🔌 Portatile</td><td>La cartella estratta</td><td>La cartella <code>dati</code> accanto al programma</td></tr>
+</tbody></table>
+<table class="compatta"><thead><tr><th>Nella cartella dei dati</th><th>Contenuto</th></tr></thead><tbody>
+<tr><td><code>impostazioni.json</code>, <code>profilo.json</code></td><td>Le impostazioni e chi usa il programma</td></tr>
+<tr><td><code>cronologia.json</code></td><td>Gli ultimi 40 messaggi con Neura</td></tr>
+<tr><td><code>diario.json</code>, <code>acquisti.json</code></td><td>Ultimi aggiornamenti trovati e ultimo pilota automatico; ultima scelta guidata</td></tr>
+<tr><td><code>hardware.json</code>, <code>interventi.json</code></td><td>Ultimo controllo SMART per lo schema; schede di diagnosi e lavori (le ultime 60)</td></tr>
+<tr><td><code>hardware-completo.json</code></td><td>Banchi di memoria, slot e porte letti con «Inventario completo» (Linux)</td></tr>
+<tr><td><code>nonni-teach/</code>, <code>nonni-teach-sito/</code>, <code>nonni.json</code></td><td>Interviste con le registrazioni e il podcast; il sito da pubblicare (e il suo zip); le preferenze di pubblicazione</td></tr>
+<tr><td><code>circolare.json</code></td><td>Gli impegni scelti nel patto per un digitale sostenibile</td></tr>
+<tr><td><code>aggiornamenti/</code></td><td>Le nuove versioni del programma scaricate e verificate</td></tr>
+<tr><td><code>server.log</code>, <code>server.json</code></td><td>Registro del motore; porta e processo in uso</td></tr>
+<tr><td><code>lavori/</code></td><td>Script e registri delle azioni (cancellati dopo un giorno)</td></tr>
+<tr><td><code>copie/</code></td><td>🪟 Copie .reg delle impostazioni modificate</td></tr>
+<tr><td><code>modelli/</code></td><td>Modelli della trascrizione vocale locale</td></tr>
+<tr><td><code>finestra/</code></td><td>Il profilo del browser usato per la finestra dedicata</td></tr>
+</tbody></table>
+<h2>Comandi, opzioni e variabili</h2>
+<pre>cd_server.py --apri               <span class="c"># avvia il motore e apre la finestra (o la riapre se è già acceso)</span>
+cd_server.py --port 8810          <span class="c"># porta di partenza (usa la prima libera fino a +39)</span>
+cd_server.py --inattivo 900       <span class="c"># secondi senza finestra prima di spegnersi (0 = mai)</span>
+cd_server.py --versione
+CD_DATA_DIR=…   CD_SHARE_DIR=…   CD_PORT=…   OLLAMA_HOST=http://127.0.0.1:11434</pre>
+<h2>Scorciatoie</h2>
+<table class="compatta"><tbody>
+<tr><td><kbd>Ctrl</kbd> + <kbd>Spazio</kbd></td><td>Parla con Neura da qualsiasi pagina (ripremere per fermare)</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd> oppure <kbd>/</kbd></td><td>🔎 Cerca in tutto il programma</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>P</kbd></td><td>🖨️ Stampa la pagina aperta come scheda</td></tr>
+<tr><td><kbd>Esc</kbd></td><td>Zittisce Neura; chiude le finestre che si possono chiudere</td></tr>
+<tr><td><kbd>Invio</kbd></td><td>Invia la domanda</td></tr>
+<tr><td><kbd>Tab</kbd></td><td>Passa da un pulsante all'altro (il contorno giallo indica dove siete)</td></tr>
+</tbody></table>
+<h2>Il catalogo completo delle azioni</h2>
+<p class="small">✔ = disponibile · 🔐 = chiede i permessi di amministratore · 🪟 nella colonna = si apre in una finestra sua · — = non disponibile su quel sistema.</p>
+{{TAB_AZIONI}}
+</section>
+
+<!-- ======================================================= 34 -->
+<section class="capitolo"><span class="marca">§§c39§§</span>
+<div class="capitolo-testa"><span class="num">39</span><div><div class="eti">CAPITOLO</div><h1>Per chi sviluppa</h1></div></div>
+<p class="intro">Il codice è software libero (MIT): si può studiare, migliorare e adattare. I sorgenti contengono la cronologia completa e il file <code>CLAUDE.md</code> con le regole del progetto.</p>
+<table class="compatta"><thead><tr><th>Percorso</th><th>Contenuto</th></tr></thead><tbody>
+<tr><td><code>src/server/cd_server.py</code></td><td>Il motore: API, ora NTP, prova della velocità, IA, voce, finestra</td></tr>
+<tr><td><code>src/server/cd_sistema.py</code></td><td>Analisi del computer per i tre sistemi</td></tr>
+<tr><td><code>src/server/cd_azioni.py</code></td><td>Catalogo delle azioni, lista bianca dei parametri, lavori, permessi</td></tr>
+<tr><td><code>src/server/cd_hardware.py</code></td><td>Componenti in dettaglio e sensori in diretta (sonda per Windows e Mac); <code>CD_HARDWARE_PROVA=1</code> dà dati di prova</td></tr>
+<tr><td><code>src/server/cd_aperture.py</code></td><td>Catalogo delle finestre del sistema che Neura apre con il consenso</td></tr>
+<tr><td><code>src/server/cd_nonni.py</code></td><td>Nonni Teach: interviste, audio, montaggio con FFmpeg, sito e feed RSS</td></tr>
+<tr><td><code>src/server/cd_programma.py</code></td><td>Scarica gli aggiornamenti: manifesto, host ammessi, SHA-256, installazione</td></tr>
+<tr><td><code>src/azioni/{windows,linux,mac}/</code></td><td>Gli script, con le funzioni comuni in <code>_comune</code></td></tr>
+<tr><td><code>src/web/</code></td><td>Le pagine (JavaScript semplice, senza librerie esterne), stili, logo, catalogo dei programmi</td></tr>
+<tr><td><code>packaging/</code>, <code>build.sh</code></td><td>Pacchetti .deb, installatore per Windows (NSIS), app per Mac, versione portatile</td></tr>
+<tr><td><code>tests/</code></td><td>Collaudo dell'interfaccia (Playwright con un finto Ollama), controllo degli script PowerShell</td></tr>
+<tr><td><code>docs/</code>, <code>tools/</code></td><td>Questo vademecum (sorgenti e generatore), schermate, codici QR</td></tr>
+</tbody></table>
+<pre>python3 src/server/cd_server.py --port 8810 --apri   <span class="c"># prova dai sorgenti</span>
+python3 tests/test_ui.py                               <span class="c"># collaudo completo con screenshot</span>
+python3 tests/controlla_powershell.py                  <span class="c"># sintassi degli script PowerShell</span>
+./build.sh                                             <span class="c"># tutti i pacchetti in dist/</span>
+python3 tools/schermate-manuale.py                     <span class="c"># rifà le foto del vademecum</span>
+python3 tools/genera-vademecum.py                      <span class="c"># rigenera questo vademecum in PDF</span></pre>
+<h2>Aggiungere un'azione</h2>
+<ol class="passi">
+<li>Scrivete lo script per ogni sistema in <code>src/azioni/&lt;sistema&gt;/</code> usando le funzioni comuni: <code>passo</code>/<code>Passo</code>, <code>voce</code>/<code>Voce</code>, <code>info</code>/<code>Info</code>,
+<code>ok</code>, <code>nota</code>, <code>attenzione</code>. In PowerShell non usate mai <code>exit</code>: in caso di errore <code>$global:CD_CODICE = 1</code> (o <code>Errore "testo"</code>).</li>
+<li>Aggiungete la voce in <code>AZIONI</code> (<code>cd_azioni.py</code>): id, gruppo, icona, rischio, titolo, descrizione e, per ogni sistema, file, <code>admin</code> e <code>finestra</code>.
+Se serve un parametro, aggiungete la sua regola in <code>valida_parametro</code>: mai testo libero.</li>
+<li>Collegate un pulsante (<code>CD.esegui("id")</code>) e, se utile, una frase in <code>neura.js</code>.</li>
+<li>Collaudate: <code>shellcheck</code>, <code>controlla_powershell.py</code>, <code>test_ui.py</code>, e su un vero Windows e un vero Mac.</li>
+<li>Rigenerate il vademecum: il catalogo e i passi degli script si aggiornano da soli.</li>
+</ol>
+<h2>Pubblicare una nuova versione su GitHub</h2>
+<p>Il sito <code>danilodauria.github.io/consulente-digitale</code> contiene la pagina dei download e il file <code>aggiornamenti.json</code> letto da «Scarica gli aggiornamenti» (capitolo 27).
+L'indirizzo si cambia in un solo file, <code>rilascio.conf</code>.</p>
+<ol class="passi">
+<li>Aumentate il numero in <code>VERSION</code> e scrivete le novità in cima a <code>docs/novita.json</code>.</li>
+<li>Rifate foto e vademecum (<code>tools/schermate-manuale.py</code>, <code>tools/genera-vademecum.py</code>), poi <code>./build.sh</code>: i pacchetti finiscono in <code>dist/</code>.</li>
+<li><code>python3 tools/prepara-pubblicazione.py</code>: crea la cartella <code>sito/</code> con <code>index.html</code>, <code>aggiornamenti.json</code> (versione, novità, indirizzi e impronte SHA-256), i file in <code>scarica/</code> e <code>SHA256SUMS</code>.</li>
+<li>Con <b>GitHub Desktop</b> sul repository <code>consulente-digitale</code>: scrivete il riepilogo (es. «Versione 1.1.0»), <b>Commit to main</b>, <b>Push origin</b>.</li>
+<li>Il workflow <code>.github/workflows/pubblica-sito.yml</code> pubblica la cartella <code>sito/</code> su GitHub Pages (la prima volta: Settings → Pages → Source: <b>GitHub Actions</b>).</li>
+<li>Da quel momento ogni Consulente Digitale installato, premendo «Controlla aggiornamenti», trova la nuova versione.</li>
+</ol>
+<div class="box"><span class="t">Regole del progetto</span>Mai modifiche senza clic · fonti ufficiali · niente telemetria · italiano semplice · ogni stampa con il piè di pagina di autore e licenza ·
+numeri di versione mai riusati (correzione X.Y.Z+1, novità X.Y+1.0).</div>
+</section>
+</div>

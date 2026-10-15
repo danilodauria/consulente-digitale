@@ -1,0 +1,56 @@
+/* Consulente Digitale - Neura: cervello, pannellino e conversazione
+ * Ideato e sviluppato da Danilo D'Auria - Codice MIT, grafica CC BY-NC-SA 4.0 */
+.neura-nome { position: absolute; left: 0; right: 0; bottom: .6rem; text-align: center; pointer-events: none; }
+.neura-nome b { display: block; font-family: var(--mono); letter-spacing: .5em; font-size: 1.1rem; color: var(--neon3); text-shadow: 0 0 14px rgba(94, 234, 212, .6); padding-left: .5em; }
+.neura-nome span { font-size: .78rem; color: var(--inchiostro2); letter-spacing: .08em; }
+:root[data-neura="ascolto"] .neura-nome b { color: #34d399; } :root[data-neura="pensiero"] .neura-nome b { color: #a78bfa; } :root[data-neura="parla"] .neura-nome b { color: #fbbf24; }
+
+/* palco della pagina «Parla con Neura» */
+.neura-palco { display: grid; grid-template-columns: minmax(18rem, 30rem) 1fr; gap: 1.2rem; align-items: start; }
+.neura-grande { position: sticky; top: 5rem; display: flex; flex-direction: column; align-items: center; gap: .7rem; }
+.neura-grande canvas, .plancia-cervello canvas { width: 100%; aspect-ratio: 1 / 1; max-width: 30rem; display: block; }
+.neura-grande { position: relative; }
+.neura-grande .neura-nome { position: static; }
+.neura-parla { width: 100%; max-width: 22rem; }
+:root[data-neura="ascolto"] .neura-parla { background: linear-gradient(135deg, #10b981, #0d9488); animation: pulsa 1.2s ease-in-out infinite; }
+@keyframes pulsa { 50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, .15); } }
+.neura-motore { text-align: center; }
+.neura-chat { display: flex; flex-direction: column; gap: .7rem; min-height: 70vh; }
+.chat { display: flex; flex-direction: column; gap: .7rem; overflow-y: auto; padding: .3rem; scroll-behavior: smooth; }
+.chat-grande { flex: 1; max-height: 62vh; min-height: 18rem; }
+.msg { display: flex; gap: .55rem; align-items: flex-start; animation: compari .25s ease; }
+.msg-corpo { padding: .65rem .9rem; border-radius: 16px; max-width: 88%; border: 1px solid var(--vetro-bordo); }
+.msg-corpo p { margin: .2rem 0; } .msg-corpo ul, .msg-corpo ol { margin: .3rem 0; padding-left: 1.2rem; }
+.msg-neura .msg-corpo { background: linear-gradient(135deg, rgba(56, 189, 248, .14), rgba(167, 139, 250, .1)); border-top-left-radius: 4px; }
+.msg-utente { justify-content: flex-end; }
+.msg-utente .msg-corpo { background: var(--neon-tenue); border-top-right-radius: 4px; }
+.msg-io { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle, rgba(56, 189, 248, .35), transparent 70%); flex: none; }
+.msg-azioni { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .5rem; }
+.suggerimenti { display: flex; gap: .35rem; flex-wrap: wrap; }
+.chat-modulo { display: flex; gap: .45rem; align-items: center; }
+.chat-modulo input { flex: 1; border-radius: 99px; padding: .7rem 1rem; }
+.chat-modulo .mic, .chat-modulo .invia { width: 2.9rem; height: 2.9rem; border-radius: 50%; border: 1px solid var(--vetro-bordo); background: var(--pannello); cursor: pointer; font-size: 1.1rem; flex: none; transition: .2s; }
+.chat-modulo .invia { background: linear-gradient(135deg, #0ea5e9, #6366f1); color: #fff; border: none; }
+.chat-modulo .mic.ascolta { background: #10b981; color: #fff; box-shadow: 0 0 0 6px rgba(16, 185, 129, .25); animation: pulsa 1s infinite; }
+
+/* il piccolo cervello sempre presente */
+.neura-dock { position: fixed; right: 1.1rem; bottom: 1.1rem; z-index: 50; display: flex; flex-direction: column; align-items: flex-end; gap: .6rem; }
+.dock-cervello { width: 5.4rem; height: 5.4rem; border-radius: 50%; border: 1px solid var(--vetro-bordo); padding: 0; cursor: pointer;
+  background: radial-gradient(circle at 50% 45%, rgba(20, 35, 75, .95), rgba(5, 8, 22, .95)); box-shadow: 0 10px 30px rgba(0, 0, 0, .45), 0 0 28px rgba(56, 189, 248, .35); transition: .25s; }
+:root[data-tema="giorno"] .dock-cervello { background: radial-gradient(circle at 50% 45%, #ffffff, #e0ecff); }
+.dock-cervello:hover { transform: scale(1.06); }
+.dock-cervello canvas { width: 100%; height: 100%; border-radius: 50%; }
+:root[data-neura="ascolto"] .dock-cervello { box-shadow: 0 0 0 6px rgba(52, 211, 153, .3), 0 0 34px rgba(52, 211, 153, .6); }
+:root[data-neura="parla"] .dock-cervello { box-shadow: 0 0 0 6px rgba(251, 191, 36, .25), 0 0 34px rgba(251, 191, 36, .55); }
+:root[data-neura="pensiero"] .dock-cervello { box-shadow: 0 0 0 6px rgba(167, 139, 250, .25), 0 0 34px rgba(167, 139, 250, .55); }
+.dock-pannello { width: min(25rem, calc(100vw - 2rem)); height: min(34rem, 70vh); display: flex; flex-direction: column; gap: .5rem; padding: .8rem;
+  background: var(--pannello-pieno); border: 1px solid var(--vetro-bordo); border-radius: 20px; box-shadow: var(--ombra), var(--bagliore); animation: compari .25s ease; }
+.dock-testa { display: flex; align-items: center; gap: .5rem; } .dock-testa b { flex: none; }
+.dock-stato { flex: 1; font-size: .78rem; color: var(--inchiostro2); }
+.chat-dock { flex: 1; }
+.vista-neura ~ * .neura-dock { display: none; }
+.neura-dice { display: flex; gap: .8rem; align-items: flex-start; padding: .8rem 1rem; border-radius: 16px; background: linear-gradient(135deg, rgba(56, 189, 248, .12), rgba(167, 139, 250, .08)); border: 1px solid var(--vetro-bordo); margin-top: .8rem; }
+.neura-dice > span { font-size: 1.6rem; }
+@media (max-width: 960px) { .neura-palco { grid-template-columns: 1fr; } .neura-grande { position: static; } .neura-grande canvas { max-width: 18rem; } }
+@media (max-width: 560px) { .dock-cervello { width: 4.2rem; height: 4.2rem; } }
+body[data-vista="neura"] .neura-dock, body[data-vista="benvenuto"] .neura-dock { display: none; }

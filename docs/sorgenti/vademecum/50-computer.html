@@ -1,0 +1,260 @@
+
+<div class="pagina">
+<section class="parte"><div class="eti">PARTE V</div><h1>Il vostro computer</h1>
+<p>Analizzarlo, capire quale sistema operativo gli sta meglio, tenerlo aggiornato, ottimizzarlo, ripararlo e dotarlo dei programmi giusti. Con la spiegazione esatta di cosa fa ogni pulsante.</p>
+<div class="capitoli"><div><b>17</b> L'analisi del computer</div><div><b>18</b> Il sistema operativo consigliato</div><div><b>19</b> Aggiornamenti e driver</div><div><b>20</b> Ottimizza: i pulsanti automatici</div>
+<div><b>21</b> Gli script pronti all'uso</div><div><b>22</b> Strumenti degli esperti</div><div><b>23</b> Salute, riparazioni e pilota automatico</div><div><b>24</b> Programmi consigliati</div>
+<div><b>25</b> Hardware e sensori</div><div><b>26</b> Schema della scheda madre, diagnosi e lavori</div><div><b>27</b> Scaricare gli aggiornamenti del programma</div></div></section>
+
+<!-- ======================================================= 17 -->
+<section class="capitolo"><span class="marca">§§c17§§</span>
+<div class="capitolo-testa"><span class="num">17</span><div><div class="eti">CAPITOLO</div><h1>L'analisi del computer</h1></div></div>
+<p class="intro">Il Consulente legge le caratteristiche del computer usando solo gli strumenti del sistema, senza permessi di amministratore e <b>senza inviare nulla</b>.
+L'analisi si fa all'avvio, resta valida 10 minuti e si ripete con <b>🔄 Rianalizza</b>.</p>
+<figure><img src="img/analisi.jpg" alt=""><figcaption><b>Figura 17.1</b> La panoramica: i voti, il giudizio di Neura, le caratteristiche, la compatibilità con Windows 11, il sistema consigliato e la miglioria più utile.</figcaption></figure>
+<h2>Cosa viene letto</h2>
+<table class="compatta"><thead><tr><th>Dato</th><th>🪟 Windows</th><th>🐧 Linux</th><th>🍎 macOS</th></tr></thead><tbody>
+<tr><td>Produttore, modello, BIOS</td><td>Win32_ComputerSystem, Win32_BIOS</td><td>/sys/class/dmi/id</td><td>system_profiler</td></tr>
+<tr><td>Sistema e versione</td><td>Win32_OperatingSystem e registro</td><td>/etc/os-release, kernel, desktop</td><td>sw_vers</td></tr>
+<tr><td>Processore</td><td>Win32_Processor</td><td>/proc/cpuinfo</td><td>sysctl</td></tr>
+<tr><td>Memoria e banchi</td><td>Win32_PhysicalMemory (anche slot)</td><td>/proc/meminfo, zram, swappiness</td><td>sysctl, vm_stat</td></tr>
+<tr><td>Dischi e spazio</td><td>Get-PhysicalDisk, Win32_LogicalDisk</td><td>lsblk</td><td>system_profiler (NVMe/SATA)</td></tr>
+<tr><td>Scheda video</td><td>Win32_VideoController (driver)</td><td>lspci, /sys/class/drm</td><td>system_profiler</td></tr>
+<tr><td>Batteria</td><td>Win32_Battery</td><td>/sys/class/power_supply</td><td>system_profiler (salute, cicli)</td></tr>
+<tr><td>UEFI, Secure Boot, TPM</td><td>registro, Win32_Tpm</td><td>/sys/firmware/efi, mokutil, /sys/class/tpm</td><td>chip Apple = Secure Enclave</td></tr>
+<tr><td>Dispositivi con problemi, programmi all'avvio, antivirus</td><td>Win32_PnPEntity, Win32_StartupCommand, SecurityCenter2</td><td>—</td><td>—</td></tr>
+</tbody></table>
+<p>Dal nome del processore il programma stima <b>marca, generazione, anno di uscita e fascia</b> (base, media, alta, top): per esempio «Intel Core i5-8250U» → Intel, 8ª generazione, 2017, fascia media.</p>
+<h2>Come si calcolano i voti</h2>
+<table class="compatta"><thead><tr><th>Voto</th><th>Regola</th></tr></thead><tbody>
+<tr><td><b>Processore</b></td><td>Dall'anno: 2023+ → 9, 2021–22 → 8, 2019–20 → 7, 2017–18 → 6, 2015–16 → 4,5, 2012–14 → 3,5, 2010–11 → 2,5, prima → 1,5 (chip Apple da 8,5).
++1 fascia top, +0,5 fascia alta, −1 fascia base; +0,5 con 8 o più thread, −1 con 2 o meno.</td></tr>
+<tr><td><b>Memoria</b></td><td>sotto 2 GB → 1 · 2–4 → 2,5 · 4–8 → 4,5 · 8–16 → 7 · 16–32 → 9 · 32 e oltre → 10.</td></tr>
+<tr><td><b>Disco</b></td><td>NVMe → 10 · SSD → 8 · HDD → 3; −2 se lo spazio libero è sotto il 10%.</td></tr>
+<tr><td><b>Grafica</b></td><td>Scheda dedicata recente (RTX 40/50, RX 7000/9000, Arc B) → 9,5 · altre dedicate → 8 · integrata moderna (Iris Xe, Radeon 680M/780M, Arc, Apple) → 6 · altre → 3.</td></tr>
+<tr><td><b>Batteria</b></td><td>La salute in decimi (85% → 8,5). Solo per i portatili.</td></tr>
+<tr><td><b>Complessivo</b></td><td>35% processore + 25% memoria + 25% disco + 15% grafica.</td></tr>
+</tbody></table>
+<p>Il giudizio di Neura: 8 e oltre «un computer potente», da 6 «un buon computer», da 4 «discreto, che si può migliorare», sotto «datato, ma che può rinascere».</p>
+<h2>Compatibilità con Windows 11</h2>
+<p>Il programma controlla i requisiti di Microsoft: processore a 64 bit della lista supportata (Intel di 8ª generazione e successivi, AMD Ryzen 2000 e successivi, Snapdragon), almeno 4 GB di RAM,
+<b>TPM 2.0</b>, avvio <b>UEFI</b>, disco di almeno 64 GB; segnala come «da verificare» il <b>Secure Boot</b> spento e un TPM di versione incerta. Spesso TPM e Secure Boot ci sono ma sono spenti:
+si accendono nel BIOS (voci «PTT» per Intel, «fTPM» per AMD; capitolo 20, guida «Entrare nel BIOS»).</p>
+<div class="box tecnico"><span class="t">Dalla versione 1.1</span>Se il computer <b>ha già Windows 11</b>, la scheda lo dice chiaramente («Windows 11 è già installato») e non lo segnala più come incompatibile.
+È stata corretta la lettura dei processori Intel portatili di 10ª-14ª generazione con numero a quattro cifre (per esempio <b>i5-1235U</b> = 12ª generazione, non «1ª») e il TPM
+si legge anche senza permessi di amministratore (dal dispositivo «Trusted Platform Module» e da <code>tpmtool</code>). La stessa frase compare nella pagina, nella scheda stampata e nel riassunto di Neura.</div>
+<h2>Le migliorie</h2>
+<figure class="media"><img src="img/analisi-migliorie.jpg" alt=""><figcaption><b>Figura 17.2</b> La scheda «Migliorie», con beneficio e costo indicativo.</figcaption></figure>
+<table class="compatta"><thead><tr><th>Miglioria</th><th>Quando la propone</th><th>Beneficio</th><th>Costo indicativo</th></tr></thead><tbody>
+<tr><td>💽 Disco meccanico → SSD</td><td>Il disco principale è un HDD</td><td>altissimo</td><td>30–60 €</td></tr>
+<tr><td>🧠 Più RAM (8 GB, meglio 16)</td><td>Meno di 8 GB (indica slot liberi e occupati, su Windows)</td><td>altissimo sotto 4 GB, altrimenti alto</td><td>20–60 €</td></tr>
+<tr><td>🔋 Batteria nuova</td><td>Salute sotto il 75%</td><td>alto</td><td>30–90 €</td></tr>
+<tr><td>🌀 Pulizia interna e pasta termica</td><td>Computer di 5 anni o più</td><td>medio</td><td>0–40 €</td></tr>
+<tr><td>🧹 Liberare spazio</td><td>Meno del 15% di disco libero</td><td>medio</td><td>gratis</td></tr>
+<tr><td>🔁 Linux per una seconda vita</td><td>Windows non compatibile con Windows 11</td><td>alto</td><td>gratis</td></tr>
+<tr><td>♻️ Nuovo o ricondizionato</td><td>Voto complessivo sotto 3,5</td><td>—</td><td>vedi «Cosa comprare»</td></tr>
+</tbody></table>
+<p>La scheda <b>📦 Programmi adatti</b> mostra il catalogo già filtrato per la memoria del computer (capitolo 24). <b>🖨️ Scheda professionale</b> stampa la scheda tecnica e la diagnosi (capitolo 33).</p>
+</section>
+
+<!-- ======================================================= 18 -->
+<section class="capitolo"><span class="marca">§§c18§§</span>
+<div class="capitolo-testa"><span class="num">18</span><div><div class="eti">CAPITOLO</div><h1>Il sistema operativo consigliato</h1></div></div>
+<p class="intro">Il sistema operativo è il programma principale del computer. Lo stesso hardware può essere lento con un sistema e velocissimo con un altro. La scheda
+<b>🧭 Sistema consigliato</b> dell'analisi mette in classifica, con un voto da 0 a 10, i sistemi adatti a <b>quel computer</b> e a <b>quel profilo</b>.</p>
+<figure><img src="img/analisi-sistemi.jpg" alt=""><figcaption><b>Figura 18.1</b> La classifica per un computer datato in un centro anziani: al primo posto FeniceOS.</figcaption></figure>
+<h2>Come ragiona il programma</h2>
+<table class="compatta"><thead><tr><th>Situazione</th><th>Cosa propone</th></tr></thead><tbody>
+<tr><td><b>Mac con chip Apple</b></td><td>macOS: è il sistema pensato per quel Mac, con aggiornamenti per molti anni.</td></tr>
+<tr><td><b>Mac con processore Intel</b></td><td>macOS finché aggiornato (Tahoe 26 è l'ultima versione per i Mac Intel); Linux Mint e FeniceOS per dare una seconda vita a quelli non più aggiornati.</td></tr>
+<tr><td><b>Processore a 32 bit</b></td><td>antiX (leggerissimo), MX Linux a 32 bit.</td></tr>
+<tr><td><b>Compatibile con Windows 11</b></td><td>Windows 11, più in alto per professionisti, ditte, aziende ed enti e per i creativi con scheda video; più in basso con poca RAM, disco meccanico o processore lento.</td></tr>
+<tr><td><b>Non compatibile con Windows 11</b></td><td>Windows 10 con gli aggiornamenti di sicurezza estesi (ESU, per i privati fino a ottobre 2027) come soluzione temporanea; poi Linux.</td></tr>
+<tr><td><b>Poca RAM (meno di 4 GB) o processore debole</b></td><td>FeniceOS, Linux Mint XFCE, Linux Lite, MX Linux.</td></tr>
+<tr><td><b>Scuole, centri anziani, enti</b></td><td>FeniceOS più in alto: nato per aule, centri anziani e PC rigenerati, con il Professore Digitale.</td></tr>
+<tr><td><b>Persone, famiglie, anziani</b></td><td>Linux Mint e Zorin OS più in alto (facili per chi viene da Windows); ChromeOS Flex per chi usa solo il browser.</td></tr>
+<tr><td><b>Studenti e professionisti</b></td><td>Ubuntu e Fedora tra le alternative (software recente, ottimi per programmare).</td></tr>
+<tr><td><b>Creativi e gamer con scheda video</b></td><td>Bazzite (giochi, come la Steam Deck) e Pop!_OS (driver NVIDIA inclusi).</td></tr>
+</tbody></table>
+<p>Ogni sistema mostra i motivi a favore (✔), le attenzioni (⚠) e il link al <b>sito ufficiale</b> da cui scaricarlo.</p>
+<h2>Cambiare sistema operativo, passo passo</h2>
+<ol class="passi">
+<li><b>Copia di sicurezza</b> di documenti, foto, posta e password su un disco esterno (capitolo 30).</li>
+<li>Scaricate il file <b>ISO</b> dal sito ufficiale del sistema scelto.</li>
+<li>Create la <b>chiavetta avviabile</b> (8 GB o più): con <b>Rufus</b> o <b>Ventoy</b> su Windows, «Creatore di dischi di avvio» o balenaEtcher su Linux e Mac (si installano dai Programmi consigliati).
+<b>Tutto ciò che c'è sulla chiavetta viene cancellato.</b></li>
+<li>Inserite la chiavetta, riavviate e premete subito il <b>tasto del menu di avvio</b> (tabella) per scegliere la chiavetta.</li>
+<li>Provate il sistema in modalità <b>«live»</b>, senza installare: Wi-Fi, audio, stampante, webcam funzionano? Se sì, avviate l'installazione dall'icona sul desktop.</li>
+<li>Scegliete se <b>affiancarlo</b> al sistema attuale (doppio avvio: all'accensione si sceglie quale usare) o <b>sostituirlo</b> del tutto.</li>
+<li>Installate il Consulente Digitale anche lì, fate gli aggiornamenti e installate i programmi consigliati.</li>
+</ol>
+<table class="compatta"><thead><tr><th>Produttore</th><th>Tasto del menu di avvio</th><th>Produttore</th><th>Tasto</th></tr></thead><tbody>
+<tr><td>Lenovo</td><td>F12 (o il piccolo tasto «Novo» con un foro)</td><td>ASUS</td><td>F8 o Esc</td></tr>
+<tr><td>HP</td><td>F9 (oppure Esc, poi F9)</td><td>MSI</td><td>F11</td></tr>
+<tr><td>Dell</td><td>F12</td><td>Toshiba / Dynabook</td><td>F12</td></tr>
+<tr><td>Acer</td><td>F12 (da attivare nel BIOS con F2)</td><td>Samsung</td><td>F10 o Esc</td></tr>
+<tr><td>Fujitsu</td><td>F12</td><td>Apple (Intel)</td><td>tenere premuto Opzione ⌥ all'accensione</td></tr>
+</tbody></table>
+<div class="box attenzione"><span class="t">Prima di cancellare</span>Controllate di avere la <b>licenza</b> e le credenziali dei programmi a pagamento, l'account di posta e le password del browser.
+Su Windows con BitLocker attivo annotate la <b>chiave di ripristino</b> (account Microsoft → Dispositivi).</div>
+</section>
+
+<!-- ======================================================= 19 -->
+<section class="capitolo"><span class="marca">§§c19§§</span>
+<div class="capitolo-testa"><span class="num">19</span><div><div class="eti">CAPITOLO</div><h1>Aggiornamenti e driver</h1></div></div>
+<p class="intro">Gli aggiornamenti chiudono le porte da cui entrano i ladri informatici e correggono gli errori; i driver fanno lavorare bene ogni componente. Il Consulente prima <b>cerca</b>
+(senza cambiare nulla), poi installa <b>solo ciò che scegliete</b>, sempre dalle fonti ufficiali.</p>
+<figure><img src="img/aggiornamenti-risultato.jpg" alt=""><figcaption><b>Figura 19.1</b> Dopo la ricerca: il numero di aggiornamenti per fonte, le caselle per scegliere cosa installare e l'elenco dettagliato.</figcaption></figure>
+<ol class="passi">
+<li>Premete <b>🔎 Cerca aggiornamenti</b>. Si apre la console in diretta (figura 20.2); alla fine compare l'elenco, diviso per fonte, con versione attuale e nuova.</li>
+<li>Spuntate le fonti da installare: <b>Sistema e sicurezza</b>, <b>Programmi</b>, <b>Driver</b>, <b>Firmware</b> (spuntato solo se ce ne sono) e, su Windows e Mac, <b>App del negozio</b>.</li>
+<li>Premete <b>⬇️ Scarica e installa</b>, confermate e concedete i permessi. Collegate il caricabatterie, soprattutto per il firmware.</li>
+<li>Se compare <b>🔄 Serve un riavvio</b>, salvate il lavoro e riavviate quando potete.</li>
+</ol>
+<p>L'esito dell'ultima ricerca resta nella pagina e nella plancia (file <code>diario.json</code>). Nella parte «🧩 Driver e periferiche» ci sono <b>Controlla i driver</b> e <b>Installa driver e firmware</b>.</p>
+<h2>Le fonti, sistema per sistema</h2>
+<table class="compatta"><thead><tr><th>Fonte</th><th>🪟 Windows</th><th>🐧 Linux</th><th>🍎 macOS</th></tr></thead><tbody>
+<tr><td>Sistema e sicurezza</td><td>Windows Update (API ufficiali di Windows)</td><td>apt, dnf, zypper o pacman</td><td>Aggiornamento Software di Apple</td></tr>
+<tr><td>Programmi</td><td>winget (catalogo Microsoft)</td><td>Flatpak (Flathub) e Snap</td><td>Homebrew</td></tr>
+<tr><td>Driver</td><td>Windows Update (categoria driver) + strumenti ufficiali del produttore</td><td>ubuntu-drivers, firmware della distribuzione, microcodice</td><td>arrivano con gli aggiornamenti di Apple</td></tr>
+<tr><td>Firmware</td><td>Windows Update</td><td>fwupd (LVFS)</td><td>Apple</td></tr>
+<tr><td>Negozio</td><td>Microsoft Store</td><td>—</td><td>App Store (con lo strumento <code>mas</code>)</td></tr>
+</tbody></table>
+<h2>Cosa fa esattamente ogni azione</h2>
+<p class="small">I passi sono letti direttamente dagli script del programma; 🔐 = chiede i permessi di amministratore.</p>
+{{DETTAGLIO_AGGIORNAMENTI}}
+<div class="box consiglio"><span class="t">Lo strumento del produttore</span>Su Windows il controllo dei driver riconosce il produttore del computer e indica il suo strumento ufficiale (Lenovo Vantage/System Update,
+Dell Command Update, HP Support Assistant, MyASUS, Acer Care Center, MSI Center) e, per i processori Intel, Intel Driver &amp; Support Assistant. Per la scheda video indica il sito NVIDIA, AMD o Intel.
+Questi strumenti trovano anche aggiornamenti del BIOS che Windows Update a volte non ha.</div>
+<div class="box attenzione"><span class="t">Windows 10</span>Dal 14 ottobre 2025 Windows 10 non riceve più aggiornamenti gratuiti, salvo l'iscrizione al programma <b>ESU</b> per i privati,
+prorogato fino a <b>ottobre 2027</b> (Impostazioni → Windows Update). È una soluzione ponte: pianificate il passaggio a Windows 11 o a Linux (capitolo 18).</div>
+</section>
+
+<!-- ======================================================= 20 -->
+<section class="capitolo"><span class="marca">§§c20§§</span>
+<div class="capitolo-testa"><span class="num">20</span><div><div class="eti">CAPITOLO</div><h1>Ottimizza: i pulsanti automatici</h1></div></div>
+<p class="intro">La pagina <b>🚀 Ottimizza</b> ha cinque schede: <b>Automatico</b> (i pulsanti), <b>Script pronti</b> (capitolo 21), <b>Strumenti esperti</b> (capitolo 22), <b>Consigli e soluzioni</b>
+(capitolo 30) e <b>Come fare</b> (guide passo passo).</p>
+<figure><img src="img/ottimizza.jpg" alt=""><figcaption><b>Figura 20.1</b> I pulsanti automatici, con le etichette amministratore, riavvio e rischio.</figcaption></figure>
+<h2>Prima di partire: la finestra di conferma</h2>
+<figure class="media"><img src="img/conferma-azione.jpg" alt=""><figcaption><b>Figura 20.2</b> Ogni azione spiega cosa farà prima di partire.</figcaption></figure>
+<p>La conferma dice cosa fa l'azione, se servono i permessi di amministratore e come verranno chiesti, se il rischio è medio (e quindi viene creato prima un punto di ripristino), se servirà un riavvio
+e quale script verrà eseguito. Le azioni con <b>rischio «nessuno»</b> (che leggono senza modificare) possono partire senza conferma quando le avvia Neura o il pilota automatico.</p>
+<h2>La console in diretta</h2>
+<figure class="media"><img src="img/console-lavoro.jpg" alt=""><figcaption><b>Figura 20.3</b> La console: stato, passo in corso, barra di avanzamento, tempo e registro colorato.</figcaption></figure>
+<ul>
+<li>L'<b>etichetta di stato</b>: «in corso…», «✔ completato», «✖ con errori», «🔐 permesso non concesso», «⏹ fermato».</li>
+<li><b>Passo X di Y</b> con la barra; il <b>registro</b> con i passi in giallo, i successi in verde, gli avvisi in arancio e gli errori in rosso.</li>
+<li>Alla fine, la <b>tabella dei risultati</b> e l'eventuale avviso di riavvio.</li>
+<li><b>⏹ Ferma</b> interrompe l'azione; <b>🖨️ Stampa</b> stampa registro e risultati; <b>Chiudi</b> chiude la finestra mentre l'azione continua in sottofondo (un avviso vi dirà quando finisce).</li>
+</ul>
+<h2>L'ordine consigliato</h2>
+<ol class="passi">
+<li><b>🛟 Punto di ripristino</b>: la «fotografia» per tornare indietro.</li>
+<li><b>🚀 Ottimizzazione completa</b>: il pulsante più utile, sicuro per tutti.</li>
+<li><b>🕶️ Più privacy, meno pubblicità</b>.</li>
+<li>Solo per computer con poca memoria o disco meccanico: <b>🐢 Modalità PC vecchio</b>.</li>
+</ol>
+<h2>Cosa fa esattamente ogni pulsante</h2>
+{{DETTAGLIO_OTTIMIZZA}}
+<div class="box tecnico"><span class="t">Le modifiche, nel dettaglio</span>
+<p>🪟 <b>Ottimizzazione</b>: elimina i temporanei più vecchi di un giorno e la cache di Windows Update; esegue <code>Optimize-Volume</code> (TRIM sugli SSD, deframmentazione sugli HDD);
+attiva il Sensore di memoria (temporanei e cestino oltre 30 giorni); piano energetico «Bilanciato» sui portatili, «Prestazioni elevate» sui fissi; aggiorna Microsoft Defender;
+svuota la cache DNS; spegne le app installate da sole e i suggerimenti pubblicitari (chiave <code>ContentDeliveryManager</code>, salvata prima in un file .reg).
+<b>Privacy</b>: ID pubblicitario, esperienze personalizzate, suggerimenti in Start e Esplora file, cronologia attività, ricerca web nel menu Start; diagnostica al livello minimo consentito.
+<b>PC vecchio</b>: effetti visivi «prestazioni migliori» con testo nitido, trasparenze spente, ricerca di Windows in avvio manuale sui dischi meccanici, registrazione giochi spenta.</p>
+<p>🐧 <b>Ottimizzazione</b>: pulizia dei pacchetti, registri oltre 14 giorni, Flatpak inutilizzati; TRIM settimanale (<code>fstrim.timer</code>); file <code>/etc/sysctl.d/90-consulente-digitale.conf</code>
+con swappiness adatta (100 con zram, 10 con 8 GB o più, altrimenti 30) e <code>vfs_cache_pressure=50</code>; avvio senza attendere la rete; profilo energetico bilanciato o TLP sui portatili;
+aggiornamenti di sicurezza automatici (<code>unattended-upgrades</code> o <code>dnf-automatic</code>). <b>PC vecchio</b>: memoria compressa <b>zram</b> (zstd, metà della RAM), animazioni del desktop spente
+(GNOME, Cinnamon, XFCE, KDE, MATE), indicizzazione dei file spenta.</p>
+<p>🍎 <b>Ottimizzazione</b>: istantanea locale, cache DNS, memoria inattiva (<code>purge</code>), verifica del disco, controllo e aggiornamenti di sicurezza automatici, pulizia Homebrew.
+<b>PC vecchio</b>: movimento e trasparenze ridotti, animazioni del Dock e delle finestre accorciate.</p></div>
+<h2>Le guide «Come fare»</h2>
+<p>Sei guide passo passo per Windows, Linux e Mac: creare una chiavetta avviabile, entrare nel BIOS/UEFI, togliere i programmi dall'avvio, tornare indietro se qualcosa va storto,
+trasferire foto dal telefono al PC, aggiungere una stampante di rete.</p>
+</section>
+
+<!-- ======================================================= 21 -->
+<section class="capitolo"><span class="marca">§§c21§§</span>
+<div class="capitolo-testa"><span class="num">21</span><div><div class="eti">CAPITOLO</div><h1>Gli script pronti all'uso</h1></div></div>
+<p class="intro">Ogni pulsante è uno script. Nella scheda <b>Ottimizza → 📜 Script pronti</b> potete leggerli tutti, per <b>Windows, Linux e macOS</b> (anche se il computer ha un altro sistema),
+copiarli, salvarli e stamparli: per controllarli, impararli o usarli su un altro computer senza il Consulente.</p>
+<div class="affianca"><figure><img src="img/script-elenco.jpg" alt=""><figcaption><b>Figura 21.1</b> L'elenco degli script per Windows.</figcaption></figure>
+<figure><img src="img/script-aperto.jpg" alt=""><figcaption><b>Figura 21.2</b> Uno script aperto, con Copia, Salva e Stampa.</figcaption></figure></div>
+<p>Lo script che salvate è <b>completo e pronto</b>: contiene un'intestazione con autore e istruzioni, le funzioni comuni (<code>_comune.ps1</code> o <code>_comune.sh</code>) e il corpo dell'azione.</p>
+<h2>Usarli senza il Consulente</h2>
+<table><thead><tr><th>Sistema</th><th>Come si esegue</th></tr></thead><tbody>
+<tr><td>🪟 Windows</td><td>Salvate il file <code>.ps1</code>. Per gli script senza 🔐: tasto destro → <b>Esegui con PowerShell</b>. Per quelli con 🔐: Start → scrivete «PowerShell» → tasto destro →
+<b>Esegui come amministratore</b>, poi <code>powershell -ExecutionPolicy Bypass -File "$HOME\Downloads\ottimizza.ps1"</code>.</td></tr>
+<tr><td>🐧 Linux</td><td><code>bash ottimizza.sh</code>, oppure <code>sudo bash ottimizza.sh</code> per quelli con 🔐.</td></tr>
+<tr><td>🍎 macOS</td><td>Nel Terminale: <code>bash pulizia.sh</code>, oppure <code>sudo bash ottimizza.sh</code> per quelli con 🔐.</td></tr>
+</tbody></table>
+<div class="box attenzione"><span class="t">Gli script con un parametro</span>«Installa un programma» e «Scarica il modello di IA» hanno bisogno di sapere <b>cosa</b> installare: nello script salvato
+la riga <code>CD_PARAM=''</code> (Linux, Mac) o <code>$CD_PARAM = ''</code> (Windows) è vuota. Scrivete tra gli apici, per esempio, <code>winget:Mozilla.Firefox</code>, <code>flatpak:org.mozilla.firefox</code>,
+<code>cask:firefox</code> o <code>qwen3.5:4b</code>. «Scarica e installa gli aggiornamenti» con il parametro vuoto installa da tutte le fonti.</div>
+<div class="box tecnico"><span class="t">Le righe che iniziano con @@</span>Lanciati a mano, gli script stampano anche righe come <code>@@PASSO|2|7|Pulizia</code> o <code>@@VOCE|sistema|curl|8.5.0|8.5.1|curl|</code>:
+sono i messaggi per la grafica del Consulente (capitolo 2) e si possono ignorare.</div>
+<p>Ricordate di stampare insieme agli script il capitolo 20, che spiega cosa modificano, e il capitolo 36, che spiega come tornare indietro.</p>
+</section>
+
+<!-- ======================================================= 22 -->
+<section class="capitolo"><span class="marca">§§c22§§</span>
+<div class="capitolo-testa"><span class="num">22</span><div><div class="eti">CAPITOLO</div><h1>Strumenti degli esperti</h1></div></div>
+<p class="intro">Per chi ha un po' di esperienza, il Consulente avvia con un clic alcuni strumenti famosi e affidabili, sempre scaricati dalla fonte ufficiale nel momento in cui servono.</p>
+<figure><img src="img/esperti.jpg" alt=""><figcaption><b>Figura 22.1</b> La scheda «Strumenti esperti» su Linux: LinUtil e le fonti ufficiali.</figcaption></figure>
+<h2>🧰 Chris Titus Tech WinUtil (Windows)</h2>
+<p>Lo strumento di <b>christitus.com</b>, uno dei più usati al mondo per sistemare Windows. Il Consulente apre una finestra di PowerShell come amministratore ed esegue il comando ufficiale
+<code>irm "https://christitus.com/win" | iex</code>. Nella finestra di WinUtil trovate le schede: <b>Install</b> (installare tanti programmi insieme con winget), <b>Tweaks</b> (ottimizzazioni:
+il pulsante <b>Standard</b> applica quelle consigliate e sicure), <b>Config</b> (funzionalità di Windows, riparazioni, «Fix Windows Update»), <b>Updates</b> (come ricevere gli aggiornamenti).
+Create sempre prima un punto di ripristino: Neura ve lo propone da sola.</p>
+<h2>🧰 Chris Titus Tech LinUtil (Linux)</h2>
+<p>La versione per Linux, nel terminale (<code>curl -fsSL https://christitus.com/linux | sh</code>): si usa con le frecce e <kbd>Invio</kbd>, si esce con <kbd>q</kbd>.
+Il Consulente apre il terminale del vostro desktop (GNOME Terminal, Konsole, XFCE Terminal e altri).</p>
+<h2>🍺 Homebrew (macOS)</h2>
+<p>Il gestore di programmi del Mac, installato con il comando ufficiale di <b>brew.sh</b> nel Terminale (chiede la password e di premere Invio). Dopo, «Installa» nei Programmi consigliati funziona con un clic.</p>
+<h2>📘 Stato della licenza di Windows</h2>
+<p>Mostra edizione e stato di attivazione con gli strumenti di Microsoft, solo in lettura. Il Consulente consiglia solo <b>licenze originali</b>: quella digitale legata all'account Microsoft,
+quelle comprate da Microsoft o da rivenditori autorizzati.</p>
+<h2>Cosa fanno, nel dettaglio (anche installare programmi e IA)</h2>
+{{DETTAGLIO_ESPERTI}}
+</section>
+
+<!-- ======================================================= 23 -->
+<section class="capitolo"><span class="marca">§§c23§§</span>
+<div class="capitolo-testa"><span class="num">23</span><div><div class="eti">CAPITOLO</div><h1>Salute, riparazioni e pilota automatico</h1></div></div>
+<p class="intro">La pagina <b>🩺 Salute e riparazioni</b> ha quattro schede: <b>Salute</b> (disco, batteria, sicurezza), <b>Internet</b> (velocità e riparazione della rete), <b>Riparazioni</b>
+(punto di ripristino, file di sistema, licenza) e <b>Ora esatta</b>. In alto a destra, il <b>🧭 Pilota automatico</b>.</p>
+<h2>🧭 Il pilota automatico</h2>
+<figure class="media"><img src="img/pilota.jpg" alt=""><figcaption><b>Figura 23.1</b> Il pilota automatico ha finito: Neura riassume e propone cosa fare.</figcaption></figure>
+<p>Uno dopo l'altro, <b>senza cambiare nulla</b>: analisi dell'hardware, ricerca degli aggiornamenti, controllo della sicurezza, salute del disco, rapporto della batteria. Ogni riga si spunta
+quando ha finito. Alla fine Neura legge il riassunto e propone i pulsanti giusti (installare gli aggiornamenti, ottimizzare, vedere l'analisi).
+<b>🖨️ Stampa il rapporto</b> produce il <b>rapporto di salute del computer</b>, perfetto da consegnare al proprietario di un PC che avete controllato.</p>
+<h2>Velocità di Internet</h2>
+<p>Si avvia solo quando premete <b>Misura adesso</b>: misura il tempo di risposta (5 collegamenti), scarica circa 25 MB e ne invia 5 ai server di prova di <b>Cloudflare</b>
+(<code>speed.cloudflare.com</code>), per al massimo 20 secondi. Giudizio: 100 Mbit/s e oltre «ottima», da 30 «buona», da 10 «sufficiente», sotto «lenta».</p>
+<h2>Ora esatta</h2>
+<figure class="media"><img src="img/ora.jpg" alt=""><figcaption><b>Figura 23.2</b> L'orologio grande, la fonte ufficiale e lo scarto dell'orologio del computer.</figcaption></figure>
+<h2>Cosa fanno, nel dettaglio</h2>
+{{DETTAGLIO_RIPARA}}
+<div class="box pericolo"><span class="t">Se il disco è in pericolo</span>Se la salute del disco non è «Healthy/PASSED/Verified», se ci sono settori riallocati o se Windows prevede un guasto,
+<b>fate subito una copia dei dati</b> su un altro disco e sostituite il disco. Non fate deframmentazioni o riparazioni lunghe prima della copia.</div>
+</section>
+
+<!-- ======================================================= 24 -->
+<section class="capitolo"><span class="marca">§§c24§§</span>
+<div class="capitolo-testa"><span class="num">24</span><div><div class="eti">CAPITOLO</div><h1>Programmi consigliati</h1></div></div>
+<p class="intro">{{N_PROGRAMMI}} programmi affidabili, quasi tutti gratuiti e liberi, scelti per sostituire quelli a pagamento e per non riempire il computer di cose inutili.</p>
+<figure><img src="img/programmi.jpg" alt=""><figcaption><b>Figura 24.1</b> Il catalogo: ricerca, filtri per il computer e il profilo, categorie.</figcaption></figure>
+<ul>
+<li><b>Cerca</b>: per nome o per bisogno («foto», «password», «PDF»…).</li>
+<li><b>Adatti a questo PC</b>: nasconde i programmi che chiedono più RAM di quella del computer. Con meno di 4 GB i programmi «🪶 leggeri» vanno in cima.</li>
+<li><b>Per «profilo»</b>: mostra quelli pensati per chi usa il programma (anziani, studenti, creativi, aziende…).</li>
+<li><b>Categorie</b>: navigare, ufficio, comunicare, foto/musica/video, grafica, sicurezza, studio, programmare, utilità, manutenzione, giochi, intelligenza artificiale.</li>
+<li><b>⬇️ Installa</b>: 🪟 da <b>winget</b> (catalogo Microsoft, installazione silenziosa); 🐧 da <b>Flathub</b> o dalla distribuzione (chiede la password); 🍎 da <b>Homebrew</b>.
+<span class="et v">libero</span> indica software libero o gratuito senza pubblicità.</li>
+</ul>
+<h2>Il catalogo completo</h2>
+<p class="small">Tra parentesi gli identificativi ufficiali usati per l'installazione.</p>
+{{TAB_PROGRAMMI}}
+</section>
+</div>

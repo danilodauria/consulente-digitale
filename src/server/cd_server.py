@@ -20,6 +20,9 @@ Serve l'interfaccia (src/web) SOLO su 127.0.0.1 e offre le API:
   GET  /api/aperture; POST /api/apri {id, token}       programmi e impostazioni che Neura apre col consenso (cd_aperture)
   GET  /api/nonni[/<id>[/file/<nome>]], /api/nonni/sito.zip; POST /api/nonni/salva|sito, /api/nonni/<id>/audio/<n>|monta|elimina  (cd_nonni)
   GET  /api/programma; POST /api/programma/controlla|scarica|installa   aggiornamenti del programma (cd_programma)
+  GET  /api/notizie[?nuovo=1]      notizie di informatica/elettronica dai feed RSS (cd_notizie), se attivate
+  POST /api/backup {audio}, /api/backup/importa?modo= (X-CD-Token), /api/reset {cosa,interviste}   backup .cdbackup e reset (cd_backup)
+  GET  /api/traduci?lingua=; POST /api/traduci {lingua,testi,modello}   traduzioni dei contenuti con l'IA locale (cd_traduci)
   POST /api/velocita               prova della velocita' di Internet (solo su richiesta)
   GET/POST /api/data/<chiave>      dati dell'utente (impostazioni, profilo, schede salvate, conversazione)
   POST /api/ciao, /api/spegni      presenza della finestra e spegnimento
@@ -53,6 +56,9 @@ import cd_hardware  # noqa: E402
 import cd_aperture  # noqa: E402
 import cd_nonni     # noqa: E402
 import cd_programma  # noqa: E402
+import cd_notizie   # noqa: E402
+import cd_backup    # noqa: E402
+import cd_traduci   # noqa: E402
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 SHARE_DIR = os.environ.get("CD_SHARE_DIR") or os.path.normpath(os.path.join(QUI, ".."))
@@ -81,7 +87,7 @@ STT_WORKER = os.path.join(QUI, "cd_stt_worker.py")
 OLLAMA_HOST = (os.environ.get("OLLAMA_HOST") or "http://127.0.0.1:11434").rstrip("/")
 if not OLLAMA_HOST.startswith("http"):
     OLLAMA_HOST = "http://" + OLLAMA_HOST
-CHIAVI_DATI = ("impostazioni", "profilo", "cronologia", "schede", "preferiti", "diario", "acquisti", "hardware", "interventi", "nonni", "circolare")
+CHIAVI_DATI = ("impostazioni", "profilo", "cronologia", "schede", "preferiti", "diario", "acquisti", "hardware", "interventi", "nonni", "circolare", "notizie")
 MAX_JSON = 2 * 1024 * 1024
 MAX_WAV = 12 * 1024 * 1024
 TOKEN = secrets.token_hex(16)        # cambia a ogni avvio: serve per le azioni che modificano il sistema
@@ -562,6 +568,16 @@ class Handler(BaseHTTPRequestHandler):
                     return self._send_file(dati, ctype)
             except ValueError as e:
                 return self._errore(404, str(e))
+        if path == "/api/notizie":
+            imp = leggi_json(os.path.join(DATA_DIR, "impostazioni.json"), {}) or {}
+            if imp.get("online") is False or imp.get("notizie") is False:
+                return self._errore(403, "notizie o Internet disattivati nelle impostazioni")
+            return self._send(200, cd_notizie.notizie(q.get("nuovo") == "1", DATA_DIR))
+        if path == "/api/traduci":
+            try:
+                return self._send(200, {"cache": cd_traduci.cache(DATA_DIR, q.get("lingua", ""))})
+            except ValueError as e:
+                return self._errore(400, str(e))
         if path == "/api/programma":
             return self._send(200, {"versione": VERSIONE, "tipo": cd_programma.tipo_installazione(SHARE_DIR), "manifesto": cd_programma.MANIFESTO,
                                     "stato": cd_programma.stato()})
@@ -627,6 +643,12 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/rete/velocita":
             self._corpo(4096)
             return self._send(200, prova_velocita())
+        # importazione di un backup .cdbackup (corpo grezzo, token nell'intestazione)
+        if path == "/api/backup/importa":
+            if self.headers.get("X-CD-Token") != TOKEN:
+                return self._errore(403, "sessione scaduta: ricarica la pagina")
+            corpo = self._corpo(cd_backup.MAX_BACKUP)
+            return self._send(200, cd_backup.importa(DATA_DIR, corpo, CHIAVI_DATI, VERSIONE, self._query().get("modo", "unisci")))
         # registrazione di una risposta di Nonni Teach (corpo audio grezzo, token nell'intestazione)
         m = re.match(r"^/api/nonni/([a-z0-9-]+)/audio/(\d{1,2})$", path)
         if m:
@@ -655,6 +677,20 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/programma/installa":
             srv = self.server
             return self._send(200, cd_programma.installa(SHARE_DIR, lambda: threading.Thread(target=srv.shutdown, daemon=True).start()))
+        if path == "/api/traduci":
+            modello = str(req.get("modello") or "").strip()
+            if not modello:
+                ok, modelli = ollama_modelli()
+                modello = modelli[0] if ok and modelli else ""
+            try:
+                return self._send(200, {"traduzioni": cd_traduci.traduci(DATA_DIR, str(req.get("lingua", "")), req.get("testi"), OLLAMA_HOST, modello)})
+            except (RuntimeError, OSError) as e:
+                return self._errore(503, "traduzione con l'IA locale non disponibile: %s" % e)
+        if path == "/api/backup":
+            corpo, nome = cd_backup.crea(DATA_DIR, CHIAVI_DATI, VERSIONE, bool(req.get("audio")))
+            return self._send_file(corpo, "application/zip", nome)
+        if path == "/api/reset":
+            return self._send(200, cd_backup.reset(DATA_DIR, req.get("cosa"), CHIAVI_DATI, VERSIONE, bool(req.get("interviste"))))
         if path == "/api/nonni/salva":
             return self._send(200, cd_nonni.salva(DATA_DIR, req.get("episodio")))
         if path == "/api/nonni/sito":

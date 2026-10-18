@@ -16,6 +16,7 @@ Ideato e sviluppato da Danilo D'Auria - Codice MIT, testi CC BY-NC-SA 4.0
 import hashlib
 import html
 import json
+import re
 import os
 import shutil
 import sys
@@ -40,6 +41,30 @@ def sha(p):
         for b in iter(lambda: f.read(1 << 20), b""):
             h.update(b)
     return h.hexdigest()
+
+
+def app_telefono(sito, v):
+    """Copia l'interfaccia in sito/app/: è l'app per telefono e tablet (Android, iPhone, iPad), installabile
+    dal browser («Aggiungi a schermata Home»). Funziona in modalità guida, senza azioni sul sistema.
+    Il service worker riceve l'elenco dei file e la versione, così l'app si apre anche senza Internet."""
+    app = os.path.join(sito, "app")
+    shutil.copytree(os.path.join(RADICE, "src", "web"), app)
+    core = os.path.join(app, "js", "core.js")
+    t = open(core, encoding="utf-8").read()
+    t = re.sub(r'CD\.versione = "[0-9.]*"', 'CD.versione = "%s"' % v, t)
+    open(core, "w", encoding="utf-8").write(t)
+    file = sorted(os.path.relpath(os.path.join(r, x), app).replace(os.sep, "/") for r, _, fs in os.walk(app) for x in fs)
+    file = ["./"] + [f for f in file if f != "sw.js"]
+    sw = os.path.join(app, "sw.js")
+    t = open(sw, encoding="utf-8").read()
+    t = t.replace('var VERSIONE = "sviluppo";', 'var VERSIONE = %s;' % json.dumps(v))
+    t = t.replace('var FILE = ["./", "index.html"];', "var FILE = %s;" % json.dumps(file, ensure_ascii=False))
+    open(sw, "w", encoding="utf-8").write(t)
+    with open(os.path.join(app, "LICENZA.txt"), "w", encoding="utf-8") as f:
+        f.write("Consulente Digitale %s - app per telefono e tablet\n© Danilo D'Auria - un progetto FeniceOS\n"
+                "Codice: licenza MIT. Testi, grafica, dizionari delle lingue, personaggio di Neura e banche dati: CC BY-NC-SA 4.0\n"
+                "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.it\n" % v)
+    print("App per telefono: %d file in sito/app/" % len(file))
 
 
 def main():
@@ -75,6 +100,7 @@ def main():
     with open(os.path.join(sito, "SHA256SUMS"), "w") as f:
         f.write("\n".join(somme) + "\n")
     open(os.path.join(sito, ".nojekyll"), "w").close()
+    app_telefono(sito, v)
     # immagini
     shutil.copy2(os.path.join(RADICE, "src", "web", "img", "logo.svg"), os.path.join(sito, "img", "logo.svg"))
     img = os.path.join(RADICE, "docs", "sorgenti", "img")
@@ -118,6 +144,11 @@ header img{width:140px;height:140px;filter:drop-shadow(0 0 30px rgba(56,189,248,
 <p><span class="versione">Versione %(v)s · %(data)s</span></p></header>
 <main>
 <div class="dl">%(bottoni)s</div>
+<h2>📱 Sul telefono e sul tablet (Android, iPhone, iPad)</h2>
+<div class="carte"><div><b>Aprite l'app</b><br><a href="app/"><b>%(base)s/app/</b></a><br>Funziona nel browser, anche senza Internet dopo la prima apertura. Niente account, niente pubblicità.</div>
+<div><b>🤖 Android</b><br>In Chrome aprite il link, poi menu ⋮ → <b>Installa app</b> (o «Aggiungi a schermata Home»).</div>
+<div><b>🍎 iPhone e iPad</b><br>In Safari aprite il link, poi <b>Condividi</b> ⬆️ → <b>Aggiungi alla schermata Home</b>.</div>
+<div><b>Cosa fa sul telefono</b><br>Neura, notizie, cosa comprare e quando, economia circolare, cose da sapere, storia, lingue, backup (.cdbackup). Le azioni sul sistema (aggiornamenti, ottimizzazioni, diagnosi) restano al programma per computer.</div></div>
 <h2>✨ Novità della versione %(v)s</h2><ul>%(novita)s</ul>
 <h2>🧠 Cosa fa</h2><div class="carte">
 <div><b>🧠 Neura</b><br>Ascolta, parla e si illumina; con l'intelligenza artificiale locale tutto resta sul vostro computer.</div>

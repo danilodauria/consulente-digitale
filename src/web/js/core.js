@@ -8,7 +8,7 @@
 (function () {
   "use strict";
   var CD = window.CD = window.CD || {};
-  CD.versione = "1.1.0";
+  CD.versione = "1.2.0";
 
   /* ------------------------------------------------------------------ utilita' */
   CD.$ = function (s, r) { return (r || document).querySelector(s); };
@@ -68,17 +68,18 @@
     if (!CD.server) return Promise.resolve(locale);
     return CD.api("/api/data/" + chiave).then(function (j) { return j.valore != null ? j.valore : locale; }, function () { return locale; });
   };
-  CD.salva = function (chiave, valore) {
+  CD.salva = function (chiave, valore, subito) {     // subito = true: salva adesso e restituisce una promessa (prima di ricaricare)
     ls(chiave, valore);
-    if (!CD.server) return;
+    if (!CD.server) return Promise.resolve();
     clearTimeout(timer[chiave]);
+    if (subito) return CD.api("/api/data/" + chiave, { valore: valore }).catch(function () {});
     timer[chiave] = setTimeout(function () { CD.api("/api/data/" + chiave, { valore: valore }).catch(function () {}); }, 400);
   };
 
   /* ------------------------------------------------------------------ impostazioni */
   CD.PREDEFINITE = {
     tema: "notte", testo: 18, voce: true, voceId: "auto", velocitaVoce: 1.0, online: true, oraInternet: true,
-    automatico: true, maniLibere: false, animazioni: "piene", modelloIA: "", micConsenso: false, saluto: true, nomeUtente: ""
+    automatico: true, maniLibere: false, animazioni: "piene", modelloIA: "", micConsenso: false, saluto: true, nomeUtente: "", notizie: true, lingua: "it", traduzioneIA: true
   };
   CD.imp = CD.copia(CD.PREDEFINITE);
   CD.salvaImpostazioni = function () { CD.salva("impostazioni", CD.imp); CD.applicaImpostazioni(); };
@@ -256,6 +257,7 @@
       '<div class="f-data">' + CD.esc(CD.dataEstesa(d)) + "<br>ore " + CD.oraTesto(d) + (chi ? "<br>per: <b>" + CD.esc(chi) + "</b>" : "") +
       (opz.codice ? "<br>Scheda n. " + CD.esc(opz.codice) : "") + "</div></header>" +
       '<main class="f-corpo">' + corpoHtml + "</main>" + (CD.piedeStampa ? CD.piedeStampa(opz.piede) : "") + "</body></html>";
+    if (CD.i18n && CD.i18n.attiva()) html = html.replace(/<body class="foglio">([\s\S]*)<\/body>/, function (m, b) { return '<body class="foglio">' + CD.i18n.traduciHtml(b) + "</body>"; }).replace('<html lang="it">', '<html lang="' + CD.i18n.lingua + '">');
     var fr = CD.$("#cornice-stampa");
     var doc = fr.contentWindow.document;
     doc.open(); doc.write(html); doc.close();

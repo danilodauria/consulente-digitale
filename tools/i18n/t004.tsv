@@ -1,0 +1,140 @@
+500	Boot	Démarrage	Arranque	Start	Pornire
+501	Traditional BIOS (Legacy)	BIOS traditionnel (Legacy)	BIOS tradicional (Legacy)	Klassisches BIOS (Legacy)	BIOS tradițional (Legacy)
+502	Expansion slots	Slots d'extension	Ranuras de expansión	Erweiterungssteckplätze	Sloturi de extensie
+503	=	=	Ranura	Steckplatz	=
+504	Status	État	Estado	Status	Stare
+505	=	=	=	=	=
+506	in use	occupé	ocupado	belegt	ocupat
+507	=	=	=	=	=
+508	Ports	Ports	Puertos	Anschlüsse	Porturi
+509	Port	Port	Puerto	Anschluss	Port
+510	Type	Type	Tipo	Typ	Tip
+511	=	=	=	=	=
+512	=	=	=	=	=
+513	=	=	=	=	=
+514	=	=	=	=	=
+515	=	Vidéo	Vídeo	=	=
+516	Audio jack	Prise jack audio	Conector de audio	Audioanschluss	Mufă audio
+517	=	=	=	=	=
+518	Test data	Données de test	Datos de prueba	Testdaten	Date de test
+519	· Updated at #:#	· Mis à jour à #:#	· Actualizado a las #:#	· Aktualisiert um #:#	· Actualizat la #:#
+520	Motherboard diagram	Schéma de la carte mère	Esquema de la placa base	Mainboard-Schema	Schema plăcii de bază
+521	Name	Nom	Nombre	Name	Nume
+522	=	=	=	=	=
+523	Manufacturer	Fabricant	Fabricante	Hersteller	Producător
+524	=	=	=	=	=
+525	Physical cores	Cœurs physiques	Núcleos físicos	Physische Kerne	Nuclee fizice
+526	Threads (parallel processes)	Threads (processus en parallèle)	Hilos (procesos en paralelo)	Threads (parallele Prozesse)	Fire de execuție (procese în paralel)
+527	Maximum frequency	Fréquence maximale	Frecuencia máxima	Maximale Frequenz	Frecvență maximă
+528	=	=	=	=	=
+529	Socket	Support (socket)	Zócalo (socket)	Sockel	Soclu (socket)
+530	=	=	=	=	=
+531	Architecture	Architecture	Arquitectura	Architektur	Arhitectură
+532	=	=	=	=	=
+533	Cache memory	Mémoire cache	Memoria caché	Cache-Speicher	Memorie cache
+534	Virtualisation	Virtualisation	Virtualización	Virtualisierung	Virtualizare
+535	present (needed for virtual machines and WSL)	présente (utile pour les machines virtuelles et WSL)	presente (sirve para máquinas virtuales y WSL)	vorhanden (nötig für virtuelle Maschinen und WSL)	prezentă (necesară pentru mașini virtuale și WSL)
+536	Special instructions	Instructions spéciales	Instrucciones especiales	Spezielle Befehlssätze	Instrucțiuni speciale
+537	=	=	=	=	=
+538	=	=	caché	=	=
+539	are small, very fast memories inside the processor; more	sont de petites mémoires très rapides dans le processeur ; plus de	son pequeñas memorias rapidísimas dentro del procesador; más	sind kleine, sehr schnelle Speicher im Prozessor; mehr	sunt memorii mici și foarte rapide din procesor; mai multe
+540	cores	cœurs	núcleos	Kerne	nuclee
+541	threads	threads	hilos	Threads	fire de execuție
+542	mean more work at the same time. The	signifient plus de tâches en même temps. Le	significan más trabajos a la vez. El	bedeuten mehr Arbeit gleichzeitig. Der	înseamnă mai multe lucrări în același timp. Soclul
+543	socket	support	zócalo	Sockel	=
+544	«BGA» means a soldered processor (typical of laptops): it cannot be changed.	« BGA » indique un processeur soudé (typique des portables) : il ne peut pas être changé.	«BGA» indica un procesador soldado (típico de los portátiles): no se puede cambiar.	„BGA“ bedeutet einen aufgelöteten Prozessor (typisch für Laptops): Er kann nicht getauscht werden.	„BGA” indică un procesor lipit (tipic laptopurilor): nu se poate schimba.
+545	Total	Total	Total	Gesamt	Total
+546	In use now	Utilisée maintenant	En uso ahora	Jetzt belegt	În uz acum
+547	Slots on the board	Slots sur la carte	Ranuras en la placa	Steckplätze auf der Platine	Sloturi pe placă
+548	Maximum supported	Maximum pris en charge	Máximo admitido	Maximal unterstützt	Maxim acceptat
+549	Installed modules	Modules installés	Módulos instalados	Installierte Module	Module instalate
+550	Position	Position	Posición	Position	Poziție
+551	Capacity	Capacité	Capacidad	Kapazität	Capacitate
+552	Speed	Vitesse	Velocidad	Geschwindigkeit	Viteză
+553	Brand	Marque	Marca	Marke	Marcă
+554	Code	Code	Código	Code	Cod
+555	Form factor	Format	Formato	Bauform	Format
+556	=	=	=	=	=
+557	=	=	=	=	=
+558	=	=	=	=	=
+559	=	=	=	=	=
+560	=	=	=	=	=
+561	=	=	=	=	=
+562	=	=	=	=	=
+563	soldered	soudée	soldada	verlötet	lipită
+564	Part of the memory is	Une partie de la mémoire est	Una parte de la memoria está	Ein Teil des Speichers ist	O parte din memorie este
+565	on the board: only the free slot can be expanded.	sur la carte : seul le slot libre peut être étendu.	en la placa: solo se puede ampliar la ranura libre.	auf der Platine: Nur der freie Steckplatz kann erweitert werden.	pe placă: se poate extinde doar slotul liber.
+566	=	=	=	=	=
+567	Video memory	Mémoire vidéo	Memoria de vídeo	Grafikspeicher	Memorie video
+568	=	Pilote	Controlador	Treiber	=
+569	Screen	Écran	Pantalla	Bildschirm	Ecran
+570	Use now	Utilisation actuelle	Uso ahora	Auslastung jetzt	Utilizare acum
+571	Connection	Connexion	Conexión	Anschluss	Conexiune
+572	=	=	=	=	=
+573	Health	Santé	Salud	Zustand	Stare
+574	=	=	=	=	=
+575	=	=	=	=	=
+576	=	=	=	=	=
+577	=	=	=	=	=
+578	=	=	=	=	=
+579	Space	Espace	Espacio	Speicherplatz	Spațiu
+580	Drive	Lecteur	Unidad	Laufwerk	Unitate
+581	Free	Libre	Libre	Frei	Liber
+582	health %	santé %	salud %	Zustand %	stare %
+583	Model	Modèle	Modelo	Modell	Model
+584	=	=	=	=	=
+585	Chemistry	Chimie	Química	Chemie	Chimie
+586	=	=	=	=	=
+587	Design capacity	Capacité nominale	Capacidad de diseño	Nennkapazität	Capacitate nominală
+588	Current full-charge capacity	Capacité actuelle à pleine charge	Capacidad actual con carga completa	Aktuelle Kapazität bei voller Ladung	Capacitate actuală la încărcare completă
+589	#% of the original capacity	#% de la capacité d'origine	#% de la capacidad original	#% der ursprünglichen Kapazität	#% din capacitatea inițială
+590	Charge cycles	Cycles de charge	Ciclos de carga	Ladezyklen	Cicluri de încărcare
+591	Charge now	Charge actuelle	Carga ahora	Ladung jetzt	Încărcare acum
+592	on battery	sur batterie	con batería	im Akkubetrieb	pe baterie
+593	Voltage	Tension	Tensión	Spannung	Tensiune
+594	Power	Puissance	Potencia	Leistung	Putere
+595	A lithium battery lasts on average #–# cycles. Below #% of the original capacity it is worth replacing. To make it last: avoid heat and, if possible, keep it between #% and #%.	Une batterie au lithium dure en moyenne #–# cycles. Sous #% de la capacité d'origine, mieux vaut la remplacer. Pour prolonger sa vie : évitez la chaleur et, si possible, gardez-la entre #% et #%.	Una batería de litio dura de media #–# ciclos. Por debajo del #% de la capacidad original conviene sustituirla. Para alargar su vida: evite el calor y, si es posible, manténgala entre el #% y el #%.	Ein Lithium-Akku hält im Schnitt #–# Zyklen. Unter #% der ursprünglichen Kapazität lohnt sich ein Austausch. Für ein langes Leben: Hitze vermeiden und ihn möglichst zwischen #% und #% halten.	O baterie cu litiu rezistă în medie #–# cicluri. Sub #% din capacitatea inițială merită înlocuită. Pentru a-i prelungi viața: evitați căldura și, dacă se poate, țineți-o între #% și #%.
+596	Network	Réseau	Red	Netzwerk	Rețea
+597	Adapter	Carte	Tarjeta	Adapter	Placă
+598	Physical address	Adresse physique	Dirección física	Physische Adresse	Adresă fizică
+599	=	=	=	=	=
+600	=	=	=	=	=
+601	Device	Appareil	Dispositivo	Gerät	Dispozitiv
+602	=	=	=	=	=
+603	Nothing detected.	Aucun élément détecté.	Ningún elemento detectado.	Nichts erkannt.	Niciun element detectat.
+604	🌡️ Temperatures	🌡️ Températures	🌡️ Temperaturas	🌡️ Temperaturen	🌡️ Temperaturi
+605	Sensor	Capteur	Sensor	Sensor	Senzor
+606	Component	Composant	Componente	Bauteil	Componentă
+607	Current	Actuel	Actual	Aktuell	Actual
+608	Minimum	Minimum	Mínimo	Minimum	Minim
+609	Maximum	Maximum	Máximo	Maximum	Maxim
+610	Limit	Limite	Límite	Grenze	Limită
+611	=	=	=	=	=
+612	=	=	=	=	=
+613	=	=	=	=	=
+614	=	=	=	=	=
+615	=	=	=	=	=
+616	=	=	=	=	=
+617	🌀 Fans	🌀 Ventilateurs	🌀 Ventiladores	🌀 Lüfter	🌀 Ventilatoare
+618	CPU fan	Ventilateur CPU	Ventilador de CPU	CPU-Lüfter	Ventilator CPU
+619	# rpm	# tr/min	# rpm	# U/min	# rot/min
+620	⚡ Voltages	⚡ Tensions	⚡ Tensiones	⚡ Spannungen	⚡ Tensiuni
+621	=	=	=	=	=
+622	🔌 Power	🔌 Puissance	🔌 Potencia	🔌 Leistung	🔌 Putere
+623	From the diagnosis to the jobs to do, then the sheet of jobs done: for you, for the technician or for the centre's helpdesk	Du diagnostic aux travaux à faire, puis la fiche des travaux effectués : pour vous, pour le technicien ou pour l'assistance du centre	Del diagnóstico a los trabajos por hacer, y luego la ficha de trabajos realizados: para usted, para el técnico o para la asistencia del centro	Von der Diagnose zu den anstehenden Arbeiten, dann das Protokoll der erledigten Arbeiten: für Sie, den Techniker oder den Helpdesk des Treffpunkts	De la diagnoză la lucrările de făcut, apoi fișa lucrărilor efectuate: pentru dvs., pentru tehnician sau pentru asistența centrului
+624	🔬 Run the diagnosis now	🔬 Faire le diagnostic maintenant	🔬 Hacer el diagnóstico ahora	🔬 Diagnose jetzt starten	🔬 Faceți diagnoza acum
+625	The program reads the computer's sensors, components and health, finds the problems and prepares the list of jobs. Nothing is changed without your click.	Le programme lit les capteurs, les composants et la santé de l'ordinateur, trouve les problèmes et prépare la liste des travaux. Rien n'est modifié sans votre clic.	El programa lee sensores, componentes y salud del ordenador, encuentra los problemas y prepara la lista de trabajos. No se cambia nada sin su clic.	Das Programm liest Sensoren, Bauteile und Zustand des Computers, findet die Probleme und erstellt die Arbeitsliste. Ohne Ihren Klick wird nichts geändert.	Programul citește senzorii, componentele și starea calculatorului, găsește problemele și pregătește lista lucrărilor. Nimic nu se schimbă fără clicul dvs.
+626	The computer always up to date, secure and with the right drivers, from official sources	L'ordinateur toujours à jour, sûr et avec les bons pilotes, depuis les sources officielles	El ordenador siempre actualizado, seguro y con los controladores adecuados, de fuentes oficiales	Der Computer immer aktuell, sicher und mit den richtigen Treibern, aus offiziellen Quellen	Calculatorul mereu actualizat, sigur și cu driverele potrivite, din surse oficiale
+627	🔄 Updates	🔄 Mises à jour	🔄 Actualizaciones	🔄 Updates	🔄 Actualizări
+628	Sources: distribution package manager, Flatpak/Snap, fwupd (firmware), ubuntu-drivers	Sources : gestionnaire de la distribution, Flatpak/Snap, fwupd (firmware), ubuntu-drivers	Fuentes: gestor de la distribución, Flatpak/Snap, fwupd (firmware), ubuntu-drivers	Quellen: Paketverwaltung der Distribution, Flatpak/Snap, fwupd (Firmware), ubuntu-drivers	Surse: managerul distribuției, Flatpak/Snap, fwupd (firmware), ubuntu-drivers
+629	🔎 Check for updates	🔎 Rechercher les mises à jour	🔎 Buscar actualizaciones	🔎 Nach Updates suchen	🔎 Caută actualizări
+630	🧩 Drivers and peripherals	🧩 Pilotes et périphériques	🧩 Controladores y periféricos	🧩 Treiber und Peripherie	🧩 Drivere și periferice
+631	Devices without drivers, new drivers, graphics card and your PC maker's official tool.	Appareils sans pilote, nouveaux pilotes, carte graphique et l'outil officiel du fabricant de votre PC.	Dispositivos sin controlador, controladores nuevos, tarjeta gráfica y la herramienta oficial del fabricante de su PC.	Geräte ohne Treiber, neue Treiber, Grafikkarte und das offizielle Werkzeug Ihres PC-Herstellers.	Dispozitive fără driver, drivere noi, placa video și instrumentul oficial al producătorului PC-ului.
+632	🧩 Check drivers	🧩 Contrôler les pilotes	🧩 Comprobar controladores	🧩 Treiber prüfen	🧩 Verifică driverele
+633	🛠️ Install drivers and firmware	🛠️ Installer pilotes et firmware	🛠️ Instalar controladores y firmware	🛠️ Treiber und Firmware installieren	🛠️ Instalează drivere și firmware
+634	📋 Result	📋 Résultat	📋 Resultado	📋 Ergebnis	📋 Rezultat
+635	Press «Check for updates»: a check that changes nothing.	Appuyez sur « Rechercher les mises à jour » : contrôle sans rien modifier.	Pulse «Buscar actualizaciones»: comprobación sin cambiar nada.	Drücken Sie „Nach Updates suchen“: eine Prüfung, die nichts verändert.	Apăsați „Caută actualizări”: verificare fără a schimba nimic.
+636	💡 Good to know	💡 Bon à savoir	💡 Conviene saber	💡 Gut zu wissen	💡 Bine de știut
+637	Long-term support (LTS) distributions get security updates for years: check the end-of-support date of your version.	Les distributions à support long (LTS) reçoivent des mises à jour de sécurité pendant des années : vérifiez la date de fin de support de votre version.	Las distribuciones con soporte largo (LTS) reciben actualizaciones de seguridad durante años: compruebe la fecha de fin de soporte de su versión.	Distributionen mit Langzeitunterstützung (LTS) erhalten jahrelang Sicherheitsupdates: Prüfen Sie das Support-Ende Ihrer Version.	Distribuțiile cu suport lung (LTS) primesc actualizări de securitate ani de zile: verificați data de sfârșit a suportului versiunii dvs.
+638	Firmware (BIOS, disks, docks) comes from LVFS via fwupd, if the manufacturer publishes it.	Le firmware (BIOS, disques, stations d'accueil) vient de LVFS via fwupd, si le fabricant le publie.	El firmware (BIOS, discos, bases) llega de LVFS mediante fwupd, si el fabricante lo publica.	Firmware (BIOS, Laufwerke, Docks) kommt über fwupd von LVFS, wenn der Hersteller sie veröffentlicht.	Firmware-ul (BIOS, discuri, docuri) vine de la LVFS prin fwupd, dacă producătorul îl publică.
+639	Before major updates: back up your data.	Avant les grandes mises à jour : sauvegardez vos données.	Antes de las grandes actualizaciones: copia de seguridad de los datos.	Vor großen Updates: Daten sichern.	Înainte de actualizările mari: copie de rezervă a datelor.

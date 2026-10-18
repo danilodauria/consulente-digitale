@@ -2,7 +2,7 @@
 <div class="pagina">
 <section class="parte"><div class="eti">PARTE II</div><h1>Installare</h1>
 <p>Come mettere il Consulente Digitale su Windows, Linux e Mac, come portarlo su una chiavetta e come toglierlo senza lasciare tracce.</p>
-<div class="capitoli"><div><b>4</b> Installare su Windows</div><div><b>5</b> Installare su Linux</div><div><b>6</b> Installare su macOS</div><div><b>7</b> Versione portatile e telefoni</div></div></section>
+<div class="capitoli"><div><b>4</b> Installare su Windows</div><div><b>5</b> Installare su Linux</div><div><b>6</b> Installare su macOS</div><div><b>7</b> Versione portatile e app per telefono</div></div></section>
 
 <!-- ======================================================= 4 -->
 <section class="capitolo"><span class="marca">§§c4§§</span>
@@ -20,7 +20,7 @@ controlla che la <b>firma digitale</b> sia della Python Software Foundation e lo
 <p>Trovate le icone <b>Consulente Digitale</b> sul <b>desktop</b> e nel <b>menu Start</b>. Riaprendo l'icona mentre il programma è già acceso, si riapre la stessa finestra senza avviare un secondo motore.</p>
 <div class="box attenzione"><span class="t">«Windows ha protetto il PC» e il Controllo intelligente delle app</span>
 <p>Questa prima versione non ha ancora la <b>firma digitale</b> di un certificato a pagamento: per questo <b>SmartScreen</b> mostra l'avviso blu la prima volta.
-«Ulteriori informazioni → Esegui comunque» è sicuro se il file arriva dalla pagina ufficiale del progetto e la sua impronta coincide con quella del file <code>SHA256SUMS</code> (capitolo 35).</p>
+«Ulteriori informazioni → Esegui comunque» è sicuro se il file arriva dalla pagina ufficiale del progetto e la sua impronta coincide con quella del file <code>SHA256SUMS</code> (capitolo 36).</p>
 <p>Su alcuni PC con Windows 11 è attivo il <b>Controllo intelligente delle app</b> (Sicurezza di Windows → Controllo app e browser), che blocca i programmi non firmati <b>senza</b> il pulsante
 «Esegui comunque». In quel caso <b>non spegnetelo</b> (una volta spento non si riaccende senza reinstallare Windows): aspettate la versione firmata o chiedete al vostro tecnico.</p></div>
 <h2>Come si apre il programma, dietro le quinte</h2>
@@ -81,7 +81,7 @@ rm -rf ~/.local/share/consulente-digitale           <span class="c"># (facoltati
 <li>La finestra si apre con Chrome, Edge o Brave se presenti, altrimenti in Safari.</li>
 </ol>
 <div class="box consiglio"><span class="t">Homebrew</span>Per installare con un clic i programmi consigliati e aggiornarli tutti insieme serve <b>Homebrew</b>, il gestore di programmi più usato sul Mac.
-Si installa dal Consulente: <b>Ottimizza → Strumenti esperti → Installa Homebrew</b> (capitolo 22).</div>
+Si installa dal Consulente: <b>Ottimizza → Strumenti esperti → Installa Homebrew</b> (capitolo 23).</div>
 <h2>Permessi del Mac</h2>
 <ul>
 <li>Le azioni da amministratore mostrano la richiesta della <b>password del Mac</b> con la frase «Consulente Digitale chiede il permesso per: …».</li>
@@ -95,20 +95,31 @@ Si installa dal Consulente: <b>Ottimizza → Strumenti esperti → Installa Home
 
 <!-- ======================================================= 7 -->
 <section class="capitolo"><span class="marca">§§c7§§</span>
-<div class="capitolo-testa"><span class="num">7</span><div><div class="eti">CAPITOLO</div><h1>Versione portatile e telefoni</h1></div></div>
+<div class="capitolo-testa"><span class="num">7</span><div><div class="eti">CAPITOLO</div><h1>Versione portatile e app per telefono</h1></div></div>
 <p class="intro">La versione portatile è pensata per <b>tecnici, volontari e scuole</b>: si mette su una chiavetta e si usa su qualsiasi computer, Windows, Linux o Mac, senza installare nulla.</p>
 <ol class="passi">
 <li>Estraete <code>ConsulenteDigitale-{{VERSIONE}}-portatile.zip</code> sulla chiavetta (o in una cartella).</li>
 <li>Avviate il file giusto: 🪟 <b>Avvia su Windows.bat</b> · 🐧 <b>avvia-linux-mac.sh</b> (o <code>sh avvia-linux-mac.sh</code>) · 🍎 <b>Avvia su Mac.command</b> (la prima volta tasto destro → Apri).</li>
 <li>Le impostazioni e la conversazione restano nella cartella <code>dati</code> accanto al programma (lo riconosce dal file <code>portatile.txt</code>). Su Windows, se serve, Python viene scaricato nella cartella <code>python</code> della chiavetta.</li>
 </ol>
-<div class="box consiglio"><span class="t">Il kit del tecnico</span>Una chiavetta con il Consulente portatile, gli script stampati (capitolo 21) e una seconda chiavetta Ventoy con FeniceOS e Linux Mint
+<div class="box consiglio"><span class="t">Il kit del tecnico</span>Una chiavetta con il Consulente portatile, gli script stampati (capitolo 22) e una seconda chiavetta Ventoy con FeniceOS e Linux Mint
 è un kit completo per analizzare, ripulire e far rinascere un computer a domicilio o in un centro anziani: analisi → scheda tecnica stampata → ottimizzazione o nuovo sistema → rapporto per il proprietario.</div>
-<h2>Telefoni e tablet</h2>
-<p>Telefoni e tablet non possono far girare il motore. Le pagine del Consulente aperte senza motore funzionano in <b>modalità guida</b>: la spia del sistema in alto diventa «📱 dispositivo»
-e restano disponibili la <b>scelta guidata per comprare</b> con il calendario delle occasioni e il controllo degli annunci, le <b>cose da sapere</b>, la <b>storia</b> e Neura con le risposte
-della guida interna. Le azioni sul computer, l'analisi e l'IA locale richiedono il programma installato sul computer. Quando le pagine saranno pubblicate sul sito del progetto
-basterà aprirle dal telefono; nel frattempo la modalità guida si può aprire su qualsiasi computer, anche senza Python, facendo doppio clic sulla pagina <code>app/web/index.html</code> della versione portatile (senza il catalogo dei programmi).</p>
-<figure class="mini"><img src="img/telefono.jpg" alt=""><figcaption><b>Figura 7.1</b> La plancia su un telefono: il menu si apre con ☰.</figcaption></figure>
+<h2>Telefoni e tablet: l'app</h2>
+<p>Telefoni e tablet non possono far girare il motore, ma dalla versione 1.2.0 il Consulente ha un'<b>app per Android, iPhone e iPad</b> pubblicata sul sito del progetto:
+<b>https://danilodauria.github.io/consulente-digitale/app/</b>. Si apre nel browser e si <b>installa</b> come un'app vera, con l'icona di Neura sulla schermata Home; dopo la prima apertura funziona <b>anche senza Internet</b>.</p>
+<ol class="passi">
+<li><b>🤖 Android</b> — aprite il link con <b>Chrome</b>, poi menu <b>⋮</b> → <b>«Installa app»</b> (o «Aggiungi a schermata Home») → <b>Installa</b>.</li>
+<li><b>🍎 iPhone e iPad</b> — aprite il link con <b>Safari</b>, poi <b>Condividi</b> ⬆️ → <b>«Aggiungi alla schermata Home»</b> → <b>Aggiungi</b>.</li>
+<li>Aprite l'app dall'icona: la prima volta chiede chi la userà, come sul computer.</li>
+</ol>
+<p>Nell'app funzionano <b>Neura</b> (con le risposte della guida interna), le <b>notizie</b> (aggiornate dal sito ogni tre ore), la <b>scelta guidata per comprare</b> con il calendario
+delle occasioni e il controllo degli annunci, l'<b>economia circolare</b>, le <b>cose da sapere</b>, la <b>storia</b>, le <b>sei lingue</b>, il <b>reset</b> e il <b>backup</b>.
+La spia in alto diventa «📱 Android», «📱 iPhone» o «📱 iPad». Le azioni sul computer, l'analisi, i sensori e l'IA locale richiedono il programma installato sul computer:
+le pagine relative lo spiegano. Per portare i dati dal computer al telefono (o viceversa) si usa il file <b>.cdbackup</b> (capitolo 13).</p>
+<div class="box tecnico"><span class="t">Privacy dell'app</span>L'app è la stessa interfaccia del programma, copiata sul sito a ogni versione, con un piccolo «service worker» che conserva i file
+per l'uso senza Internet. Non ha account, pubblicità né statistiche: impostazioni e dati restano nella memoria del browser del telefono. Codice MIT, contenuti CC BY-NC-SA 4.0,
+© Danilo D'Auria (file <code>LICENZA.txt</code> nella cartella dell'app). La modalità guida si apre anche su qualsiasi computer facendo doppio clic su <code>app/web/index.html</code> della versione portatile.</div>
+<figure class="mini"><img src="img/telefono.jpg" alt=""><figcaption><b>Figura 7.1</b> La plancia su un telefono: il menu si apre con ☰, i pulsanti stanno nella seconda riga.</figcaption></figure>
+<figure class="mini"><img src="img/telefono-app.jpg" alt=""><figcaption><b>Figura 7.2</b> In Impostazioni le istruzioni per installare l'app sul telefono.</figcaption></figure>
 </section>
 </div>

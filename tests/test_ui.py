@@ -51,7 +51,7 @@ def main():
     shutil.rmtree(FOTO, ignore_errors=True)
     os.makedirs(FOTO)
     dati = tempfile.mkdtemp(prefix="cd-test-")
-    env = dict(os.environ, CD_DATA_DIR=dati, OLLAMA_HOST="http://127.0.0.1:%d" % PORTA_IA, CD_HARDWARE_PROVA="1", CD_APERTURE_PROVA="1")
+    env = dict(os.environ, CD_DATA_DIR=dati, OLLAMA_HOST="http://127.0.0.1:%d" % PORTA_IA, CD_HARDWARE_PROVA="1", CD_APERTURE_PROVA="1", CD_NOTIZIE_PROVA="1")
     env.pop("DISPLAY", None)
     ia = subprocess.Popen([sys.executable, os.path.join(QUI, "finto_ollama.py"), str(PORTA_IA)])
     srv = subprocess.Popen([sys.executable, os.path.join(RADICE, "src", "server", "cd_server.py"), "--port", str(PORTA), "--inattivo", "0"], env=env)
@@ -101,6 +101,7 @@ def main():
             pg = ctx.new_page()
             pg.on("pageerror", lambda e: ERRORI.append("errore JS: %s %s" % (e, e.stack)))
             pg.on("console", lambda m: m.type == "error" and "favicon" not in m.text and ERRORI.append("console: " + m.text))
+            pg.on("response", lambda r: r.status >= 400 and ERRORI.append("risposta %d: %s" % (r.status, r.url)))
             base = "http://127.0.0.1:%d/" % PORTA
             pg.goto(base + "?nosaluto")
             pg.wait_for_selector("#benv-tipi .tessera")
@@ -224,6 +225,41 @@ def main():
             pg.wait_for_selector("#esito-batteria table, #esito-batteria .vuoto", timeout=30000)
             controlla(True, "azione avviata dall'interfaccia")
 
+            # 1.2.0 - Stop della voce
+            pg.goto(base + "#/")
+            pg.wait_for_selector("#btn-stop")
+            pg.evaluate("CD.parla && CD.parla('Prova della voce di Neura, una frase abbastanza lunga da fermare.')")
+            pg.click("#btn-stop")
+            controlla(not pg.evaluate("CD.staParlando()"), "il pulsante Stop ferma la voce")
+
+            # 1.2.0 - Notizie: elenco, salvataggio, condivisione, disattivazione
+            pg.goto(base + "#/notizie")
+            pg.wait_for_selector(".nz-card", timeout=15000)
+            controlla(pg.locator(".nz-card").count() >= 3, "notizie di prova in elenco")
+            controlla(pg.locator(".nz-card a[href*='wa.me']").count() + pg.locator("[data-condividi]").count() > 0 or "WhatsApp" in pg.inner_text("#principale"), "condivisione WhatsApp/Telegram/Facebook")
+            pg.screenshot(path=os.path.join(FOTO, "25-notizie.png"))
+            st_n = api("/api/notizie")
+            controlla(len(st_n.get("notizie", [])) >= 3, "API notizie")
+
+            # 1.2.0 - Reset: finestra con le scelte e richiesta di backup
+            pg.goto(base + "#/")
+            pg.click("#btn-reset")
+            pg.wait_for_selector(".modale", timeout=5000)
+            controlla("TUTTO" in pg.inner_text(".modale") or "Tutto" in pg.inner_text(".modale"), "reset: scelta selezionabile (anche tutto)")
+            pg.screenshot(path=os.path.join(FOTO, "26-reset.png"))
+            pg.keyboard.press("Escape")
+            bk = urllib.request.urlopen(urllib.request.Request("http://127.0.0.1:%d/api/backup" % PORTA, data=json.dumps({"token": st["token"]}).encode(),
+                                                               headers={"Content-Type": "application/json", "Origin": "http://127.0.0.1:%d" % PORTA}), timeout=30)
+            controlla(".cdbackup" in (bk.headers.get("Content-Disposition") or "") and bk.read(2) == b"PK", "backup .cdbackup (zip)")
+
+            # 1.2.0 - Lingue: inglese e ritorno all'italiano
+            pg.goto(base + "#/impostazioni"); time.sleep(1)
+            pg.evaluate("CD.i18n.cambia('en')"); time.sleep(4)
+            controlla("Settings" in pg.inner_text("#principale"), "interfaccia in inglese")
+            pg.screenshot(path=os.path.join(FOTO, "27-inglese.png"))
+            pg.evaluate("CD.i18n.cambia('it')"); time.sleep(4)
+            controlla("Impostazioni" in pg.inner_text("#principale"), "ritorno all'italiano")
+
             # Telefono
             tel = b.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True, locale="it-IT")
             pt = tel.new_page()
@@ -232,6 +268,7 @@ def main():
             pt.wait_for_selector(".plancia")
             time.sleep(1)
             pt.screenshot(path=os.path.join(FOTO, "23-telefono.png"), full_page=True)
+            controlla(pt.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), "telefono: niente scorrimento orizzontale")
             pt.goto(base + "?noprofilo&nosaluto#/acquisti/smartphone")
             pt.wait_for_selector("[data-chi]")
             pt.screenshot(path=os.path.join(FOTO, "24-telefono-acquisti.png"))

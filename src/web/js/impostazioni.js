@@ -24,6 +24,16 @@
       '<div class="riga"><button class="btn" id="imp-ia-ric">🔄 Ricontrolla</button><input id="imp-mod-altro" placeholder="Altro modello (es. llama3.2:3b)" style="max-width:16rem"><button class="btn" id="imp-mod-altro-b">📥 Scarica</button></div>';
   }
 
+  /* app per telefono e tablet: stessa interfaccia, pubblicata sul sito; si installa dal browser */
+  function telefono() {
+    var url = (CD.LICENZA ? CD.LICENZA.sito : "https://danilodauria.github.io/consulente-digitale/") + "app/";
+    return '<div class="scheda" id="imp-telefono"><h2>📱 App per telefono e tablet</h2>' +
+      '<p>Il Consulente Digitale si usa anche su Android, iPhone e iPad: aprite <a href="' + CD.esc(url) + '" target="_blank" rel="noopener">' + CD.esc(url) + '</a> e installatelo.</p>' +
+      '<ul><li><b>🤖 Android</b> (Chrome): menu ⋮ → «Installa app» o «Aggiungi a schermata Home».</li>' +
+      '<li><b>🍎 iPhone e iPad</b> (Safari): «Condividi» ⬆️ → «Aggiungi alla schermata Home».</li></ul>' +
+      '<p class="piccolo-testo">Sul telefono funzionano Neura, notizie, acquisti, economia circolare, cose da sapere, storia, lingue e backup. Le azioni sul sistema restano al programma per computer. Per portare i dati: «Crea un backup» qui e «Importa un backup» sul telefono (e viceversa).</p></div>';
+  }
+
   CD.registra("impostazioni", {
     titolo: "Impostazioni",
     mostra: function (el, parti) {
@@ -45,17 +55,19 @@
         '<div class="scheda"><h2>🎤 Microfono</h2><p>Motore: <b>' + ({ locale: "trascrizione sul computer (nulla esce dal PC)", browser: "riconoscimento del browser (la voce va a Google/Microsoft, solo con il vostro consenso)", "": "non disponibile" }[CD.motoreAscolto()]) + "</b></p>" +
         (CD.imp.micConsenso ? '<button class="btn" id="imp-mic-off">🔇 Revoca il consenso al riconoscimento del browser</button>' : "") +
         '<label class="opzione"><input type="checkbox" id="imp-mani"' + (CD.imp.maniLibere ? " checked" : "") + "> 🙌 Conversazione a mani libere (dopo la risposta Neura ascolta di nuovo)</label>" +
-        '<p class="piccolo-testo">Trascrizione sul computer: installate <b>Vosk</b> o <b>faster-whisper</b> per Python e mettete il modello in «' + esc((CD.stato.dati || "") + "/modelli") + '» (come nel Professore Digitale). Scorciatoia: Ctrl + Spazio.</p></div></div>' +
+        '<p class="piccolo-testo">Trascrizione sul computer: installate <b>Vosk</b> o <b>faster-whisper</b> per Python e mettete il modello nella cartella <code>' + esc((CD.stato.dati || "") + "/modelli") + '</code> (come nel Professore Digitale). Scorciatoia: Ctrl + Spazio.</p></div></div>' +
         '<div class="scheda" id="sez-ia"><h2>🧠 Cervello (IA locale)</h2><div id="imp-ia">' + sezioneIA() + "</div></div>" +
         '<div class="griglia-2"><div class="scheda"><h2>🌐 Internet e automatismi</h2>' +
         '<label class="opzione"><input type="checkbox" id="imp-online"' + (CD.imp.online ? " checked" : "") + "> 🌐 Il programma può usare Internet (ora esatta, link alle offerte, aggiornamenti)</label>" +
         '<label class="opzione"><input type="checkbox" id="imp-ora"' + (CD.imp.oraInternet ? " checked" : "") + "> 🕰️ Ora esatta da Internet (INRiM, NTP)</label>" +
         '<label class="opzione"><input type="checkbox" id="imp-auto"' + (CD.imp.automatico ? " checked" : "") + "> 🤖 Neura avvia da sola i controlli che non cambiano nulla</label>" +
+        '<label class="opzione"><input type="checkbox" id="imp-notizie"' + (CD.imp.notizie ? " checked" : "") + "> 📰 Notizie dal mondo digitale (si scaricano solo dai siti delle testate)</label>" +
         '<label class="opzione"><input type="checkbox" id="imp-saluto"' + (CD.imp.saluto ? " checked" : "") + "> 👋 Saluto all'avvio</label>" +
         '<p class="piccolo-testo">Senza il vostro clic il programma non installa e non modifica nulla. Nessun dato viene inviato all\'autore: niente telemetria.</p></div>' +
         '<div class="scheda"><h2>ℹ️ Informazioni</h2><table class="tab"><tr><th>Versione</th><td>' + esc(CD.stato.versione || CD.versione) + "</td></tr><tr><th>Sistema</th><td>" + esc(CD.stato.nome_sistema || CD.nomeSistema()) + "</td></tr>" +
         "<tr><th>Python</th><td>" + esc(CD.stato.python || "—") + "</td></tr><tr><th>Dati</th><td><code>" + esc(CD.stato.dati || "browser") + "</code></td></tr></table>" +
-        '<div class="riga" style="margin-top:.8rem"><button class="btn" id="imp-cron">🧹 Cancella la conversazione</button>' + (CD.server ? '<button class="btn rosso" id="imp-spegni">⏻ Chiudi il programma</button>' : "") + "</div></div></div>";
+        '<div class="riga" style="margin-top:.8rem"><button class="btn" id="imp-cron">🧹 Cancella la conversazione</button>' + (CD.server ? '<button class="btn rosso" id="imp-spegni">⏻ Chiudi il programma</button>' : "") + "</div></div></div>" +
+        (CD.backup ? CD.backup.riquadro() : "") + telefono();
 
       function salva() { CD.salvaImpostazioni(); }
       CD.$("#imp-nome", el).onchange = function () { CD.imp.nomeUtente = this.value.trim(); salva(); };
@@ -71,7 +83,10 @@
       CD.$("#imp-online", el).onchange = function () { CD.imp.online = this.checked; salva(); CD.controllaRete(); CD.sincronizzaOra(); };
       CD.$("#imp-ora", el).onchange = function () { CD.imp.oraInternet = this.checked; salva(); CD.sincronizzaOra(); };
       CD.$("#imp-auto", el).onchange = function () { CD.imp.automatico = this.checked; salva(); };
+      CD.$("#imp-notizie", el).onchange = function () { CD.imp.notizie = this.checked; salva(); };
       CD.$("#imp-saluto", el).onchange = function () { CD.imp.saluto = this.checked; salva(); };
+      if (CD.backup) CD.backup.collega(el);
+      if (parti[0] === "backup") setTimeout(function () { var s = CD.$("#sez-backup"); if (s) s.scrollIntoView({ behavior: "smooth" }); }, 100);
       CD.$("#imp-cron", el).onclick = function () { CD.neura.storia = []; CD.salva("cronologia", []); CD.avviso("Conversazione cancellata.", "ok"); };
       var sp = CD.$("#imp-spegni", el);
       if (sp) sp.onclick = function () { CD.conferma("Chiudere il Consulente Digitale?", "<p>Il programma si chiude. Per riaprirlo usate l'icona sul desktop o nel menu.</p>", "⏻ Chiudi").then(function (s) {

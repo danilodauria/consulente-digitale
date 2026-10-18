@@ -1,4 +1,4 @@
-# Consulente Digitale - pubblica la cartella «sito/» su GitHub Pages a ogni Push sul ramo main.
+# Consulente Digitale - pubblica la cartella «sito/» su GitHub Pages a ogni Push sul ramo main e ogni 3 ore (notizie).
 # La cartella si prepara con: python3 tools/prepara-pubblicazione.py (dopo ./build.sh).
 # Ideato e sviluppato da Danilo D'Auria - Codice MIT
 name: Pubblica il sito
@@ -6,6 +6,8 @@ on:
   push:
     branches: [main]
     paths: ["sito/**", ".github/workflows/pubblica-sito.yml"]
+  schedule:
+    - cron: "17 */3 * * *"        # ogni 3 ore aggiorna le notizie per i telefoni (notizie.json)
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,6 +26,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Controllo del manifesto degli aggiornamenti
         run: python3 -c "import json;m=json.load(open('sito/aggiornamenti.json'));print('Versione', m['versione'])"
+      - name: Notizie per l'app su telefono (titoli e link dai feed RSS pubblici)
+        run: python3 src/server/cd_notizie.py --json sito/notizie.json || echo '{"notizie":[],"fonti":[]}' > sito/notizie.json
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

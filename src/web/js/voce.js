@@ -34,10 +34,11 @@
   }
 
   /* ------------------------------------------------------------------ scelta della voce del sistema */
-  var FEMMINILI = /elsa|isabella|alice|federica|paola|emma|giorgia|elena|francesca|chiara|silvia|bianca|carla|serena|female|donna/i;
+  var FEMMINILI = /elsa|isabella|alice|federica|paola|emma|giorgia|elena|francesca|chiara|silvia|bianca|carla|serena|female|donna|zira|hazel|susan|libby|sonia|samantha|kate|serena|hortense|julie|amelie|denise|helena|laura|elvira|monica|paulina|hedda|katja|vicki|marlene|ioana|alina|andreea/i;
   CD.vociSistema = function () {
     if (!sintesi) return [];
-    return sintesi.getVoices().filter(function (v) { return /^it([-_]|$)/i.test(v.lang); });
+    var l = (CD.i18n && CD.i18n.lingua) || "it";
+    return sintesi.getVoices().filter(function (v) { return new RegExp("^" + l + "([-_]|$)", "i").test(v.lang); });
   };
   function scegliVoce() {
     var voci = CD.vociSistema();
@@ -66,7 +67,7 @@
     if (gen !== generazione) return;
     if (!coda.length) { finito(); risolvi(); return; }
     var f = coda.shift();
-    var server = CD.imp.voceId && CD.imp.voceId.indexOf("server:") === 0 && CD.server;
+    var server = CD.imp.voceId && CD.imp.voceId.indexOf("server:") === 0 && CD.server && !(CD.i18n && CD.i18n.attiva());   // le voci del server sono italiane
     if (CD.cervello) CD.cervello.stato("parla");
     if (server) {
       CD.api("/api/tts", { testo: f, voce: CD.imp.voceId.slice(7), velocita: CD.imp.velocitaVoce }, { grezzo: true }).then(function (r) { return r.blob(); }).then(function (b) {
@@ -92,7 +93,7 @@
     if (!sintesi) { finito(); risolvi(); return; }
     var u = new SpeechSynthesisUtterance(f), v = scegliVoce();
     if (v) u.voice = v;
-    u.lang = v ? v.lang : "it-IT"; u.rate = CD.imp.velocitaVoce || 1; u.pitch = 1.04;
+    u.lang = v ? v.lang : (CD.i18n ? CD.i18n.bcp() : "it-IT"); u.rate = CD.imp.velocitaVoce || 1; u.pitch = 1.04;
     var pulsa = setInterval(function () { CD.cervello.livello(0.35 + Math.random() * 0.55); }, 120);
     u.onboundary = function () { CD.cervello.livello(0.9); };
     u.onend = u.onerror = function () { clearInterval(pulsa); prossima(gen, risolvi); };
@@ -117,7 +118,19 @@
     if (audioEl) { try { audioEl.pause(); } catch (e2) { /* niente */ } audioEl = null; }
     if (CD.cervello && CD.cervello.stato() === "parla") CD.cervello.stato("riposo");
   };
-  CD.staParlando = function () { return inCorso; };
+  CD.staParlando = function () { return inCorso || !!(sintesi && sintesi.speaking) || !!(audioEl && !audioEl.paused); };
+  /* ⏹ STOP (in alto a destra, come nel Professore Digitale): ferma la voce, la lettura in corso e l'ascolto.
+     Si illumina mentre Neura parla. Ideato da Danilo D'Auria - Codice MIT */
+  CD.ferma = function () {
+    CD.taci();
+    if (ascolto) try { ascolto.ferma(); } catch (e) { /* niente */ }
+    document.querySelectorAll("audio").forEach(function (a) { if (!a.paused && a.getAttribute("data-neura") === "1") a.pause(); });
+    if (CD.neura && CD.neura.interrompi) CD.neura.interrompi();
+  };
+  setInterval(function () {
+    var b = document.getElementById("btn-stop");
+    if (b) b.classList.toggle("parla", CD.staParlando() || !!ascolto);
+  }, 250);
 
   /* ------------------------------------------------------------------ ascoltare */
   var Riconoscimento = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -142,7 +155,7 @@
       if (!si) throw new Error("annullato");
       return new Promise(function (risolvi, rifiuta) {
         var r = new Riconoscimento();
-        r.lang = "it-IT"; r.interimResults = true; r.maxAlternatives = 1; r.continuous = false;
+        r.lang = CD.i18n ? CD.i18n.bcp() : "it-IT"; r.interimResults = true; r.maxAlternatives = 1; r.continuous = false;
         var testo = "", parziale = "", livello = null;
         ascolto = { ferma: function () { try { r.stop(); } catch (e) { /* niente */ } } };
         r.onresult = function (e) {

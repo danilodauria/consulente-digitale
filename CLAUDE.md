@@ -14,6 +14,7 @@ contenuti CC BY-NC-SA 4.0 (`LICENZA-CONTENUTI.md`). Leggere tutto prima di modif
   Flathub, fwupd/LVFS, Apple, Homebrew, ollama.com, christitus.com). Verificare le firme quando possibile (Python, Ollama).
 - **Server senza dipendenze**, Python 3.7+ (`vermin -t=3.7- --no-tips --violations src/server/*.py`). Interfaccia in JS ES5, niente framework, niente CDN.
 - **Lingua**: italiano semplice e gentile, adatto agli anziani. Ogni stampa usa `CD.stampa()` (piè di pagina `CD.piedeStampa` in `licenza.js`).
+- **Testi nuovi dell'interfaccia**: aggiungere la traduzione nelle 5 lingue in `tools/i18n/extra.tsv` e rigenerare i dizionari.
 - **Prezzi**: solo fasce indicative con la data in `CD.ACQ.aggiornato` (`data-acquisti.js`): aggiornarla quando si cambiano.
 
 ## Mappa del codice
@@ -37,6 +38,10 @@ contenuti CC BY-NC-SA 4.0 (`LICENZA-CONTENUTI.md`). Leggere tutto prima di modif
 | `src/web/js/nonni.js`, `data-nonni.js` | Nonni Teach e la banca delle domande (contesti, temi) |
 | `src/web/js/circolare.js`, `aperture.js`, `cerca.js`, `programma.js` | Economia circolare; banner del consenso; Cerca/Stampa in alto a destra; aggiornamenti del programma |
 | altre pagine | `benvenuto`, `inizio`, `aggiornamenti`, `ottimizza`, `strumenti` (con il pilota automatico), `programmi`, `sapere`, `storia`, `impostazioni`, `licenza` |
+| `src/server/cd_notizie.py`, `src/web/js/notizie.js` | Notizie: elenco chiuso di feed RSS verificati (`FONTI`), temi per regex, cache 30 min; solo titolo, riassunto e link (diritti delle testate). `CD_NOTIZIE_PROVA=1` = notizie finte. Il workflow crea `sito/notizie.json` per l'app del telefono |
+| `src/server/cd_backup.py`, `src/web/js/backup.js` | File `.cdbackup` (zip: JSON + LICENZA + LEGGIMI + audio facoltativo), importazione unisci/sostituisci con percorsi sicuri, copie automatiche, reset a scelta |
+| `src/web/js/i18n.js`, `src/web/i18n/*.json`, `src/server/cd_traduci.py`, `tools/i18n/` | Lingue (it, en, fr, es, de, ro). Chiavi = italiano normalizzato (# numeri, @g giorni, @m mesi, nello STESSO ordine nella traduzione). Si scrivono i lotti `tools/i18n/t*.tsv` ed `extra.tsv`, poi `python3 tools/i18n/costruisci.py`. Testi mancanti → IA locale (cache in `traduzioni/`) |
+| `src/web/manifest.webmanifest`, `src/web/sw.js` | App per telefono (PWA) in `sito/app/`: il service worker si registra solo su https senza server locale; `prepara-pubblicazione.py` scrive versione ed elenco dei file |
 | `packaging/`, `build.sh` | .deb, installatore NSIS (per utente), app macOS, portatile |
 | `tests/` | `test_ui.py` (Playwright, finto Ollama), `controlla_powershell.py` (tree-sitter) |
 

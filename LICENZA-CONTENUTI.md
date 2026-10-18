@@ -12,6 +12,10 @@ Sono contenuti, e quindi coperti da questa licenza:
 - i testi dell'**economia circolare**: numeri, regole, consigli, domande, quiz e patto (`src/web/js/circolare.js`);
 - lo **schema della scheda madre** generato dal programma, le regole e le soglie della diagnosi, i testi delle schede di diagnosi e dei lavori
   (`src/web/js/scheda-madre.js`, `src/web/js/hardware.js`, `src/web/js/interventi.js`);
+- le **traduzioni dell'interfaccia** in inglese, francese, spagnolo, tedesco e rumeno (`src/web/i18n/*.json`, `tools/i18n/*.tsv`) e i testi del selettore delle lingue;
+- i testi delle **notizie** del programma (temi, filtri per profilo, pagina stampabile) — non i titoli e i riassunti delle notizie, che restano delle testate (vedi sotto);
+- il **formato `.cdbackup`** e i suoi testi (`LICENZA.txt`, `LEGGIMI.txt` scritti in ogni backup da `src/server/cd_backup.py`), i testi del reset e del backup;
+- l'**app per telefono e tablet** pubblicata in `sito/app/` (stessa interfaccia, con `manifest.webmanifest`, icone e `LICENZA.txt`);
 - le novità delle versioni (`docs/novita.json`), il sito del progetto generato da `tools/prepara-pubblicazione.py` e la pagina del podcast generata da Nonni Teach;
 - i testi delle pagine, le schede stampabili, le descrizioni delle azioni;
 - le immagini, le icone (compresa l'icona di Neura disegnata da `tools/disegna-icona.py`), la grafica, il personaggio del cervello digitale «Neura» e il marchio della fenice.
@@ -47,4 +51,7 @@ sul diritto d'autore (L. 633/1941). Per usi diversi da quelli consentiti, contat
   FFmpeg e i programmi del catalogo) mantengono la propria licenza e si scaricano sempre dalle loro fonti ufficiali.
 - Le **registrazioni di Nonni Teach** appartengono alle persone intervistate e a chi le realizza: si pubblicano solo con il loro
   consenso; il sito generato le propone con licenza CC BY-NC-SA 4.0 come indicato nella liberatoria.
+- Le **notizie** (titoli, riassunti, immagini) appartengono alle testate che le pubblicano: ANSA, HDblog, Punto Informatico, Tom's Hardware, Hardware Upgrade,
+  IlSoftware.it, HTML.it, Elettronica News, Red Hot Cyber. Il programma legge solo i loro feed RSS pubblici e mostra titolo, poche righe, fonte e link all'articolo originale.
+- I **dati** che l'utente mette nel programma e nei file `.cdbackup` appartengono all'utente.
 - I marchi citati appartengono ai rispettivi proprietari e sono usati solo per descrivere compatibilità e prodotti.

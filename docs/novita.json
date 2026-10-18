@@ -1,17 +1,41 @@
 {
  "_nota": "Novità di ogni versione, dalla più recente. Le usa tools/prepara-pubblicazione.py per il sito e per aggiornamenti.json. Testi CC BY-NC-SA 4.0 - Danilo D'Auria",
  "versioni": [
-  {"versione": "1.1.0", "data": "2026-10-15", "novita": [
-   "Hardware e sensori: temperature, ventole, consumi e lavoro di ogni core in diretta; schede tecniche di processore, scheda madre, memoria, grafica, dischi e batteria (come HWiNFO, CPU-Z e GPU-Z)",
-   "Schema della scheda madre disegnato dai componenti letti, con i punti di un guasto imminente evidenziati",
-   "Diagnosi e interventi: lavori da eseguire (anche con un clic), lavori fatti e due schede professionali da stampare",
-   "Nonni Teach: Neura intervista i nonni con centinaia di domande per centro anziani, scuola, biblioteca, famiglia e quartiere; registra le risposte e crea il podcast con i capitoli, il sito e il feed RSS",
-   "Economia circolare: percorso «cosa ne faccio?», regole RAEE e diritti UE (riparazione, USB-C, batterie), consigli, quiz e patto da stampare",
-   "Neura apre impostazioni, programmi e servizi del sistema, sempre dopo il vostro consenso",
-   "Pulsanti Cerca e Stampa in alto a destra (anche Ctrl+K e Ctrl+P)",
-   "Scarica gli aggiornamenti: il programma si aggiorna dal sito ufficiale con verifica SHA-256",
-   "Nuova icona di Neura",
-   "Correzione: i PC con Intel di 10ª-14ª generazione (es. i5-1235U) con Windows 11 non risultano più «non compatibili»; lettura del TPM migliorata"]},
-  {"versione": "1.0.0", "data": "2026-10-14", "novita": ["Prima versione: Neura, analisi del PC, cosa comprare e quando, aggiornamenti e driver, ottimizzazione, salute e riparazioni, programmi consigliati, cose da sapere, storia dei computer, vademecum"]}
+  {
+   "versione": "1.2.0",
+   "data": "2026-10-18",
+   "novita": [
+    "Pulsante ⏹ Stop in alto a destra, vicino all'altoparlante: ferma subito la voce di Neura (anche con il tasto Esc)",
+    "📰 Notizie dal mondo dell'informatica e dell'elettronica, scelte per il vostro profilo da testate italiane affidabili: si attivano e disattivano, si salvano, si stampano o si salvano in PDF e si condividono su WhatsApp, Telegram e Facebook",
+    "🌐 Il programma parla inglese, francese, spagnolo, tedesco e rumeno: interfaccia tradotta, Neura risponde e legge nella lingua scelta, stampe tradotte",
+    "🧹 Reset: cancella l'ultima domanda, i nomi rimasti o tutto, a scelta; prima propone un backup",
+    "💾 Backup e ripristino con i file .cdbackup, da importare su questo computer o su un altro (Windows, Linux, macOS) e sul telefono",
+    "📱 App per telefono e tablet (Android, iPhone, iPad) da installare dal sito, funziona anche senza Internet",
+    "Barra in alto più comoda sugli schermi piccoli"
+   ]
+  },
+  {
+   "versione": "1.1.0",
+   "data": "2026-10-15",
+   "novita": [
+    "Hardware e sensori: temperature, ventole, consumi e lavoro di ogni core in diretta; schede tecniche di processore, scheda madre, memoria, grafica, dischi e batteria (come HWiNFO, CPU-Z e GPU-Z)",
+    "Schema della scheda madre disegnato dai componenti letti, con i punti di un guasto imminente evidenziati",
+    "Diagnosi e interventi: lavori da eseguire (anche con un clic), lavori fatti e due schede professionali da stampare",
+    "Nonni Teach: Neura intervista i nonni con centinaia di domande per centro anziani, scuola, biblioteca, famiglia e quartiere; registra le risposte e crea il podcast con i capitoli, il sito e il feed RSS",
+    "Economia circolare: percorso «cosa ne faccio?», regole RAEE e diritti UE (riparazione, USB-C, batterie), consigli, quiz e patto da stampare",
+    "Neura apre impostazioni, programmi e servizi del sistema, sempre dopo il vostro consenso",
+    "Pulsanti Cerca e Stampa in alto a destra (anche Ctrl+K e Ctrl+P)",
+    "Scarica gli aggiornamenti: il programma si aggiorna dal sito ufficiale con verifica SHA-256",
+    "Nuova icona di Neura",
+    "Correzione: i PC con Intel di 10ª-14ª generazione (es. i5-1235U) con Windows 11 non risultano più «non compatibili»; lettura del TPM migliorata"
+   ]
+  },
+  {
+   "versione": "1.0.0",
+   "data": "2026-10-14",
+   "novita": [
+    "Prima versione: Neura, analisi del PC, cosa comprare e quando, aggiornamenti e driver, ottimizzazione, salute e riparazioni, programmi consigliati, cose da sapere, storia dei computer, vademecum"
+   ]
+  }
  ]
 }

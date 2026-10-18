@@ -1,0 +1,20 @@
+{
+  "name": "Consulente Digitale",
+  "short_name": "Consulente",
+  "description": "Il cervello che sceglie, aggiorna e ottimizza i tuoi dispositivi. Ideato e sviluppato da Danilo D'Auria — contenuti CC BY-NC-SA 4.0, codice MIT.",
+  "lang": "it",
+  "dir": "ltr",
+  "start_url": "./?app=1",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#050816",
+  "theme_color": "#050816",
+  "categories": ["education", "utilities", "productivity"],
+  "icons": [
+    { "src": "img/icona-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "img/icona-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "img/icona-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "img/logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

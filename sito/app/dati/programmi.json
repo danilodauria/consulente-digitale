@@ -1,0 +1,1026 @@
+{
+ "versione": 1,
+ "licenza": "CC BY-NC-SA 4.0",
+ "autore": "Danilo D'Auria",
+ "nota": "Catalogo dei programmi consigliati. Gli identificativi sono quelli dei cataloghi ufficiali: winget (Microsoft), Flathub, repository della distribuzione, Homebrew.",
+ "categorie": {
+  "browser": "🌐 Navigare",
+  "ufficio": "📝 Ufficio",
+  "comunicazione": "💬 Comunicare",
+  "multimedia": "🎬 Foto, musica e video",
+  "grafica": "🎨 Grafica",
+  "sicurezza": "🛡️ Sicurezza",
+  "studio": "📚 Studio",
+  "sviluppo": "💻 Programmare",
+  "utilita": "🧰 Utilità",
+  "manutenzione": "🔧 Manutenzione",
+  "giochi": "🎮 Giochi",
+  "ia": "🧠 Intelligenza artificiale"
+ },
+ "programmi": [
+  {
+   "id": "firefox",
+   "nome": "Firefox",
+   "categoria": "browser",
+   "descrizione": "Browser libero e attento alla privacy, con estensioni per bloccare la pubblicità.",
+   "ram_min_gb": 2,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.mozilla.org/it/firefox/",
+   "pacchetti": {
+    "windows": "winget:Mozilla.Firefox",
+    "linux": "flatpak:org.mozilla.firefox",
+    "mac": "cask:firefox"
+   }
+  },
+  {
+   "id": "chrome",
+   "nome": "Google Chrome",
+   "categoria": "browser",
+   "descrizione": "Il browser più diffuso: compatibile con tutto, ma usa molta memoria.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": false,
+   "sito": "https://www.google.com/chrome/",
+   "pacchetti": {
+    "windows": "winget:Google.Chrome",
+    "linux": "flatpak:com.google.Chrome",
+    "mac": "cask:google-chrome"
+   }
+  },
+  {
+   "id": "brave",
+   "nome": "Brave",
+   "categoria": "browser",
+   "descrizione": "Basato su Chromium, blocca pubblicità e tracciamento già da solo.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://brave.com/it/",
+   "pacchetti": {
+    "windows": "winget:Brave.Brave",
+    "linux": "flatpak:com.brave.Browser",
+    "mac": "cask:brave-browser"
+   }
+  },
+  {
+   "id": "libreoffice",
+   "nome": "LibreOffice",
+   "categoria": "ufficio",
+   "descrizione": "Suite per ufficio libera: testi, fogli di calcolo, presentazioni. Apre i file di Word ed Excel.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://it.libreoffice.org/",
+   "pacchetti": {
+    "windows": "winget:TheDocumentFoundation.LibreOffice",
+    "linux": "flatpak:org.libreoffice.LibreOffice",
+    "mac": "cask:libreoffice"
+   }
+  },
+  {
+   "id": "onlyoffice",
+   "nome": "ONLYOFFICE",
+   "categoria": "ufficio",
+   "descrizione": "Suite per ufficio con un aspetto simile a Microsoft Office, ottima compatibilità con i file .docx/.xlsx.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.onlyoffice.com/it/",
+   "pacchetti": {
+    "windows": "winget:ONLYOFFICE.DesktopEditors",
+    "linux": "flatpak:org.onlyoffice.desktopeditors",
+    "mac": "cask:onlyoffice"
+   }
+  },
+  {
+   "id": "thunderbird",
+   "nome": "Thunderbird",
+   "categoria": "comunicazione",
+   "descrizione": "Posta elettronica, calendario e rubrica in un unico programma, anche per più caselle.",
+   "ram_min_gb": 2,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.thunderbird.net/it/",
+   "pacchetti": {
+    "windows": "winget:Mozilla.Thunderbird",
+    "linux": "flatpak:org.mozilla.Thunderbird",
+    "mac": "cask:thunderbird"
+   }
+  },
+  {
+   "id": "sumatra",
+   "nome": "SumatraPDF",
+   "categoria": "ufficio",
+   "descrizione": "Lettore PDF velocissimo e leggerissimo, ideale sui PC vecchi.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.sumatrapdfreader.org/",
+   "pacchetti": {
+    "windows": "winget:SumatraPDF.SumatraPDF"
+   }
+  },
+  {
+   "id": "notepadpp",
+   "nome": "Notepad++",
+   "categoria": "ufficio",
+   "descrizione": "Editor di testo semplice e potente.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "professionisti",
+    "studenti"
+   ],
+   "libero": true,
+   "sito": "https://notepad-plus-plus.org/",
+   "pacchetti": {
+    "windows": "winget:Notepad++.Notepad++"
+   }
+  },
+  {
+   "id": "joplin",
+   "nome": "Joplin",
+   "categoria": "ufficio",
+   "descrizione": "Appunti e liste organizzate, sincronizzabili e cifrate.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "studenti",
+    "professionisti"
+   ],
+   "libero": true,
+   "sito": "https://joplinapp.org/",
+   "pacchetti": {
+    "windows": "winget:Joplin.Joplin",
+    "linux": "flatpak:net.cozic.joplin_desktop",
+    "mac": "cask:joplin"
+   }
+  },
+  {
+   "id": "obsidian",
+   "nome": "Obsidian",
+   "categoria": "ufficio",
+   "descrizione": "Appunti collegati tra loro, file di testo sul vostro computer.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "studenti",
+    "professionisti"
+   ],
+   "libero": false,
+   "sito": "https://obsidian.md/",
+   "pacchetti": {
+    "windows": "winget:Obsidian.Obsidian",
+    "linux": "flatpak:md.obsidian.Obsidian",
+    "mac": "cask:obsidian"
+   }
+  },
+  {
+   "id": "vlc",
+   "nome": "VLC",
+   "categoria": "multimedia",
+   "descrizione": "Riproduce qualsiasi video e musica, senza codec da cercare.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.videolan.org/vlc/index.it.html",
+   "pacchetti": {
+    "windows": "winget:VideoLAN.VLC",
+    "linux": "flatpak:org.videolan.VLC",
+    "mac": "cask:vlc"
+   }
+  },
+  {
+   "id": "audacity",
+   "nome": "Audacity",
+   "categoria": "multimedia",
+   "descrizione": "Registrare e montare l'audio: voce, interviste, podcast.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "creativi",
+    "scuola",
+    "studenti"
+   ],
+   "libero": true,
+   "sito": "https://www.audacityteam.org/",
+   "pacchetti": {
+    "windows": "winget:Audacity.Audacity",
+    "linux": "flatpak:org.audacityteam.Audacity",
+    "mac": "cask:audacity"
+   }
+  },
+  {
+   "id": "obs",
+   "nome": "OBS Studio",
+   "categoria": "multimedia",
+   "descrizione": "Registrare lo schermo e trasmettere in diretta (lezioni, dirette, tutorial).",
+   "ram_min_gb": 8,
+   "leggero": false,
+   "profili": [
+    "creativi",
+    "scuola",
+    "gamer"
+   ],
+   "libero": true,
+   "sito": "https://obsproject.com/it",
+   "pacchetti": {
+    "windows": "winget:OBSProject.OBSStudio",
+    "linux": "flatpak:com.obsproject.Studio",
+    "mac": "cask:obs"
+   }
+  },
+  {
+   "id": "shotcut",
+   "nome": "Shotcut",
+   "categoria": "multimedia",
+   "descrizione": "Montaggio video semplice e libero.",
+   "ram_min_gb": 8,
+   "leggero": false,
+   "profili": [
+    "creativi",
+    "studenti"
+   ],
+   "libero": true,
+   "sito": "https://shotcut.org/",
+   "pacchetti": {
+    "windows": "winget:Meltytech.Shotcut",
+    "linux": "flatpak:org.shotcut.Shotcut",
+    "mac": "cask:shotcut"
+   }
+  },
+  {
+   "id": "kdenlive",
+   "nome": "Kdenlive",
+   "categoria": "multimedia",
+   "descrizione": "Montaggio video completo, con effetti e titoli.",
+   "ram_min_gb": 8,
+   "leggero": false,
+   "profili": [
+    "creativi"
+   ],
+   "libero": true,
+   "sito": "https://kdenlive.org/it/",
+   "pacchetti": {
+    "windows": "winget:KDE.Kdenlive",
+    "linux": "flatpak:org.kde.kdenlive",
+    "mac": "cask:kdenlive"
+   }
+  },
+  {
+   "id": "handbrake",
+   "nome": "HandBrake",
+   "categoria": "multimedia",
+   "descrizione": "Converte e rimpicciolisce i video per telefono, TV o web.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "creativi"
+   ],
+   "libero": true,
+   "sito": "https://handbrake.fr/",
+   "pacchetti": {
+    "windows": "winget:HandBrake.HandBrake",
+    "linux": "flatpak:fr.handbrake.ghb"
+   }
+  },
+  {
+   "id": "spotify",
+   "nome": "Spotify",
+   "categoria": "multimedia",
+   "descrizione": "Musica e podcast in streaming.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": false,
+   "sito": "https://www.spotify.com/it/",
+   "pacchetti": {
+    "windows": "winget:Spotify.Spotify",
+    "linux": "flatpak:com.spotify.Client",
+    "mac": "cask:spotify"
+   }
+  },
+  {
+   "id": "gimp",
+   "nome": "GIMP",
+   "categoria": "grafica",
+   "descrizione": "Ritocco fotografico avanzato, alternativa libera a Photoshop.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "creativi",
+    "studenti",
+    "professionisti"
+   ],
+   "libero": true,
+   "sito": "https://www.gimp.org/",
+   "pacchetti": {
+    "windows": "winget:GIMP.GIMP.3",
+    "linux": "flatpak:org.gimp.GIMP",
+    "mac": "cask:gimp"
+   }
+  },
+  {
+   "id": "pinta",
+   "nome": "Pinta",
+   "categoria": "grafica",
+   "descrizione": "Disegno e ritocco semplicissimi, perfetto per iniziare.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti",
+    "anziani",
+    "scuola"
+   ],
+   "libero": true,
+   "sito": "https://www.pinta-project.com/",
+   "pacchetti": {
+    "linux": "flatpak:com.github.PintaProject.Pinta"
+   }
+  },
+  {
+   "id": "inkscape",
+   "nome": "Inkscape",
+   "categoria": "grafica",
+   "descrizione": "Grafica vettoriale: loghi, volantini, illustrazioni.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "creativi",
+    "professionisti",
+    "scuola"
+   ],
+   "libero": true,
+   "sito": "https://inkscape.org/it/",
+   "pacchetti": {
+    "windows": "winget:Inkscape.Inkscape",
+    "linux": "flatpak:org.inkscape.Inkscape",
+    "mac": "cask:inkscape"
+   }
+  },
+  {
+   "id": "krita",
+   "nome": "Krita",
+   "categoria": "grafica",
+   "descrizione": "Pittura digitale con tavoletta grafica.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "creativi"
+   ],
+   "libero": true,
+   "sito": "https://krita.org/it/",
+   "pacchetti": {
+    "windows": "winget:KDE.Krita",
+    "linux": "flatpak:org.kde.krita",
+    "mac": "cask:krita"
+   }
+  },
+  {
+   "id": "blender",
+   "nome": "Blender",
+   "categoria": "grafica",
+   "descrizione": "Modellazione 3D, animazione e montaggio: lo standard libero professionale.",
+   "ram_min_gb": 16,
+   "leggero": false,
+   "profili": [
+    "creativi",
+    "gamer"
+   ],
+   "libero": true,
+   "sito": "https://www.blender.org/",
+   "pacchetti": {
+    "windows": "winget:BlenderFoundation.Blender",
+    "linux": "flatpak:org.blender.Blender",
+    "mac": "cask:blender"
+   }
+  },
+  {
+   "id": "darktable",
+   "nome": "darktable",
+   "categoria": "grafica",
+   "descrizione": "Sviluppo dei file RAW per fotografi, alternativa a Lightroom.",
+   "ram_min_gb": 8,
+   "leggero": false,
+   "profili": [
+    "creativi"
+   ],
+   "libero": true,
+   "sito": "https://www.darktable.org/",
+   "pacchetti": {
+    "windows": "winget:darktable.darktable",
+    "linux": "flatpak:org.darktable.Darktable",
+    "mac": "cask:darktable"
+   }
+  },
+  {
+   "id": "digikam",
+   "nome": "digiKam",
+   "categoria": "grafica",
+   "descrizione": "Organizza migliaia di foto con volti, luoghi ed etichette.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "tutti",
+    "creativi"
+   ],
+   "libero": true,
+   "sito": "https://www.digikam.org/",
+   "pacchetti": {
+    "windows": "winget:KDE.digikam",
+    "linux": "flatpak:org.kde.digikam",
+    "mac": "cask:digikam"
+   }
+  },
+  {
+   "id": "freecad",
+   "nome": "FreeCAD",
+   "categoria": "grafica",
+   "descrizione": "Progettazione 3D tecnica (CAD) e per la stampa 3D.",
+   "ram_min_gb": 8,
+   "leggero": false,
+   "profili": [
+    "professionisti",
+    "scuola",
+    "aziende"
+   ],
+   "libero": true,
+   "sito": "https://www.freecad.org/",
+   "pacchetti": {
+    "windows": "winget:FreeCAD.FreeCAD",
+    "linux": "flatpak:org.freecad.FreeCAD",
+    "mac": "cask:freecad"
+   }
+  },
+  {
+   "id": "keepassxc",
+   "nome": "KeePassXC",
+   "categoria": "sicurezza",
+   "descrizione": "Cassaforte delle password sul vostro computer, senza abbonamenti.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://keepassxc.org/",
+   "pacchetti": {
+    "windows": "winget:KeePassXCTeam.KeePassXC",
+    "linux": "flatpak:org.keepassxc.KeePassXC",
+    "mac": "cask:keepassxc"
+   }
+  },
+  {
+   "id": "bitwarden",
+   "nome": "Bitwarden",
+   "categoria": "sicurezza",
+   "descrizione": "Gestore di password sincronizzato su PC e telefono, gratuito.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://bitwarden.com/it-it/",
+   "pacchetti": {
+    "windows": "winget:Bitwarden.Bitwarden",
+    "linux": "flatpak:com.bitwarden.desktop",
+    "mac": "cask:bitwarden"
+   }
+  },
+  {
+   "id": "malwarebytes",
+   "nome": "Malwarebytes",
+   "categoria": "sicurezza",
+   "descrizione": "Seconda opinione contro virus e programmi indesiderati (versione gratuita su richiesta).",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": false,
+   "sito": "https://www.malwarebytes.com/it",
+   "pacchetti": {
+    "windows": "winget:Malwarebytes.Malwarebytes",
+    "mac": "cask:malwarebytes"
+   }
+  },
+  {
+   "id": "protonvpn",
+   "nome": "Proton VPN",
+   "categoria": "sicurezza",
+   "descrizione": "VPN con versione gratuita, utile sulle reti Wi-Fi pubbliche.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "professionisti",
+    "studenti"
+   ],
+   "libero": true,
+   "sito": "https://protonvpn.com/it",
+   "pacchetti": {
+    "windows": "winget:Proton.ProtonVPN",
+    "linux": "flatpak:com.protonvpn.www",
+    "mac": "cask:protonvpn"
+   }
+  },
+  {
+   "id": "rustdesk",
+   "nome": "RustDesk",
+   "categoria": "comunicazione",
+   "descrizione": "Assistenza a distanza: un familiare o il tecnico vede il vostro schermo per aiutarvi.",
+   "ram_min_gb": 2,
+   "leggero": true,
+   "profili": [
+    "tutti",
+    "anziani",
+    "aziende"
+   ],
+   "libero": true,
+   "sito": "https://rustdesk.com/it/",
+   "pacchetti": {
+    "windows": "winget:RustDesk.RustDesk",
+    "linux": "flatpak:com.rustdesk.RustDesk",
+    "mac": "cask:rustdesk"
+   }
+  },
+  {
+   "id": "zoom",
+   "nome": "Zoom",
+   "categoria": "comunicazione",
+   "descrizione": "Videochiamate e riunioni.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": false,
+   "sito": "https://zoom.us/",
+   "pacchetti": {
+    "windows": "winget:Zoom.Zoom",
+    "linux": "flatpak:us.zoom.Zoom",
+    "mac": "cask:zoom"
+   }
+  },
+  {
+   "id": "telegram",
+   "nome": "Telegram",
+   "categoria": "comunicazione",
+   "descrizione": "Messaggi e gruppi dal computer.",
+   "ram_min_gb": 2,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://desktop.telegram.org/",
+   "pacchetti": {
+    "windows": "winget:Telegram.TelegramDesktop",
+    "linux": "flatpak:org.telegram.desktop",
+    "mac": "cask:telegram"
+   }
+  },
+  {
+   "id": "signal",
+   "nome": "Signal",
+   "categoria": "comunicazione",
+   "descrizione": "Messaggi cifrati, il più rispettoso della privacy.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://signal.org/it/",
+   "pacchetti": {
+    "windows": "winget:OpenWhisperSystems.Signal",
+    "linux": "flatpak:org.signal.Signal",
+    "mac": "cask:signal"
+   }
+  },
+  {
+   "id": "localsend",
+   "nome": "LocalSend",
+   "categoria": "comunicazione",
+   "descrizione": "Passare foto e file tra telefono e computer nella stessa rete, senza cavi né Internet.",
+   "ram_min_gb": 2,
+   "leggero": true,
+   "profili": [
+    "tutti",
+    "anziani",
+    "scuola"
+   ],
+   "libero": true,
+   "sito": "https://localsend.org/",
+   "pacchetti": {
+    "windows": "winget:LocalSend.LocalSend",
+    "linux": "flatpak:org.localsend.localsend_app",
+    "mac": "cask:localsend"
+   }
+  },
+  {
+   "id": "calibre",
+   "nome": "Calibre",
+   "categoria": "studio",
+   "descrizione": "Biblioteca di libri digitali: organizza, converte e invia all'e-reader.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "tutti",
+    "studenti",
+    "anziani"
+   ],
+   "libero": true,
+   "sito": "https://calibre-ebook.com/",
+   "pacchetti": {
+    "windows": "winget:calibre.calibre",
+    "linux": "flatpak:com.calibre_ebook.calibre",
+    "mac": "cask:calibre"
+   }
+  },
+  {
+   "id": "anki",
+   "nome": "Anki",
+   "categoria": "studio",
+   "descrizione": "Schede di memoria per studiare (lingue, esami) con ripasso intelligente.",
+   "ram_min_gb": 2,
+   "leggero": false,
+   "profili": [
+    "studenti",
+    "scuola"
+   ],
+   "libero": true,
+   "sito": "https://apps.ankiweb.net/",
+   "pacchetti": {
+    "windows": "winget:Anki.Anki",
+    "linux": "flatpak:net.ankiweb.Anki",
+    "mac": "cask:anki"
+   }
+  },
+  {
+   "id": "vscode",
+   "nome": "Visual Studio Code",
+   "categoria": "sviluppo",
+   "descrizione": "Editor per programmare, il più usato al mondo.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "professionisti",
+    "studenti"
+   ],
+   "libero": true,
+   "sito": "https://code.visualstudio.com/",
+   "pacchetti": {
+    "windows": "winget:Microsoft.VisualStudioCode",
+    "linux": "flatpak:com.visualstudio.code",
+    "mac": "cask:visual-studio-code"
+   }
+  },
+  {
+   "id": "7zip",
+   "nome": "7-Zip",
+   "categoria": "utilita",
+   "descrizione": "Apre e crea archivi .zip, .7z, .rar.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.7-zip.org/",
+   "pacchetti": {
+    "windows": "winget:7zip.7zip",
+    "linux": "flatpak:io.github.peazip.PeaZip",
+    "mac": "cask:the-unarchiver"
+   }
+  },
+  {
+   "id": "everything",
+   "nome": "Everything",
+   "categoria": "utilita",
+   "descrizione": "Trova qualsiasi file sul PC all'istante mentre scrivete.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.voidtools.com/",
+   "pacchetti": {
+    "windows": "winget:voidtools.Everything"
+   }
+  },
+  {
+   "id": "wiztree",
+   "nome": "WizTree",
+   "categoria": "manutenzione",
+   "descrizione": "Mostra in pochi secondi cosa occupa spazio sul disco.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": false,
+   "sito": "https://diskanalyzer.com/",
+   "pacchetti": {
+    "windows": "winget:AntibodySoftware.WizTree"
+   }
+  },
+  {
+   "id": "powertoys",
+   "nome": "PowerToys",
+   "categoria": "utilita",
+   "descrizione": "Utilità di Microsoft: finestre affiancate, ridimensionare foto, prendere testo dallo schermo.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "professionisti",
+    "studenti"
+   ],
+   "libero": true,
+   "sito": "https://learn.microsoft.com/it-it/windows/powertoys/",
+   "pacchetti": {
+    "windows": "winget:Microsoft.PowerToys",
+    "mac": "cask:rectangle"
+   }
+  },
+  {
+   "id": "sharex",
+   "nome": "ShareX",
+   "categoria": "utilita",
+   "descrizione": "Catture dello schermo con frecce, testo e registrazioni.",
+   "ram_min_gb": 2,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://getsharex.com/",
+   "pacchetti": {
+    "windows": "winget:ShareX.ShareX",
+    "linux": "flatpak:org.flameshot.Flameshot"
+   }
+  },
+  {
+   "id": "crystaldiskinfo",
+   "nome": "CrystalDiskInfo",
+   "categoria": "manutenzione",
+   "descrizione": "Salute del disco a colori: blu bene, giallo attenzione, rosso copia i dati.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://crystalmark.info/",
+   "pacchetti": {
+    "windows": "winget:CrystalDewWorld.CrystalDiskInfo",
+    "linux": "pkg:gsmartcontrol"
+   }
+  },
+  {
+   "id": "hwinfo",
+   "nome": "HWiNFO",
+   "categoria": "manutenzione",
+   "descrizione": "Tutti i dettagli dell'hardware e le temperature.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "gamer",
+    "professionisti"
+   ],
+   "libero": false,
+   "sito": "https://www.hwinfo.com/",
+   "pacchetti": {
+    "windows": "winget:REALiX.HWiNFO",
+    "linux": "flatpak:io.missioncenter.MissionCenter",
+    "mac": "cask:stats"
+   }
+  },
+  {
+   "id": "bleachbit",
+   "nome": "BleachBit",
+   "categoria": "manutenzione",
+   "descrizione": "Pulizia approfondita di cache e file inutili.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://www.bleachbit.org/",
+   "pacchetti": {
+    "windows": "winget:BleachBit.BleachBit",
+    "linux": "pkg:bleachbit"
+   }
+  },
+  {
+   "id": "timeshift",
+   "nome": "Timeshift",
+   "categoria": "manutenzione",
+   "descrizione": "«Macchina del tempo» per Linux: riporta il sistema a ieri se qualcosa si rompe.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://github.com/linuxmint/timeshift",
+   "pacchetti": {
+    "linux": "pkg:timeshift"
+   }
+  },
+  {
+   "id": "appcleaner",
+   "nome": "AppCleaner",
+   "categoria": "manutenzione",
+   "descrizione": "Disinstalla le app del Mac insieme ai file che lasciano in giro.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://freemacsoft.net/appcleaner/",
+   "pacchetti": {
+    "mac": "cask:appcleaner"
+   }
+  },
+  {
+   "id": "rufus",
+   "nome": "Rufus",
+   "categoria": "manutenzione",
+   "descrizione": "Crea chiavette USB avviabili per installare Windows o Linux.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "professionisti",
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://rufus.ie/it/",
+   "pacchetti": {
+    "windows": "winget:Rufus.Rufus"
+   }
+  },
+  {
+   "id": "ventoy",
+   "nome": "Ventoy",
+   "categoria": "manutenzione",
+   "descrizione": "Una chiavetta con tanti sistemi: copiate le ISO e scegliete all'avvio.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "professionisti"
+   ],
+   "libero": true,
+   "sito": "https://www.ventoy.net/",
+   "pacchetti": {
+    "windows": "winget:Ventoy.Ventoy"
+   }
+  },
+  {
+   "id": "bottles",
+   "nome": "Bottles",
+   "categoria": "utilita",
+   "descrizione": "Usare alcuni programmi di Windows dentro Linux.",
+   "ram_min_gb": 4,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://usebottles.com/",
+   "pacchetti": {
+    "linux": "flatpak:com.usebottles.bottles"
+   }
+  },
+  {
+   "id": "flatseal",
+   "nome": "Flatseal",
+   "categoria": "utilita",
+   "descrizione": "Gestisce i permessi delle app Flatpak (cartelle, microfono, rete).",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://github.com/tchx84/Flatseal",
+   "pacchetti": {
+    "linux": "flatpak:com.github.tchx84.Flatseal"
+   }
+  },
+  {
+   "id": "steam",
+   "nome": "Steam",
+   "categoria": "giochi",
+   "descrizione": "Il negozio di videogiochi per PC (su Linux con Proton molti giochi Windows funzionano).",
+   "ram_min_gb": 8,
+   "leggero": false,
+   "profili": [
+    "gamer"
+   ],
+   "libero": false,
+   "sito": "https://store.steampowered.com/",
+   "pacchetti": {
+    "windows": "winget:Valve.Steam",
+    "linux": "flatpak:com.valvesoftware.Steam",
+    "mac": "cask:steam"
+   }
+  },
+  {
+   "id": "lmstudio",
+   "nome": "LM Studio",
+   "categoria": "ia",
+   "descrizione": "Prova i modelli di IA locali con un'interfaccia semplice.",
+   "ram_min_gb": 16,
+   "leggero": false,
+   "profili": [
+    "professionisti",
+    "studenti"
+   ],
+   "libero": false,
+   "sito": "https://lmstudio.ai/",
+   "pacchetti": {
+    "windows": "winget:ElementLabs.LMStudio",
+    "mac": "cask:lm-studio"
+   }
+  },
+  {
+   "id": "alpaca",
+   "nome": "Alpaca",
+   "categoria": "ia",
+   "descrizione": "Chat con l'IA locale (Ollama) per Linux, semplice e privata.",
+   "ram_min_gb": 8,
+   "leggero": false,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://jeffser.com/alpaca/",
+   "pacchetti": {
+    "linux": "flatpak:com.jeffser.Alpaca"
+   }
+  },
+  {
+   "id": "librehardwaremonitor",
+   "nome": "LibreHardwareMonitor",
+   "categoria": "manutenzione",
+   "descrizione": "Legge temperature, ventole, tensioni e consumi di processore, scheda video e dischi. Il Consulente Digitale lo usa per i «Sensori avanzati».",
+   "ram_min_gb": 2,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor",
+   "pacchetti": {
+    "windows": "winget:LibreHardwareMonitor.LibreHardwareMonitor"
+   }
+  },
+  {
+   "id": "cpu-x",
+   "nome": "CPU-X",
+   "categoria": "manutenzione",
+   "descrizione": "Scheda tecnica di processore, scheda madre, memoria e grafica, come CPU-Z ma libero.",
+   "ram_min_gb": 1,
+   "leggero": true,
+   "profili": [
+    "tutti"
+   ],
+   "libero": true,
+   "sito": "https://thetumultuousunicornofdarkness.github.io/CPU-X/",
+   "pacchetti": {
+    "linux": "flatpak:io.github.thetumultuousunicornofdarkness.cpu-x"
+   }
+  }
+ ]
+}

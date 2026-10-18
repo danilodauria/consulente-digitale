@@ -20,7 +20,7 @@ All'avvio si sceglie chi userà il programma (capitolo 8) e tutti i consigli si 
 <h2>I principi</h2>
 <ul>
 <li><b>Il computer è vostro.</b> Il programma <b>non cambia nulla senza un vostro clic</b>. Prima di ogni azione spiega cosa farà, se servono i permessi di amministratore e se servirà un riavvio.</li>
-<li><b>Trasparenza totale.</b> Ogni azione automatica è uno script leggibile, stampabile e salvabile (capitolo 21). Questo vademecum descrive cosa fa ogni script, passo per passo.</li>
+<li><b>Trasparenza totale.</b> Ogni azione automatica è uno script leggibile, stampabile e salvabile (capitolo 22). Questo vademecum descrive cosa fa ogni script, passo per passo.</li>
 <li><b>Privacy per costruzione.</b> L'intelligenza artificiale gira <b>sul computer</b>: quello che dite a Neura non esce da qui. Niente account, niente pubblicità, niente telemetria verso l'autore.</li>
 <li><b>Fonti ufficiali e basta.</b> Aggiornamenti, driver e programmi arrivano solo dai canali ufficiali: Windows Update, Microsoft Store e winget; i repository della distribuzione Linux, Flathub e fwupd; Apple e Homebrew.</li>
 <li><b>Tecnologia gentile.</b> Prima di consigliare di comprare, il programma cerca di far <b>rinascere</b> ciò che avete: un SSD, più memoria, un sistema operativo leggero. È lo spirito del libro «Tecnologia Gentile» e di FeniceOS.</li>
@@ -63,21 +63,21 @@ il Professore viene usata anche da Neura.</div>
 </div>
 <div class="schema">
 <div><b>🧠 Il cervello</b>Neura. Riconosce da sola molte richieste; per conversare di tutto usa l'IA locale Ollama.</div><span>⇄</span>
-<div><b>💾 I dati</b>Impostazioni, profilo e conversazione, salvati in una cartella vostra (capitolo 38). Nessun dato va all'autore.</div>
+<div><b>💾 I dati</b>Impostazioni, profilo e conversazione, salvati in una cartella vostra (capitolo 39). Nessun dato va all'autore.</div>
 </div>
 <h2>Il motore</h2>
 <p>Quando aprite il Consulente Digitale parte il <b>motore</b>, scritto in Python usando solo la libreria standard: niente componenti strani da installare.
 Il motore ascolta <b>solo</b> all'indirizzo interno <code>127.0.0.1</code> (il computer stesso): nessun altro dispositivo della rete può collegarsi. La porta è la <b>8810</b>,
 o la prima libera dopo. Il motore:</p>
 <ul>
-<li>legge le caratteristiche del computer (capitolo 17), <b>senza inviarle</b> a nessuno;</li>
-<li>chiede l'ora esatta ai server dell'ora ufficiale, se lo permettete (capitolo 15);</li>
+<li>legge le caratteristiche del computer (capitolo 18), <b>senza inviarle</b> a nessuno;</li>
+<li>chiede l'ora esatta ai server dell'ora ufficiale, se lo permettete (capitolo 16);</li>
 <li>passa le vostre domande all'IA locale e porta indietro le risposte parola per parola;</li>
 <li>avvia le <b>azioni</b> che scegliete e vi mostra in diretta cosa stanno facendo;</li>
 <li>si spegne da solo dopo 15 minuti senza finestra aperta (mai mentre un'azione è in corso).</li>
 </ul>
 <h2>Le azioni: una lista chiusa</h2>
-<p>La finestra <b>non può far eseguire comandi qualsiasi</b>. Può solo chiedere al motore una delle {{N_AZIONI}} azioni del catalogo (capitolo 38), ognuna con il suo script.
+<p>La finestra <b>non può far eseguire comandi qualsiasi</b>. Può solo chiedere al motore una delle {{N_AZIONI}} azioni del catalogo (capitolo 39), ognuna con il suo script.
 L'unico dato che si può passare a un'azione è controllato con una «lista bianca»: il nome di un programma del catalogo, il nome di un modello di IA, le fonti di aggiornamento.
 In più ogni sessione ha un <b>codice segreto</b> generato a ogni avvio: senza quel codice nessuna azione parte. È come una cassaforte con un elenco fisso di cose che si possono chiedere.</p>
 <h2>Come un'azione chiede i permessi</h2>
@@ -126,8 +126,8 @@ Altrimenti si aprono nel browser predefinito (Firefox, Safari): funziona tutto, 
 <tr><td><code>consulente-digitale_{{VERSIONE}}_all.deb</code></td><td>🐧 Pacchetto per Debian, Ubuntu, Mint, Zorin, FeniceOS (capitolo 5)</td></tr>
 <tr><td><code>ConsulenteDigitale-{{VERSIONE}}-macOS.zip</code></td><td>🍎 L'app per Mac (capitolo 6)</td></tr>
 <tr><td><code>ConsulenteDigitale-{{VERSIONE}}-portatile.zip</code></td><td>🔌 Versione portatile per chiavetta, per tutti e tre i sistemi (capitolo 7)</td></tr>
-<tr><td><code>SHA256SUMS</code></td><td>Le «impronte digitali» dei file, per controllare che siano integri (capitolo 35)</td></tr>
-<tr><td><code>consulente-digitale-{{VERSIONE}}-sorgenti.tar.gz</code></td><td>I sorgenti completi con la cronologia, per chi sviluppa (capitolo 39)</td></tr>
+<tr><td><code>SHA256SUMS</code></td><td>Le «impronte digitali» dei file, per controllare che siano integri (capitolo 36)</td></tr>
+<tr><td><code>consulente-digitale-{{VERSIONE}}-sorgenti.tar.gz</code></td><td>I sorgenti completi con la cronologia, per chi sviluppa (capitolo 40)</td></tr>
 </tbody></table>
 </section>
 </div>

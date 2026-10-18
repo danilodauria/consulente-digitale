@@ -177,6 +177,17 @@
           pr.slice(0, 4).map(function (c) { return "- **" + c.nome + "**: " + c.problemi[0]; }).join("\n") : "I componenti che riesco a controllare sono in salute."),
           comandi: [{ tipo: "vai", hash: "#/hardware", etichetta: "🧬 Sensori in diretta" }, { tipo: "vai", hash: "#/hardware/schema", etichetta: "🧩 Schema della scheda madre" }] };
       }); } },
+    { r: /(notizi|novita (del|dal) mondo|ultime (news|novita)|\bnews\b|cosa c e di nuovo|telegiornale della tecnologia)/, nonSe: /(aggiorn|programma|versione)/, f: function () {
+      if (!CD.imp.notizie) return { testo: "Le notizie sono disattivate. Le riattivo quando volete.", comandi: [{ tipo: "fn", fn: function () { CD.imp.notizie = true; CD.salvaImpostazioni(); CD.vai("#/notizie"); }, etichetta: "📰 Riattiva le notizie" }] };
+      return CD.notizie.titoli(3).then(function (l) {
+        return { testo: l.length ? "Ecco le ultime notizie scelte per voi:\n" + l.map(function (n) { return "- **" + n.titolo + "** (" + n.fonte + ")"; }).join("\n") : "Per ora non ho notizie nuove.",
+          comandi: [{ tipo: "vai", hash: "#/notizie", etichetta: "📰 Tutte le notizie" }] };
+      }, function () { return { testo: "Non riesco a raggiungere i siti delle notizie in questo momento.", comandi: [{ tipo: "vai", hash: "#/notizie", etichetta: "📰 Apri le notizie" }] }; }); } },
+    { r: /(\breset\b|azzera|cancella (tutto|i nomi|l ultima)|ricomincia da capo|backup|copia di sicurezza dei (miei )?dati|importa(re)? (il|un) backup)/, f: function (n) {
+      if (/backup|copia di sicurezza|importa/.test(n) && !/reset|azzera|cancella/.test(n)) return { testo: "Posso salvare tutti i vostri dati in un file **.cdbackup** da reimportare qui o su un altro computer (Windows, Linux o macOS).",
+        comandi: [{ tipo: "fn", fn: function () { CD.backup.crea(false); }, etichetta: "💾 Crea il backup" }, { tipo: "fn", fn: CD.backup.scegliFile, etichetta: "📥 Importa un backup" }] };
+      return { testo: "Con il **reset** scegliete cosa azzerare: l'ultima domanda, i nomi rimasti, la conversazione oppure tutto. Prima vi propongo un backup, così non si perde nulla.",
+        comandi: [{ tipo: "fn", fn: function () { CD.backup.reset(); }, etichetta: "🧹 Reset…" }] }; } },
     { r: /(raee|economia circolare|smaltir|buttare (il|un|i|la|le|lo) (vecchio|vecchia|vecchi|pc|computer|telefon|cellulare|tablet|televisor|tv|pile|batteri)|riciclar|ricondizionat|diritto alla riparazione|isola ecologica|centro di raccolta|donare (il|un) (pc|computer|telefono)|rifiuti elettronici)/, f: function (n) {
       return { testo: CD.CIRC.risposta(n), comandi: [{ tipo: "vai", hash: "#/circolare", etichetta: "♻️ Cosa ne faccio? (percorso guidato)" }, { tipo: "vai", hash: "#/circolare/regole", etichetta: "📜 Regole e diritti" }] }; } },
     { r: /(nonni teach|intervist\w* (a |al |alla |i |il |la )?(nonn|anzian)|podcast|registrare i ricordi|memoria del quartiere)/, f: function () {
@@ -283,9 +294,10 @@
     var az = Object.keys(CD.azioni).map(function (k) { return "[[azione:" + k + "]] = " + CD.azioni[k].titolo; });
     if (az.length) righe.push("Puoi proporre un'azione automatica scrivendo su una riga a parte il suo comando (diventa un pulsante; la esegue l'utente). Comandi disponibili su questo computer:\n" + az.join("\n") +
       "\nPer [[azione:programma_installa|ID]] usa uno di questi ID: " + (CD.programmi ? CD.programmi.idDisponibili().join(", ") : "") + ".");
-    righe.push("Puoi aprire una pagina con [[vai:PAGINA]]: inizio, acquisti, acquisti/portatile, acquisti/smartphone, analisi, hardware, hardware/schema, interventi, nonni, nonni/archivio, circolare, circolare/regole, circolare/quiz, programma, aggiornamenti, ottimizza, strumenti, programmi, sapere, storia, impostazioni.");
+    righe.push("Puoi aprire una pagina con [[vai:PAGINA]]: inizio, acquisti, acquisti/portatile, acquisti/smartphone, analisi, hardware, hardware/schema, interventi, nonni, nonni/archivio, circolare, circolare/regole, circolare/quiz, programma, notizie, notizie/salvate, aggiornamenti, ottimizza, strumenti, programmi, sapere, storia, impostazioni.");
     if (CD.aperture && CD.aperture.lista.length) righe.push("Puoi proporre di aprire una finestra del sistema con [[apri:ID]] (diventa un pulsante; chiede il permesso): " +
       CD.aperture.lista.map(function (a) { return a.id + " = " + a.titolo; }).join(", ") + ".");
+    if (CD.i18n && CD.i18n.attiva()) righe.push("IMPORTANTE: l'utente ha scelto la lingua " + CD.i18n.LINGUE[CD.i18n.lingua].ia + ". Rispondi SEMPRE e solo in questa lingua, anche se le informazioni qui sopra sono in italiano.");
     righe.push("Regole: non dire mai di aver eseguito un'azione (la avvia l'utente con il pulsante). Non inventare prezzi esatti né modelli che non conosci: dai fasce indicative e invita a confrontare i prezzi. " +
       "Su soldi, salute e leggi sii prudente. Se non sai una cosa, dillo. Consiglia fonti ufficiali e software libero quando ha senso. Non chiedere mai password o codici.");
     var g = cercaGuida(domanda).slice(0, 2);
@@ -299,7 +311,7 @@
     N.storia.slice(-13, -1).forEach(function (x) { if (x.chi === "utente" || x.chi === "neura") messaggi.push({ role: x.chi === "utente" ? "user" : "assistant", content: x.testo }); });
     messaggi.push({ role: "user", content: testo });
     CD.cervello.stato("pensiero");
-    var buffer = "", parlato = 0, inizio = Date.now();
+    var buffer = "", parlato = 0, inizio = Date.now(); N.zittita = false;
     return fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ modello: N.modello(), messaggi: messaggi, temperatura: 0.55, contesto: 6144 }) }).then(function (r) {
       if (!r.ok) return r.json().then(function (j) { throw new Error(j.errore || "IA non disponibile"); });
@@ -319,20 +331,23 @@
           // parla frase per frase mentre scrive
           var daDire = estraiComandi(m.testo).testo;
           var cand = Math.max(daDire.lastIndexOf(". "), daDire.lastIndexOf("! "), daDire.lastIndexOf("? "), daDire.lastIndexOf("\n"));
-          if (cand > parlato + 20 && CD.imp.voce) { CD.parla(daDire.slice(parlato, cand + 1), { interrompi: false }); parlato = cand + 1; }
+          if (cand > parlato + 20 && CD.imp.voce && !N.zittita) { CD.parla(daDire.slice(parlato, cand + 1), { interrompi: false }); parlato = cand + 1; }
           return leggi();
         });
       }
       return leggi().then(function () {
         var e = estraiComandi(buffer.replace(/<think>[\s\S]*?<\/think>/g, ""));
         m.testo = e.testo || "…"; m.comandi = e.comandi; aggiornaMessaggio(m); salvaStoria();
-        if (CD.imp.voce && e.testo.length > parlato) CD.parla(e.testo.slice(parlato), { interrompi: false });
+        if (CD.imp.voce && !N.zittita && e.testo.length > parlato) CD.parla(e.testo.slice(parlato), { interrompi: false });
         if (!CD.staParlando()) CD.cervello.stato("riposo");
         N.ultimaDurata = Date.now() - inizio;
         return m;
       });
     });
   }
+
+  /* ⏹ Stop: la risposta continua a comparire scritta, ma Neura non la legge più ad alta voce */
+  N.interrompi = function () { N.zittita = true; N.conversazioneVoce = false; };
 
   /* ------------------------------------------------------------------ domanda principale */
   N.chiedi = function (testo, opz) {
@@ -357,6 +372,9 @@
       return { testo: "Questa domanda richiede il mio cervello completo, cioè l'intelligenza artificiale locale, che non è ancora installata" + (CD.server ? "" : " (e qui non posso installarla)") + ". " +
         "Intanto posso analizzare il PC, aggiornarlo, ottimizzarlo, consigliarvi cosa comprare e quando, e rispondere alle domande della guida.",
         comandi: CD.server ? [{ tipo: "vai", hash: "#/impostazioni/ia", etichetta: "🧠 Installa il cervello (IA locale, gratis)" }, { tipo: "vai", hash: "#/sapere", etichetta: "💡 Cose da sapere" }] : [] };
+    }).then(function (r) {   // in un'altra lingua le risposte pronte si traducono con l'IA locale (se c'è)
+      if (r && !r.fatto && r.testo && CD.i18n && CD.i18n.attiva()) return CD.i18n.traduciTesto(r.testo).then(function (t) { r.testo = t; return r; });
+      return r;
     }).then(function (r) {
       if (r && !r.fatto) {
         m.testo = r.testo; m.comandi = r.comandi || []; aggiornaMessaggio(m); salvaStoria();
@@ -438,7 +456,7 @@
     N.modulo(CD.$("#dock-modulo"), CD.$("#dock-input"), CD.$("#dock-mic"));
     document.addEventListener("keydown", function (e) {
       if (e.ctrlKey && (e.code === "Space" || e.key === " ")) { e.preventDefault(); N.ascoltaEChiedi(); }
-      if (e.key === "Escape" && CD.$("#modale-sfondo").hidden) CD.taci();
+      if (e.key === "Escape" && CD.$("#modale-sfondo").hidden) CD.ferma();
     });
   };
 

@@ -52,7 +52,7 @@ def main():
     nov = json.load(open(os.path.join(RADICE, "docs", "novita.json"), encoding="utf-8"))["versioni"][0]
     json.dump({"versione": v, "data": nov["data"], "novita": nov["novita"]}, open(os.path.join(sito, "aggiornamenti.json"), "w"))
     web = subprocess.Popen([sys.executable, "-m", "http.server", str(PORTA + 2), "--bind", "127.0.0.1"], cwd=sito, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    env = dict(os.environ, CD_DATA_DIR=dati, OLLAMA_HOST="http://127.0.0.1:%d" % PIA, CD_HARDWARE_PROVA="1", CD_APERTURE_PROVA="1",
+    env = dict(os.environ, CD_DATA_DIR=dati, OLLAMA_HOST="http://127.0.0.1:%d" % PIA, CD_HARDWARE_PROVA="1", CD_APERTURE_PROVA="1", CD_NOTIZIE_PROVA="1",
                CD_MANIFESTO="http://127.0.0.1:%d/aggiornamenti.json" % (PORTA + 2))
     ia = subprocess.Popen([sys.executable, os.path.join(RADICE, "tests", "finto_ollama.py"), str(PIA)])
     srv = subprocess.Popen([sys.executable, os.path.join(RADICE, "src", "server", "cd_server.py"), "--port", str(PORTA), "--inattivo", "0"],
@@ -192,6 +192,15 @@ def main():
             vai("circolare", "[data-s]"); foto("circolare")
             vai("circolare/regole", ".scheda h3"); foto("circolare-regole")
             vai("circolare/quiz", "[data-r]"); pg.click("[data-r]"); foto("circolare-quiz")
+            # 1.2.0: notizie, stop, reset e backup, lingue
+            vai("notizie", ".nz-card"); foto("notizie", attesa=1.2)
+            pg.locator(".nz-card").first.locator("[data-a=\"salva\"]").click(); foto("notizie-azioni", sel=".nz-card", attesa=0.6)
+            foto("barra-pulsanti", sel=".strumenti-barra", attesa=0.3)
+            vai("impostazioni", "#imp-voce"); pg.locator("#sez-backup").scroll_into_view_if_needed(); foto("backup", sel="#sez-backup", attesa=0.6)
+            pg.click("#btn-reset"); pg.wait_for_selector(".modale"); foto("reset", sel=".modale", attesa=0.6); pg.keyboard.press("Escape")
+            pg.click("#btn-lingua"); pg.wait_for_selector(".modale .lingue"); foto("lingue", sel=".modale", attesa=0.6); pg.keyboard.press("Escape")
+            pg.evaluate("CD.i18n.cambia('en')"); time.sleep(4); vai("", "#home-pc .metro"); foto("inglese", attesa=1.5)
+            pg.evaluate("CD.i18n.cambia('it')"); time.sleep(4)
             vai("programma", "#pg-controlla"); pg.click("#pg-controlla"); pg.wait_for_selector("#pg-esito ul"); foto("programma")
             # schede di stampa: si cattura il documento preparato per la stampante
             for nome, codice in (("stampa-analisi", "CD.analisi.dati().then(CD.analisi.stampa)"),
@@ -226,6 +235,8 @@ def main():
             pt.goto(base + "?noprofilo&nosaluto#/")
             pt.wait_for_selector(".plancia"); time.sleep(1.4)
             salva(pt.screenshot(), "telefono", 700)
+            pt.goto(base + "?noprofilo&nosaluto#/impostazioni"); pt.wait_for_selector("#imp-telefono"); pt.locator("#imp-telefono").scroll_into_view_if_needed(); time.sleep(0.8)
+            salva(pt.screenshot(), "telefono-app", 700)
             b.close()
     finally:
         srv.terminate()

@@ -35,13 +35,19 @@
         '<div class="scheda" id="home-pc"><h3>💻 Questo computer</h3><div class="barra-progresso indeterminata"><i></i></div></div>' +
         '<div class="scheda" id="home-momento"><h3>📅 Il momento per comprare</h3><div id="home-cal"></div></div>' +
         '<div class="scheda"><h3>' + consiglio.icona + " Consiglio del giorno</h3><p><b>" + esc(consiglio.titolo) + "</b></p><p>" + esc(consiglio.sintesi) + '</p><a class="btn piccolo" href="#/sapere/' + consiglio.id + '">Leggi →</a></div>' +
-        '<div class="scheda" id="home-agg"><h3>⬇️ Aggiornamenti</h3><p class="piccolo-testo">Nessun controllo recente.</p></div></div>' +
+        '<div class="scheda" id="home-agg"><h3>⬇️ Aggiornamenti</h3><p class="piccolo-testo">Nessun controllo recente.</p></div>' +
+        (CD.imp.notizie && CD.imp.online !== false ? '<div class="scheda" id="home-notizie"><h3>📰 Ultime notizie</h3><p class="piccolo-testo">Carico i titoli…</p></div>' : "") + "</div>" +
         '<h2 class="titolo-sezioni">Tutto quello che posso fare</h2><div class="griglia-schede">' + SEZIONI.map(function (s) {
           return '<a class="tessera" href="' + s[0] + '"><span class="em">' + s[1] + "</span><b>" + esc(s[2]) + "</b><small>" + esc(s[3]) + "</small></a>"; }).join("") + "</div>";
       CD.cervello.crea(CD.$("#cervello-home", el));
       CD.$("#home-pilota", el).onclick = function () { CD.pilota(); };
       CD.$("#home-parla", el).onclick = function () { CD.vai("#/neura"); setTimeout(function () { CD.neura.ascoltaEChiedi(); }, 300); };
       // momento giusto per comprare (con conto alla rovescia)
+      var hn = CD.$("#home-notizie", el);
+      if (hn && CD.notizie) CD.notizie.titoli(3).then(function (l) {
+        hn.innerHTML = "<h3>📰 Ultime notizie</h3>" + (l.length ? "<ul class=\"nz-mini\">" + l.map(function (n) { return '<li><a href="' + esc(n.link) + '" target="_blank" rel="noopener noreferrer">' + esc(n.titolo) + "</a><br><small>" + esc(n.fonte) + " · " + esc(CD.notizie.quando(n.quando)) + "</small></li>"; }).join("") + "</ul>" : '<p class="piccolo-testo">Nessuna notizia per ora.</p>') +
+          '<a class="btn piccolo" href="#/notizie">Tutte le notizie →</a>';
+      }, function () { hn.innerHTML = '<h3>📰 Ultime notizie</h3><p class="piccolo-testo">Non raggiungibili ora. <a href="#/notizie">Apri le notizie</a></p>'; });
       var c = CD.acquisti.consiglioMomento("");
       CD.$("#home-cal", el).innerHTML = CD.acquisti.htmlCalendario("", 3);
       CD.acquisti.avviaRovesce();

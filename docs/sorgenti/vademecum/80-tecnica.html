@@ -2,11 +2,11 @@
 <div class="pagina">
 <section class="parte"><div class="eti">PARTE IX</div><h1>Tecnica e sicurezza</h1>
 <p>Cosa esce dal computer e cosa no, come tornare indietro da ogni modifica, come risolvere i problemi, dove sta ogni file e come è costruito il programma.</p>
-<div class="capitoli"><div><b>35</b> Privacy e sicurezza</div><div><b>36</b> Tornare indietro</div><div><b>37</b> Risoluzione dei problemi</div><div><b>38</b> Riferimento rapido</div><div><b>39</b> Per chi sviluppa</div></div></section>
+<div class="capitoli"><div><b>36</b> Privacy e sicurezza</div><div><b>37</b> Tornare indietro</div><div><b>38</b> Risoluzione dei problemi</div><div><b>39</b> Riferimento rapido</div><div><b>40</b> Per chi sviluppa</div></div></section>
 
-<!-- ======================================================= 30 -->
-<section class="capitolo"><span class="marca">§§c35§§</span>
-<div class="capitolo-testa"><span class="num">35</span><div><div class="eti">CAPITOLO</div><h1>Privacy e sicurezza</h1></div></div>
+<!-- ======================================================= 31 -->
+<section class="capitolo"><span class="marca">§§c36§§</span>
+<div class="capitolo-testa"><span class="num">36</span><div><div class="eti">CAPITOLO</div><h1>Privacy e sicurezza</h1></div></div>
 <p class="intro">Un programma che può aggiornare e modificare il computer deve essere <b>più sicuro</b> di un programma qualsiasi. Ecco tutte le difese e l'elenco completo di ciò che esce dal computer.</p>
 <h2>Le difese</h2>
 <ul>
@@ -26,6 +26,9 @@ non può comandarlo.</li>
 <tr><td>Ora ufficiale</td><td>All'avvio e ogni 30 minuti, se permesso</td><td>Server NTP (INRiM, pool.ntp.org…)</td><td>Una richiesta d'ora di 48 byte, senza dati personali</td></tr>
 <tr><td>Python per Windows</td><td>Solo al primo avvio, se manca</td><td>python.org</td><td>La richiesta del file</td></tr>
 <tr><td>Azioni che scaricano</td><td>Solo dopo il vostro clic</td><td>Fonti ufficiali (Microsoft, distribuzione, Apple, Homebrew, ollama.com, christitus.com…)</td><td>Le richieste dei pacchetti, come fa il sistema da solo</td></tr>
+<tr><td>Notizie</td><td>Se attive e se Internet è permesso, al massimo ogni 30 minuti</td><td>I feed RSS pubblici delle testate (capitolo 13)</td><td>La richiesta del feed, come un normale lettore di notizie</td></tr>
+<tr><td>Condividere una notizia</td><td>Solo cliccando WhatsApp, Telegram o Facebook</td><td>L'app o il sito scelto</td><td>Titolo e link della notizia: l'invio lo fate voi</td></tr>
+<tr><td>Traduzioni</td><td>Mai: i dizionari sono nel programma, i testi lunghi li traduce l'IA locale</td><td>—</td><td>Nulla</td></tr>
 <tr><td>Prova della velocità</td><td>Solo con «Misura adesso»</td><td>speed.cloudflare.com</td><td>5 MB di dati di prova</td></tr>
 <tr><td>Link alle offerte e ai siti ufficiali</td><td>Solo cliccandoli</td><td>Il sito scelto, nel browser</td><td>La ricerca che vedete (es. «notebook 16GB»)</td></tr>
 <tr><td>Riconoscimento vocale del browser</td><td>Solo dopo il consenso, se manca la trascrizione locale</td><td>Google o Microsoft</td><td>La voce mentre parlate a Neura</td></tr>
@@ -44,11 +47,14 @@ shasum -a 256 ConsulenteDigitale-{{VERSIONE}}-macOS.zip</pre>
 <p>Confrontate il risultato con la riga corrispondente di <code>SHA256SUMS</code>, pubblicato sulla pagina ufficiale del progetto.</p>
 </section>
 
-<!-- ======================================================= 31 -->
-<section class="capitolo"><span class="marca">§§c36§§</span>
-<div class="capitolo-testa"><span class="num">36</span><div><div class="eti">CAPITOLO</div><h1>Tornare indietro</h1></div></div>
+<!-- ======================================================= 32 -->
+<section class="capitolo"><span class="marca">§§c37§§</span>
+<div class="capitolo-testa"><span class="num">37</span><div><div class="eti">CAPITOLO</div><h1>Tornare indietro</h1></div></div>
 <p class="intro">Ogni modifica si può annullare. Il modo più semplice è il <b>punto di ripristino</b> (Windows) o l'<b>istantanea</b> (Linux con Timeshift, Mac con Time Machine) creati prima
 delle azioni con rischio medio e dal pulsante «Crea un punto di ripristino».</p>
+<div class="box consiglio"><span class="t">I dati del programma</span>Per le impostazioni, la conversazione, le schede e le interviste del Consulente stesso c'è il file <b>.cdbackup</b>
+(capitolo 13): «Crea un backup» prima di un cambiamento importante e «Importa un backup» per tornare indietro. Prima di ogni importazione o reset il programma
+salva da solo una copia in <code>backup-automatici</code>.</div>
 <h2>🪟 Windows</h2>
 <ol class="passi">
 <li><b>Punto di ripristino</b>: Start → scrivete <code>rstrui</code> → <kbd>Invio</kbd> → scegliete il punto «Consulente Digitale…» → Avanti → Fine. Il computer si riavvia com'era. I vostri documenti non vengono toccati.
@@ -75,10 +81,10 @@ Indicizzazione: <code>balooctl enable</code> (KDE) o <code>systemctl --user unma
 I file eliminati dalla <b>pulizia</b> (temporanei, cache) non tornano, ma non servono: i programmi li ricreano.</div>
 </section>
 
-<!-- ======================================================= 32 -->
-<section class="capitolo"><span class="marca">§§c37§§</span>
-<div class="capitolo-testa"><span class="num">37</span><div><div class="eti">CAPITOLO</div><h1>Risoluzione dei problemi</h1></div></div>
-<p class="intro">Il primo posto dove guardare è il <b>registro del motore</b>, <code>server.log</code> nella cartella dei dati (capitolo 38), e il registro dell'azione nella console.</p>
+<!-- ======================================================= 33 -->
+<section class="capitolo"><span class="marca">§§c38§§</span>
+<div class="capitolo-testa"><span class="num">38</span><div><div class="eti">CAPITOLO</div><h1>Risoluzione dei problemi</h1></div></div>
+<p class="intro">Il primo posto dove guardare è il <b>registro del motore</b>, <code>server.log</code> nella cartella dei dati (capitolo 39), e il registro dell'azione nella console.</p>
 <table class="compatta"><thead><tr><th>Sintomo</th><th>Causa probabile</th><th>Rimedio</th></tr></thead><tbody>
 <tr><td>🪟 «Windows ha protetto il PC»</td><td>Programma non ancora firmato</td><td>Ulteriori informazioni → Esegui comunque (capitolo 4), dopo aver controllato l'impronta.</td></tr>
 <tr><td>🪟 Doppio clic sull'icona e non succede nulla</td><td>Primo avvio: si sta scaricando Python; oppure il download è fallito</td><td>Attendete un minuto. Se compare il messaggio su Python: collegatevi a Internet o installate Python da python.org e riaprite.</td></tr>
@@ -105,9 +111,9 @@ I file eliminati dalla <b>pulizia</b> (temporanei, cache) non tornano, ma non se
 e allegando <code>server.log</code> e la stampa in PDF del registro dell'azione.</div>
 </section>
 
-<!-- ======================================================= 33 -->
-<section class="capitolo"><span class="marca">§§c38§§</span>
-<div class="capitolo-testa"><span class="num">38</span><div><div class="eti">CAPITOLO</div><h1>Riferimento rapido</h1></div></div>
+<!-- ======================================================= 34 -->
+<section class="capitolo"><span class="marca">§§c39§§</span>
+<div class="capitolo-testa"><span class="num">39</span><div><div class="eti">CAPITOLO</div><h1>Riferimento rapido</h1></div></div>
 <h2>Dove stanno i file</h2>
 <table class="compatta"><thead><tr><th></th><th>Programma</th><th>Dati (impostazioni, conversazione, registri)</th></tr></thead><tbody>
 <tr><td>🪟 Windows</td><td><code>%LOCALAPPDATA%\Programs\ConsulenteDigitale</code></td><td><code>%APPDATA%\ConsulenteDigitale</code></td></tr>
@@ -122,6 +128,9 @@ e allegando <code>server.log</code> e la stampa in PDF del registro dell'azione.
 <tr><td><code>hardware.json</code>, <code>interventi.json</code></td><td>Ultimo controllo SMART per lo schema; schede di diagnosi e lavori (le ultime 60)</td></tr>
 <tr><td><code>hardware-completo.json</code></td><td>Banchi di memoria, slot e porte letti con «Inventario completo» (Linux)</td></tr>
 <tr><td><code>nonni-teach/</code>, <code>nonni-teach-sito/</code>, <code>nonni.json</code></td><td>Interviste con le registrazioni e il podcast; il sito da pubblicare (e il suo zip); le preferenze di pubblicazione</td></tr>
+<tr><td><code>notizie.json</code>, <code>notizie-cache.json</code></td><td>Notizie salvate, temi e fonti scelti; ultima copia dei titoli scaricati</td></tr>
+<tr><td><code>traduzioni/</code></td><td>Le traduzioni fatte dall'IA locale per ogni lingua (si riusano subito)</td></tr>
+<tr><td><code>backup-automatici/</code></td><td>Le ultime 10 copie .cdbackup fatte da sole prima di importare o azzerare</td></tr>
 <tr><td><code>circolare.json</code></td><td>Gli impegni scelti nel patto per un digitale sostenibile</td></tr>
 <tr><td><code>aggiornamenti/</code></td><td>Le nuove versioni del programma scaricate e verificate</td></tr>
 <tr><td><code>server.log</code>, <code>server.json</code></td><td>Registro del motore; porta e processo in uso</td></tr>
@@ -141,7 +150,7 @@ CD_DATA_DIR=…   CD_SHARE_DIR=…   CD_PORT=…   OLLAMA_HOST=http://127.0.0.1:
 <tr><td><kbd>Ctrl</kbd> + <kbd>Spazio</kbd></td><td>Parla con Neura da qualsiasi pagina (ripremere per fermare)</td></tr>
 <tr><td><kbd>Ctrl</kbd> + <kbd>K</kbd> oppure <kbd>/</kbd></td><td>🔎 Cerca in tutto il programma</td></tr>
 <tr><td><kbd>Ctrl</kbd> + <kbd>P</kbd></td><td>🖨️ Stampa la pagina aperta come scheda</td></tr>
-<tr><td><kbd>Esc</kbd></td><td>Zittisce Neura; chiude le finestre che si possono chiudere</td></tr>
+<tr><td><kbd>Esc</kbd> o ⏹ Stop</td><td>Zittisce Neura all'istante; chiude le finestre che si possono chiudere</td></tr>
 <tr><td><kbd>Invio</kbd></td><td>Invia la domanda</td></tr>
 <tr><td><kbd>Tab</kbd></td><td>Passa da un pulsante all'altro (il contorno giallo indica dove siete)</td></tr>
 </tbody></table>
@@ -150,9 +159,9 @@ CD_DATA_DIR=…   CD_SHARE_DIR=…   CD_PORT=…   OLLAMA_HOST=http://127.0.0.1:
 {{TAB_AZIONI}}
 </section>
 
-<!-- ======================================================= 34 -->
-<section class="capitolo"><span class="marca">§§c39§§</span>
-<div class="capitolo-testa"><span class="num">39</span><div><div class="eti">CAPITOLO</div><h1>Per chi sviluppa</h1></div></div>
+<!-- ======================================================= 35 -->
+<section class="capitolo"><span class="marca">§§c40§§</span>
+<div class="capitolo-testa"><span class="num">40</span><div><div class="eti">CAPITOLO</div><h1>Per chi sviluppa</h1></div></div>
 <p class="intro">Il codice è software libero (MIT): si può studiare, migliorare e adattare. I sorgenti contengono la cronologia completa e il file <code>CLAUDE.md</code> con le regole del progetto.</p>
 <table class="compatta"><thead><tr><th>Percorso</th><th>Contenuto</th></tr></thead><tbody>
 <tr><td><code>src/server/cd_server.py</code></td><td>Il motore: API, ora NTP, prova della velocità, IA, voce, finestra</td></tr>
@@ -185,7 +194,7 @@ Se serve un parametro, aggiungete la sua regola in <code>valida_parametro</code>
 <li>Rigenerate il vademecum: il catalogo e i passi degli script si aggiornano da soli.</li>
 </ol>
 <h2>Pubblicare una nuova versione su GitHub</h2>
-<p>Il sito <code>danilodauria.github.io/consulente-digitale</code> contiene la pagina dei download e il file <code>aggiornamenti.json</code> letto da «Scarica gli aggiornamenti» (capitolo 27).
+<p>Il sito <code>danilodauria.github.io/consulente-digitale</code> contiene la pagina dei download e il file <code>aggiornamenti.json</code> letto da «Scarica gli aggiornamenti» (capitolo 28).
 L'indirizzo si cambia in un solo file, <code>rilascio.conf</code>.</p>
 <ol class="passi">
 <li>Aumentate il numero in <code>VERSION</code> e scrivete le novità in cima a <code>docs/novita.json</code>.</li>

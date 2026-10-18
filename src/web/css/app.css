@@ -286,3 +286,45 @@ pre.codice { background: #020617; color: #d1fae5; border-radius: 12px; padding: 
 .circ-numeri b { display: block; font-size: 1.45rem; color: var(--ok); } .circ-numeri span { font-size: .88rem; color: var(--inchiostro2); }
 .circ-erre { display: grid; grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr)); gap: .6rem; margin-bottom: 1rem; }
 .circ-percorso h3 { font-size: 1.4rem; }
+
+/* --- ⏹ Stop voce: spento a riposo, rosso pulsante mentre Neura parla --- */
+#btn-stop { opacity: .55; }
+#btn-stop.parla { opacity: 1; background: var(--male); border-color: var(--male); color: #fff; animation: stop-pulsa 1.1s infinite; }
+@keyframes stop-pulsa { 50% { box-shadow: 0 0 0 7px var(--male-tenue); } }
+@media (prefers-reduced-motion: reduce) { #btn-stop.parla { animation: none; } }
+
+/* --- 📰 Notizie (Danilo D'Auria - CC BY-NC-SA 4.0) --- */
+.nz-card { display: flex; gap: .9rem; background: var(--pannello); border: 1px solid var(--vetro-bordo); border-radius: 16px; padding: .8rem; margin: .6rem 0; }
+.nz-card img { width: 9.5rem; height: 6.5rem; object-fit: cover; border-radius: 10px; flex: none; background: var(--sfondo2); }
+.nz-testo { flex: 1; min-width: 0; }
+.nz-card h3 { margin: .25rem 0 .3rem; font-size: 1.12rem; line-height: 1.3; }
+.nz-card p { margin: 0 0 .4rem; color: var(--inchiostro2); }
+.nz-meta { font-size: .8rem; color: var(--inchiostro2); display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; }
+.nz-azioni { flex-wrap: wrap; gap: .35rem; }
+.nz-wa { border-color: #25d366 !important; } .nz-tg { border-color: #29a9eb !important; } .nz-fb { border-color: #1877f2 !important; }
+.nz-mini { padding-left: 1.1rem; margin: .3rem 0 .6rem; } .nz-mini li { margin-bottom: .4rem; } .nz-mini a { color: var(--inchiostro); text-decoration: none; font-weight: 600; }
+@media (max-width: 640px) { .nz-card { flex-direction: column; } .nz-card img { width: 100%; height: 10rem; } }
+.nz-filtri select, .nz-filtri input { width: auto; } .nz-filtri .riga { flex-wrap: wrap; }
+
+/* --- 🧹 Reset e 💾 backup --- */
+.bk-voci { display: grid; grid-template-columns: 1fr 1fr; gap: .35rem .8rem; max-height: 55vh; overflow: auto; }
+.bk-voce { align-items: flex-start; } .bk-voce small { color: var(--inchiostro2); }
+.bk-tutto { grid-column: 1 / -1; border-top: 1px solid var(--linea); padding-top: .4rem; color: var(--male); }
+@media (max-width: 640px) { .bk-voci { grid-template-columns: 1fr; } }
+
+/* --- 🌐 Lingua --- */
+#btn-lingua .cod-lingua { font-size: .62rem; font-weight: 800; margin-left: .1rem; letter-spacing: .04em; }
+.lingue { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-bottom: .8rem; }
+@media (max-width: 560px) { .lingue { grid-template-columns: 1fr 1fr; } }
+
+/* telefono e schermi stretti: i pulsanti della barra vanno su una seconda riga, scorrevole se serve */
+@media (max-width: 760px) {
+  .barra { flex-wrap: wrap; row-gap: .4rem; gap: .5rem; padding: .45rem .7rem; }
+  .strumenti-barra { order: 5; flex: 1 1 100%; overflow-x: auto; justify-content: space-between; scrollbar-width: none; }
+  .strumenti-barra::-webkit-scrollbar { display: none; }
+  .strumenti-barra .icona-btn { flex: none; }
+  .marchio { flex: 1 1 0; min-width: 0; margin-right: 0; } .marchio span { min-width: 0; } .marchio b { overflow: hidden; text-overflow: ellipsis; }
+  .orologio { flex: none; }
+  .menu { top: var(--alto-barra, 6.6rem); max-height: calc(100vh - var(--alto-barra, 6.6rem)); overflow-y: auto; }
+}
+@media (max-width: 340px) { .marchio b { display: none; } }

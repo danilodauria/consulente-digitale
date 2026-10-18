@@ -1,0 +1,49 @@
+/* Consulente Digitale - schede professionali da stampare (si usa nel documento di stampa)
+ * Ideato e sviluppato da Danilo D'Auria - Codice MIT, grafica CC BY-NC-SA 4.0 */
+@page { size: A4; margin: 14mm 14mm 16mm; }
+body.foglio { font-family: "Segoe UI", "Noto Sans", "DejaVu Sans", Arial, sans-serif; color: #111827; font-size: 10.5pt; line-height: 1.45; margin: 0; background: #fff; }
+.f-testa { display: flex; align-items: center; gap: 12px; padding-bottom: 8px; border-bottom: 3px solid #0ea5e9; margin-bottom: 12px; }
+.f-testa img { width: 52px; height: 52px; }
+.f-testa > div:nth-child(2) { flex: 1; }
+.f-marchio { font-size: 9pt; letter-spacing: .14em; text-transform: uppercase; color: #0369a1; font-weight: 700; }
+.f-tit { font-size: 16pt; font-weight: 800; color: #0f172a; }
+.f-data { text-align: right; font-size: 8.5pt; color: #475569; }
+.foglio h2 { font-size: 12pt; color: #0369a1; border-bottom: 1px solid #cbd5e1; padding-bottom: 2px; margin: 14px 0 6px; page-break-after: avoid; }
+.foglio h3 { font-size: 11pt; margin: 10px 0 4px; }
+.foglio ul, .foglio ol { margin: 4px 0; padding-left: 18px; } .foglio li { margin: 2px 0; }
+.f-tab, .foglio table.tab { width: 100%; border-collapse: collapse; margin: 4px 0 8px; font-size: 9.5pt; }
+.f-tab th, .f-tab td, .foglio table.tab td, .foglio table.tab th { border: 1px solid #cbd5e1; padding: 4px 6px; text-align: left; vertical-align: top; }
+.f-tab th { background: #f1f5f9; width: 28%; }
+.f-confronto th { width: auto; } .f-confronto td { height: 22px; }
+.f-voti { display: flex; gap: 8px; margin: 6px 0 4px; }
+.f-voti div { flex: 1; text-align: center; border: 1px solid #cbd5e1; border-radius: 8px; padding: 6px 2px; }
+.f-voti b { display: block; font-size: 18pt; color: #0369a1; } .f-voti span { font-size: 8pt; color: #475569; }
+.f-due { display: flex; gap: 16px; } .f-due > div { flex: 1; }
+.f-firme { display: flex; gap: 18px; margin-top: 26px; font-size: 9pt; color: #334155; } .f-firme div { flex: 1; }
+.f-registro { white-space: pre-wrap; font-family: "DejaVu Sans Mono", Consolas, monospace; font-size: 8pt; background: #f8fafc; border: 1px solid #e2e8f0; padding: 6px; }
+.f-grande { font-size: 12pt; }
+.f-msg { margin: 6px 0; padding: 6px 8px; border-left: 3px solid #0ea5e9; background: #f8fafc; }
+.f-linea li { margin-bottom: 6px; }
+.f-piede { margin-top: 18px; padding-top: 6px; border-top: 1px solid #cbd5e1; font-size: 7.5pt; color: #64748b; }
+.foglio .etichetta { border: 1px solid #94a3b8; border-radius: 99px; padding: 0 6px; font-size: 8pt; }
+.foglio a { color: #0369a1; text-decoration: none; }
+.foglio .glossario { display: grid; grid-template-columns: 34% 1fr; gap: 3px 10px; } .foglio dt { font-weight: 700; } .foglio dd { margin: 0; }
+
+/* --- stampa di una pagina qualsiasi del programma (🖨️ in alto a destra) --- */
+.f-pagina .titolo-pagina { display: flex; gap: 8px; align-items: center; margin-bottom: 6px; }
+.f-pagina .titolo-pagina .em { font-size: 20pt; } .f-pagina h1 { font-size: 15pt; color: #0f172a; margin: 0; }
+.f-pagina .scheda, .f-pagina .tessera { border: 1px solid #cbd5e1; border-radius: 8px; padding: 6px 9px; margin: 6px 0; break-inside: avoid; display: block; color: inherit; text-decoration: none; }
+.f-pagina .griglia-2, .f-pagina .griglia-schede, .f-pagina .affianca { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.f-pagina .avviso { border-left: 3px solid #0ea5e9; background: #f1f5f9; padding: 5px 8px; margin: 5px 0; border-radius: 4px; }
+.f-pagina .avviso.att { border-color: #d97706; background: #fffbeb; } .f-pagina .avviso.ok { border-color: #059669; background: #ecfdf5; } .f-pagina .avviso.male { border-color: #dc2626; background: #fef2f2; }
+.f-pagina .etichetta { border: 1px solid #94a3b8; border-radius: 99px; padding: 0 6px; font-size: 8pt; margin-right: 3px; }
+.f-pagina .metri { display: flex; gap: 10px; flex-wrap: wrap; } .f-pagina .metro { text-align: center; width: 23mm; } .f-pagina .metro svg { width: 20mm; height: 20mm; }
+.f-pagina .metro svg circle:first-child { stroke: #e2e8f0; } .f-pagina .metro text { fill: #0f172a; }
+.f-pagina table { width: 100%; border-collapse: collapse; font-size: 9pt; } .f-pagina td, .f-pagina th { border-bottom: 1px solid #e2e8f0; padding: 3px 5px; text-align: left; vertical-align: top; }
+.f-pagina .console, .f-pagina pre { white-space: pre-wrap; font: 8pt "DejaVu Sans Mono", monospace; background: #f8fafc; border: 1px solid #e2e8f0; padding: 5px; }
+.f-pagina .rovescia { display: flex; gap: 6px; } .f-pagina .rov { border: 1px solid #cbd5e1; padding: 2px 8px; text-align: center; }
+.f-pagina .linea-tempo { list-style: none; padding-left: 0; } .f-pagina .tappa { display: flex; gap: 6px; }
+.f-pagina .em { font-size: 13pt; } .f-pagina small { color: #475569; }
+.f-pagina .f-valore { font-weight: 700; } .f-pagina img.f-canvas { display: block; margin: 0 auto; background: #0a1128; border-radius: 8px; }
+.f-pagina .neura-nome b { letter-spacing: .3em; } .f-pagina .ora-mega b { font-size: 26pt; }
+.f-pagina svg.schema-scheda { width: 100%; height: auto; }

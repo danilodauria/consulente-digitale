@@ -127,12 +127,14 @@
   CD.registra("nonni", {
     titolo: "Nonni Teach",
     mostra: function (el, parti) {
-      var tab = parti[0] && CD.uno(TAB, function (t) { return t[0] === parti[0]; }) ? parti[0] : "nuova";
+      var tel = CD.telefono && CD.telefono.attivo, tabs = tel ? [["ascolta", "🎧 Ascolta i podcast"], ["liberatoria", "📄 Liberatoria"]] : TAB;
+      var tab = parti[0] && CD.uno(tabs, function (t) { return t[0] === parti[0]; }) ? parti[0] : tabs[0][0];
       el.innerHTML = CD.titolo("🎙️", "Nonni Teach", "I nonni insegnano: Neura fa le domande, registra le risposte e crea il podcast da ascoltare e pubblicare") +
-        '<div class="schede-tab" role="tablist">' + TAB.map(function (t) { return '<button role="tab" data-tab="' + t[0] + '" aria-selected="' + (t[0] === tab) + '">' + t[1] + "</button>"; }).join("") + "</div>" +
+        '<div class="schede-tab" role="tablist">' + tabs.map(function (t) { return '<button role="tab" data-tab="' + t[0] + '" aria-selected="' + (t[0] === tab) + '">' + t[1] + "</button>"; }).join("") + "</div>" +
         '<div id="nt-corpo"></div>';
       CD.$$("[data-tab]", el).forEach(function (b) { b.onclick = function () { NT.annulla(); CD.vai("#/nonni/" + b.getAttribute("data-tab")); }; });
       var c = CD.$("#nt-corpo", el);
+      if (tab === "ascolta") { ascolta(c); return; }
       if (!CD.server && tab !== "liberatoria") { c.innerHTML = '<div class="avviso att">Nonni Teach registra e salva sul computer: serve il programma avviato sul computer.</div>'; return; }
       ({ nuova: nuova, archivio: archivio, pubblica: pubblica, liberatoria: liberatoria }[tab])(c, parti[1]);
     },
@@ -349,6 +351,21 @@
         }).catch(function (e) { box.innerHTML = '<div class="avviso att">Non riesco a leggere ' + esc(u) + ": " + esc(e.message) + ". Il sito è già stato pubblicato?</div>"; });
       };
     });
+  }
+
+  /* ---------- sul telefono: si ascoltano i podcast pubblicati (le interviste si registrano con il programma sul computer) */
+  function ascolta(c) {
+    var u = "https://danilodauria.github.io/nonni-teach/feed.xml";
+    c.innerHTML = '<div class="scheda luce"><h3>🎧 I podcast di Nonni Teach</h3><p>Gli episodi pubblicati, da ascoltare qui. Le interviste si registrano con il Consulente Digitale installato sul computer.</p><div id="nt-online"><div class="barra-progresso indeterminata"><i></i></div></div></div>';
+    CD.carica("nonni").then(function (p) { if (p && p.url) u = p.url.replace(/\/?$/, "/") + "feed.xml"; return fetch(u, { cache: "no-store" }); })
+      .then(function (r) { if (!r.ok) throw new Error("feed non trovato (" + r.status + ")"); return r.text(); }).then(function (t) {
+        var box = CD.$("#nt-online", c); if (!box) return;
+        var xml = new DOMParser().parseFromString(t, "application/xml"), items = [].slice.call(xml.getElementsByTagName("item"));
+        box.innerHTML = items.length ? items.map(function (it) {
+          var en = it.getElementsByTagName("enclosure")[0], tit = (it.getElementsByTagName("title")[0] || {}).textContent || "", src = en ? en.getAttribute("url") : "";
+          return /^https:\/\//.test(src) ? "<p><b>" + esc(tit) + '</b><audio controls preload="none" src="' + esc(src) + '"></audio></p>' : "";
+        }).join("") : '<p class="vuoto">Il feed non contiene ancora episodi.</p>';
+      }).catch(function (e) { var box = CD.$("#nt-online", c); if (box) box.innerHTML = '<div class="avviso att">Podcast non raggiungibili ora: ' + esc(e.message) + "</div>"; });
   }
 
   /* ---------- 5) liberatoria */

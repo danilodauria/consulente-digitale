@@ -51,21 +51,21 @@
         vs.map(function (v) { return '<option value="server:' + v.id + '"' + (CD.imp.voceId === "server:" + v.id ? " selected" : "") + ">" + esc(v.nome) + " — sul computer</option>"; }).join("") +
         voci.map(function (v) { return '<option value="' + esc(v.voiceURI) + '"' + (CD.imp.voceId === v.voiceURI ? " selected" : "") + ">" + esc(v.name) + (v.localService === false || /online|natural|google/i.test(v.name) ? " (online: il testo va a " + (/google/i.test(v.name) ? "Google" : "Microsoft") + ")" : "") + "</option>"; }).join("") + "</select></div>" +
         '<div class="campo"><label for="imp-vel">Velocità: <b id="imp-vel-v">' + CD.imp.velocitaVoce + '</b></label><input type="range" id="imp-vel" min="0.6" max="1.6" step="0.05" value="' + CD.imp.velocitaVoce + '"></div>' +
-        '<button class="btn" id="imp-prova">▶ Prova la voce</button>' + (voci.length ? "" : '<p class="piccolo-testo">Nessuna voce italiana nel browser: su Linux installate «speech-dispatcher» ed «espeak-ng», oppure Piper (anche quello del Professore Digitale).</p>') + "</div>" +
+        '<button class="btn" id="imp-prova">▶ Prova la voce</button>' + (voci.length || (CD.telefono && CD.telefono.attivo) ? "" : '<p class="piccolo-testo">Nessuna voce italiana nel browser: su Linux installate «speech-dispatcher» ed «espeak-ng», oppure Piper (anche quello del Professore Digitale).</p>') + "</div>" +
         '<div class="scheda"><h2>🎤 Microfono</h2><p>Motore: <b>' + ({ locale: "trascrizione sul computer (nulla esce dal PC)", browser: "riconoscimento del browser (la voce va a Google/Microsoft, solo con il vostro consenso)", "": "non disponibile" }[CD.motoreAscolto()]) + "</b></p>" +
         (CD.imp.micConsenso ? '<button class="btn" id="imp-mic-off">🔇 Revoca il consenso al riconoscimento del browser</button>' : "") +
         '<label class="opzione"><input type="checkbox" id="imp-mani"' + (CD.imp.maniLibere ? " checked" : "") + "> 🙌 Conversazione a mani libere (dopo la risposta Neura ascolta di nuovo)</label>" +
-        '<p class="piccolo-testo">Trascrizione sul computer: installate <b>Vosk</b> o <b>faster-whisper</b> per Python e mettete il modello nella cartella <code>' + esc((CD.stato.dati || "") + "/modelli") + '</code> (come nel Professore Digitale). Scorciatoia: Ctrl + Spazio.</p></div></div>' +
-        '<div class="scheda" id="sez-ia"><h2>🧠 Cervello (IA locale)</h2><div id="imp-ia">' + sezioneIA() + "</div></div>" +
+        '<p class="piccolo-testo solo-pc">Trascrizione sul computer: installate <b>Vosk</b> o <b>faster-whisper</b> per Python e mettete il modello nella cartella <code>' + esc((CD.stato.dati || "") + "/modelli") + '</code> (come nel Professore Digitale). Scorciatoia: Ctrl + Spazio.</p></div></div>' +
+        '<div class="scheda solo-pc" id="sez-ia"><h2>🧠 Cervello (IA locale)</h2><div id="imp-ia">' + sezioneIA() + "</div></div>" +
         '<div class="griglia-2"><div class="scheda"><h2>🌐 Internet e automatismi</h2>' +
         '<label class="opzione"><input type="checkbox" id="imp-online"' + (CD.imp.online ? " checked" : "") + "> 🌐 Il programma può usare Internet (ora esatta, link alle offerte, aggiornamenti)</label>" +
         '<label class="opzione"><input type="checkbox" id="imp-ora"' + (CD.imp.oraInternet ? " checked" : "") + "> 🕰️ Ora esatta da Internet (INRiM, NTP)</label>" +
-        '<label class="opzione"><input type="checkbox" id="imp-auto"' + (CD.imp.automatico ? " checked" : "") + "> 🤖 Neura avvia da sola i controlli che non cambiano nulla</label>" +
+        '<label class="opzione solo-pc"><input type="checkbox" id="imp-auto"' + (CD.imp.automatico ? " checked" : "") + "> 🤖 Neura avvia da sola i controlli che non cambiano nulla</label>" +
         '<label class="opzione"><input type="checkbox" id="imp-notizie"' + (CD.imp.notizie ? " checked" : "") + "> 📰 Notizie dal mondo digitale (si scaricano solo dai siti delle testate)</label>" +
         '<label class="opzione"><input type="checkbox" id="imp-saluto"' + (CD.imp.saluto ? " checked" : "") + "> 👋 Saluto all'avvio</label>" +
         '<p class="piccolo-testo">Senza il vostro clic il programma non installa e non modifica nulla. Nessun dato viene inviato all\'autore: niente telemetria.</p></div>' +
         '<div class="scheda"><h2>ℹ️ Informazioni</h2><table class="tab"><tr><th>Versione</th><td>' + esc(CD.stato.versione || CD.versione) + "</td></tr><tr><th>Sistema</th><td>" + esc(CD.stato.nome_sistema || CD.nomeSistema()) + "</td></tr>" +
-        "<tr><th>Python</th><td>" + esc(CD.stato.python || "—") + "</td></tr><tr><th>Dati</th><td><code>" + esc(CD.stato.dati || "browser") + "</code></td></tr></table>" +
+        "<tr class=\"solo-pc\"><th>Python</th><td>" + esc(CD.stato.python || "—") + "</td></tr><tr class=\"solo-pc\"><th>Dati</th><td><code>" + esc(CD.stato.dati || "browser") + "</code></td></tr></table>" +
         '<div class="riga" style="margin-top:.8rem"><button class="btn" id="imp-cron">🧹 Cancella la conversazione</button>' + (CD.server ? '<button class="btn rosso" id="imp-spegni">⏻ Chiudi il programma</button>' : "") + "</div></div></div>" +
         (CD.backup ? CD.backup.riquadro() : "") + telefono();
 

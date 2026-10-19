@@ -7,12 +7,14 @@
  *  Ideato e sviluppato da Danilo D'Auria - Codice MIT
  * ========================================================================== */
 /* L'elenco FILE e la VERSIONE sono scritti da tools/prepara-pubblicazione.py */
-var VERSIONE = "1.2.0";
-var FILE = ["./", "css/app.css", "css/cervello.css", "css/pagine.css", "css/stampa.css", "dati/programmi.json", "i18n/de.json", "i18n/en.json", "i18n/es.json", "i18n/fr.json", "i18n/ro.json", "img/apple-touch-icon.png", "img/icona-192.png", "img/icona-512.png", "img/icona-maskable-512.png", "img/logo-piccolo.svg", "img/logo.svg", "index.html", "js/acquisti.js", "js/aggiornamenti.js", "js/analisi.js", "js/aperture.js", "js/avvio.js", "js/backup.js", "js/benvenuto.js", "js/cerca.js", "js/cervello.js", "js/circolare.js", "js/core.js", "js/data-acquisti.js", "js/data-nonni.js", "js/data-sapere.js", "js/data-sostieni.js", "js/data-storia.js", "js/hardware.js", "js/i18n.js", "js/impostazioni.js", "js/inizio.js", "js/interventi.js", "js/lavori.js", "js/licenza.js", "js/neura.js", "js/nonni.js", "js/notizie.js", "js/ottimizza.js", "js/programma.js", "js/programmi.js", "js/sapere.js", "js/scheda-madre.js", "js/storia.js", "js/strumenti.js", "js/voce.js", "manifest.webmanifest"];
+var VERSIONE = "1.3.0";
+var FILE = ["./", "css/app.css", "css/cervello.css", "css/pagine.css", "css/stampa.css", "dati/programmi.json", "i18n/de.json", "i18n/en.json", "i18n/es.json", "i18n/fr.json", "i18n/ro.json", "img/apple-touch-icon.png", "img/icona-192.png", "img/icona-512.png", "img/icona-maskable-512.png", "img/logo-piccolo.svg", "img/logo.svg", "index.html", "js/acquisti.js", "js/aggiornamenti.js", "js/analisi.js", "js/aperture.js", "js/avvio.js", "js/backup.js", "js/benvenuto.js", "js/cerca.js", "js/cervello.js", "js/circolare.js", "js/core.js", "js/data-acquisti.js", "js/data-nonni.js", "js/data-sapere.js", "js/data-sostieni.js", "js/data-storia.js", "js/hardware.js", "js/i18n.js", "js/impostazioni.js", "js/inizio.js", "js/interventi.js", "js/lavori.js", "js/licenza.js", "js/neura.js", "js/nonni.js", "js/notizie.js", "js/ottimizza.js", "js/programma.js", "js/programmi.js", "js/sapere.js", "js/scheda-madre.js", "js/storia.js", "js/strumenti.js", "js/telefono.js", "js/voce.js", "manifest.webmanifest"];
 var CASSA = "consulente-digitale-" + VERSIONE;
 
 self.addEventListener("install", function (e) {
-  e.waitUntil(caches.open(CASSA).then(function (c) { return c.addAll(FILE); }).then(function () { return self.skipWaiting(); }));
+  // «reload»: i file della nuova versione si prendono dal sito, non da copie vecchie del browser
+  e.waitUntil(caches.open(CASSA).then(function (c) { return c.addAll(FILE.map(function (f) { return new Request(f, { cache: "reload" }); })); })
+    .then(function () { return self.skipWaiting(); }));
 });
 
 self.addEventListener("activate", function (e) {

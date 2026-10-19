@@ -8,7 +8,7 @@
 (function () {
   "use strict";
   var CD = window.CD = window.CD || {};
-  CD.versione = "1.2.0";
+  CD.versione = "1.3.0";
 
   /* ------------------------------------------------------------------ utilita' */
   CD.$ = function (s, r) { return (r || document).querySelector(s); };
@@ -20,7 +20,7 @@
   CD.attendi = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
   CD.arrotonda = function (n, d) { var p = Math.pow(10, d || 0); return Math.round(n * p) / p; };
   CD.gb = function (mb) { return mb ? CD.arrotonda(mb / 1024, mb < 10240 ? 1 : 0) : 0; };
-  CD.mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
+  CD.mobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "") || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);   // iPad = «Mac» con il tocco
   CD.hooks = { avvio: [], cambioProfilo: [] };
   CD.uno = function (lista, fn) { for (var i = 0; i < lista.length; i++) if (fn(lista[i], i)) return lista[i]; return null; };
 
@@ -192,13 +192,16 @@
     box.className = "vista vista-" + v.id; box.id = "vista-" + v.id;
     main.appendChild(box);
     document.title = (v.titolo ? v.titolo + " · " : "") + "Consulente Digitale";
-    CD.$$("#menu a").forEach(function (a) { a.classList.toggle("attiva", a.getAttribute("data-v") === v.id); });
+    CD.$$("#menu a").forEach(function (a) {
+      var esatto = a.getAttribute("data-h");                // voci che puntano a una scheda precisa (utility del telefono)
+      a.classList.toggle("attiva", esatto ? esatto === "#/" + h.split("/").slice(0, 2).join("/").replace(/\/$/, "") : a.getAttribute("data-v") === v.id);
+    });
     CD.$("#menu").classList.remove("aperto");
     try { v.mostra(box, parti.slice(1)); } catch (e) { box.innerHTML = '<div class="avviso male">Errore nella pagina: ' + CD.esc(e.message) + "</div>"; console.error(e); }
     if (v.id !== "neura") window.scrollTo(0, 0);
     if (CD.neura && CD.neura.pagina) CD.neura.pagina(v);
   };
-  window.addEventListener("hashchange", CD.mostraVista);
+  window.addEventListener("hashchange", function () { CD.mostraVista(); });
 
   CD.titolo = function (em, titolo, sotto) {
     return '<header class="titolo-pagina"><span class="em" aria-hidden="true">' + em + '</span><div><h1>' + CD.esc(titolo) + "</h1>" +

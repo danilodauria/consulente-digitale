@@ -12,7 +12,9 @@ var FILE = ["./", "index.html"];
 var CASSA = "consulente-digitale-" + VERSIONE;
 
 self.addEventListener("install", function (e) {
-  e.waitUntil(caches.open(CASSA).then(function (c) { return c.addAll(FILE); }).then(function () { return self.skipWaiting(); }));
+  // «reload»: i file della nuova versione si prendono dal sito, non da copie vecchie del browser
+  e.waitUntil(caches.open(CASSA).then(function (c) { return c.addAll(FILE.map(function (f) { return new Request(f, { cache: "reload" }); })); })
+    .then(function () { return self.skipWaiting(); }));
 });
 
 self.addEventListener("activate", function (e) {

@@ -1,49 +1,49 @@
 {
  "app": "Consulente Digitale",
  "autore": "Danilo D'Auria",
- "versione": "1.2.0",
- "data": "2026-10-18",
+ "versione": "1.3.0",
+ "data": "2026-10-19",
  "novita": [
-  "Pulsante ⏹ Stop in alto a destra, vicino all'altoparlante: ferma subito la voce di Neura (anche con il tasto Esc)",
-  "📰 Notizie dal mondo dell'informatica e dell'elettronica, scelte per il vostro profilo da testate italiane affidabili: si attivano e disattivano, si salvano, si stampano o si salvano in PDF e si condividono su WhatsApp, Telegram e Facebook",
-  "🌐 Il programma parla inglese, francese, spagnolo, tedesco e rumeno: interfaccia tradotta, Neura risponde e legge nella lingua scelta, stampe tradotte",
-  "🧹 Reset: cancella l'ultima domanda, i nomi rimasti o tutto, a scelta; prima propone un backup",
-  "💾 Backup e ripristino con i file .cdbackup, da importare su questo computer o su un altro (Windows, Linux, macOS) e sul telefono",
-  "📱 App per telefono e tablet (Android, iPhone, iPad) da installare dal sito, funziona anche senza Internet",
-  "Barra in alto più comoda sugli schermi piccoli"
+  "App per telefono: la voce di Neura ora si sente anche su iPhone e iPad e in tutti i browser (Safari, Chrome, Firefox, Edge, Samsung Internet): parte al primo tocco dello schermo, senza restare «gialla»",
+  "App per telefono: il programma riconosce telefono o tablet, Android o Apple, e mostra solo i comandi utili lì",
+  "Nuove utility per telefono e tablet: «Il mio telefono» (scheda del dispositivo e consigli), «Aggiornamenti» passo per passo, «Salute e sicurezza» con il controllo guidato, «App consigliate», per Android e per iPhone/iPad",
+  "Banner «Aggiungi alla schermata Home» con l'icona del Consulente Digitale (su Android anche il pulsante «Installa»)",
+  "Nuovo pulsante ← Indietro in alto",
+  "Nonni Teach sul telefono: si ascoltano i podcast pubblicati",
+  "L'app del telefono si aggiorna da sola alla nuova versione"
  ],
  "sito": "https://danilodauria.github.io/consulente-digitale/",
  "progetto": "https://github.com/danilodauria/consulente-digitale",
  "scarica": {
   "windows": {
-   "nome": "ConsulenteDigitale-Setup-1.2.0.exe",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.2.0.exe",
-   "sha256": "c212e463ce780d23bd454502ac9e8ffff3e215383eda1d2e3784112e6c5b0275",
-   "byte": 11122330
+   "nome": "ConsulenteDigitale-Setup-1.3.0.exe",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.3.0.exe",
+   "sha256": "a497e945c28f18a9abac968cd36d07a88e063eec7bd9465051f3c595a4bcb0dc",
+   "byte": 11427817
   },
   "linux": {
-   "nome": "consulente-digitale_1.2.0_all.deb",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.2.0_all.deb",
-   "sha256": "e7a2fe36671a97212ee69910d6bd908822be93dcaac2599782298278d1d353ad",
-   "byte": 10762044
+   "nome": "consulente-digitale_1.3.0_all.deb",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.3.0_all.deb",
+   "sha256": "4bac10c01d27bd7da409a0d984c9677746c4f67c086172a4d247e01d10c2256b",
+   "byte": 11067424
   },
   "mac": {
-   "nome": "ConsulenteDigitale-1.2.0-macOS.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.2.0-macOS.zip",
-   "sha256": "30263508290f09565940d5a8868131143fde7931b043d9fd53628e55cf5cbf28",
-   "byte": 12813314
+   "nome": "ConsulenteDigitale-1.3.0-macOS.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.3.0-macOS.zip",
+   "sha256": "f065296545186cf005b38d72e289fb89c5a6fe839e739c95a8bf0c5ed3edf1f1",
+   "byte": 13099733
   },
   "portatile": {
-   "nome": "ConsulenteDigitale-1.2.0-portatile.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.2.0-portatile.zip",
-   "sha256": "070752ec12e32dcca02b46143455d1ff8e572bf6c58f2c6f9980069ec299c4b0",
-   "byte": 11548980
+   "nome": "ConsulenteDigitale-1.3.0-portatile.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.3.0-portatile.zip",
+   "sha256": "7070b99ef233a0f9af2f4355866dbef7c6c2dcccc4a5551ebdadda7b6a1d99b8",
+   "byte": 11835362
   },
   "vademecum": {
-   "nome": "Vademecum_Consulente_Digitale_1.2.0.pdf",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.2.0.pdf",
-   "sha256": "9a80c4abeaf825e806107a96afcaf3a43783e1f429b0a6d5347df4d529052f9a",
-   "byte": 12465745
+   "nome": "Vademecum_Consulente_Digitale_1.3.0.pdf",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.3.0.pdf",
+   "sha256": "f41a4a860f8606b0cec7f8995b06d0d51f3400268e0270f61f64e7d864cd96f6",
+   "byte": 12760660
   }
  },
  "licenze": {

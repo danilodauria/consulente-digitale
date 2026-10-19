@@ -269,6 +269,38 @@ def main():
             time.sleep(1)
             pt.screenshot(path=os.path.join(FOTO, "23-telefono.png"), full_page=True)
             controlla(pt.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), "telefono: niente scorrimento orizzontale")
+
+            # App per telefono (sito, senza programma): iPhone con voce che parte solo dopo un tocco
+            web = subprocess.Popen([sys.executable, "-m", "http.server", str(PORTA + 5), "--bind", "127.0.0.1", "-d", os.path.join(RADICE, "src", "web")],
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            try:
+                attendi_url("http://127.0.0.1:%d/" % (PORTA + 5))
+                ip = b.new_context(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True, locale="it-IT",
+                                   user_agent="Mozilla/5.0 (iPhone; CPU iPhone OS 18_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/141.0 Mobile/15E148 Safari/604.1")
+                ip.add_init_script("""(function(){var g=false;['touchend','click'].forEach(function(e){document.addEventListener(e,function(){g=true},true)});
+                  window.__detti=[];var S=window.speechSynthesis;S.speak=function(u){if(!g)return;window.__detti.push(u.text);setTimeout(function(){u.onstart&&u.onstart({})},30);setTimeout(function(){u.onend&&u.onend({})},200)};
+                  S.cancel=function(){};S.getVoices=function(){return []};try{localStorage.setItem('cd.profilo','{"tipo":"persona","nome":"Maria"}')}catch(e){}})();""")
+                pi = ip.new_page()
+                pi.on("pageerror", lambda e: ERRORI.append("errore JS (app iPhone): %s" % e))
+                wb = "http://127.0.0.1:%d/" % (PORTA + 5)
+                pi.goto(wb + "#/")
+                time.sleep(4.5)
+                controlla(pi.evaluate("CD.cervello.stato()") != "parla" and not pi.evaluate("document.getElementById('btn-stop').classList.contains('parla')"),
+                          "app iPhone: senza tocco Neura non resta «gialla»")
+                pi.tap("h1"); time.sleep(1.2)
+                controlla(any("Maria" in t for t in pi.evaluate("window.__detti")), "app iPhone: dopo il tocco Neura saluta a voce")
+                menu = pi.inner_text("#menu")
+                controlla("Il mio telefono" in menu and "Analisi del PC" not in menu and "Ottimizza" not in menu, "app iPhone: menu con le utility del telefono")
+                pi.goto(wb + "#/analisi"); time.sleep(1)
+                controlla(pi.evaluate("location.hash") == "#/telefono", "app iPhone: Analisi del PC → Il mio telefono")
+                pi.goto(wb + "#/telefono/salute"); pi.wait_for_selector("#tel-controllo")
+                pi.click("#btn-indietro"); time.sleep(0.6)
+                controlla(pi.evaluate("location.hash") == "#/telefono", "app iPhone: pulsante ← Indietro")
+                pi.evaluate("CD.telefono.banner(true)"); pi.wait_for_selector("#banner-home")
+                controlla("Condividi" in pi.inner_text("#banner-home"), "app iPhone: banner «Aggiungi alla schermata Home»")
+                pi.screenshot(path=os.path.join(FOTO, "28-app-iphone.png"))
+            finally:
+                web.terminate()
             pt.goto(base + "?noprofilo&nosaluto#/acquisti/smartphone")
             pt.wait_for_selector("[data-chi]")
             pt.screenshot(path=os.path.join(FOTO, "24-telefono-acquisti.png"))

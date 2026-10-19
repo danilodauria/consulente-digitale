@@ -26,7 +26,7 @@ quello che dite a Neura non esce dal PC.
 | 📰 **Notizie** | Informatica, elettronica, sicurezza e IA da testate italiane (feed RSS pubblici), temi scelti per il profilo; si attivano e disattivano, si salvano, si stampano o salvano in PDF, si condividono su WhatsApp, Telegram e Facebook. |
 | 🌐 **Lingue** | Italiano, English, Français, Español, Deutsch, Română: interfaccia tradotta con dizionari scritti a mano, Neura risponde e parla nella lingua scelta, testi lunghi tradotti dall'IA locale. |
 | 🧹 **Reset** · 💾 **Backup** | Azzera l'ultima domanda, i nomi rimasti o tutto, a scelta, proponendo prima un backup; file `.cdbackup` da importare su Windows, Linux, macOS o sul telefono. |
-| 📱 **App per telefono** | Android, iPhone e iPad: si installa dal sito (`/app/`), funziona anche senza Internet, in modalità guida. |
+| 📱 **App per telefono** | Android, iPhone e iPad: si installa dal sito (`/app/`), funziona anche senza Internet. Riconosce il dispositivo e mostra le sue utility: Il mio telefono, Aggiornamenti, Salute e sicurezza con controllo guidato, App consigliate; banner «Aggiungi alla schermata Home»; pulsante ← Indietro. |
 | 🔄 **Scarica gli aggiornamenti** | Nuove versioni dal sito ufficiale, verificate con SHA-256. |
 | 📦 **Programmi consigliati** | 56 programmi affidabili filtrati per sistema, profilo e RAM, installati con un clic. |
 | 💡 **Cose da sapere** · 📜 **Storia** | Backup, password, truffe, privacy, IA, salute, sostenibilità, glossario · linea del tempo dall'abaco all'IA con le tappe italiane (Olivetti, Faggin…), famiglie dei sistemi operativi, quiz. |

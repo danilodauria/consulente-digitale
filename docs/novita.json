@@ -2,6 +2,19 @@
  "_nota": "Novità di ogni versione, dalla più recente. Le usa tools/prepara-pubblicazione.py per il sito e per aggiornamenti.json. Testi CC BY-NC-SA 4.0 - Danilo D'Auria",
  "versioni": [
   {
+   "versione": "1.3.0",
+   "data": "2026-10-19",
+   "novita": [
+    "App per telefono: la voce di Neura ora si sente anche su iPhone e iPad e in tutti i browser (Safari, Chrome, Firefox, Edge, Samsung Internet): parte al primo tocco dello schermo, senza restare «gialla»",
+    "App per telefono: il programma riconosce telefono o tablet, Android o Apple, e mostra solo i comandi utili lì",
+    "Nuove utility per telefono e tablet: «Il mio telefono» (scheda del dispositivo e consigli), «Aggiornamenti» passo per passo, «Salute e sicurezza» con il controllo guidato, «App consigliate», per Android e per iPhone/iPad",
+    "Banner «Aggiungi alla schermata Home» con l'icona del Consulente Digitale (su Android anche il pulsante «Installa»)",
+    "Nuovo pulsante ← Indietro in alto",
+    "Nonni Teach sul telefono: si ascoltano i podcast pubblicati",
+    "L'app del telefono si aggiorna da sola alla nuova versione"
+   ]
+  },
+  {
    "versione": "1.2.0",
    "data": "2026-10-18",
    "novita": [

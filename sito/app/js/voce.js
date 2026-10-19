@@ -61,6 +61,25 @@
   }
   if (sintesi && sintesi.onvoiceschanged !== undefined) sintesi.onvoiceschanged = function () { CD.vociSistema(); };
 
+  /* ------------------------------------------------------------------ sblocco della voce
+     iPhone, iPad, Android (e a volte anche i computer) fanno parlare il browser solo DOPO un tocco o un clic
+     della persona. Senza tocco la frase resta «appesa»: il cervello diventa giallo e non si sente nulla.
+     Qui la frase aspetta il primo tocco, poi parte da sola. */
+  var sbloccata = !CD.mobile, inAttesa = null, avvisoTocco = false;
+  function sblocca() {
+    if (sbloccata) return;
+    sbloccata = true;
+    try { if (sintesi) { var u0 = new SpeechSynthesisUtterance(" "); u0.volume = 0; sintesi.speak(u0); } } catch (e) { /* niente */ }
+    try { contesto = contesto || new (window.AudioContext || window.webkitAudioContext)(); if (contesto.resume) contesto.resume(); } catch (e2) { /* niente */ }
+    if (inAttesa) { var a = inAttesa; inAttesa = null; setTimeout(function () { prossima(a.gen, a.risolvi); }, 60); }
+  }
+  ["touchend", "click", "keydown"].forEach(function (ev) { document.addEventListener(ev, sblocca, true); });
+  function aspettaTocco(gen, risolvi) {
+    sbloccata = false; inAttesa = { gen: gen, risolvi: risolvi };
+    if (CD.cervello && CD.cervello.stato() === "parla") CD.cervello.stato("riposo");
+    if (!avvisoTocco && CD.avviso) { avvisoTocco = true; CD.avviso("🔊 Toccate lo schermo per sentire Neura", "", 4000); }
+  }
+
   /* ------------------------------------------------------------------ parlare */
   function finito() { inCorso = false; if (CD.cervello && CD.cervello.stato() === "parla") CD.cervello.stato("riposo"); }
   function prossima(gen, risolvi) {
@@ -91,14 +110,34 @@
       return;
     }
     if (!sintesi) { finito(); risolvi(); return; }
-    var u = new SpeechSynthesisUtterance(f), v = scegliVoce();
+    if (!sbloccata) { coda.unshift(f); aspettaTocco(gen, risolvi); return; }
+    var u = new SpeechSynthesisUtterance(f), v = scegliVoce(), chiuso = false, partito = false;
     if (v) u.voice = v;
     u.lang = v ? v.lang : (CD.i18n ? CD.i18n.bcp() : "it-IT"); u.rate = CD.imp.velocitaVoce || 1; u.pitch = 1.04;
+    CD._frase = u;                                     // iPhone: senza un riferimento la frase può sparire a metà
     var pulsa = setInterval(function () { CD.cervello.livello(0.35 + Math.random() * 0.55); }, 120);
-    u.onboundary = function () { CD.cervello.livello(0.9); };
-    u.onend = u.onerror = function () { clearInterval(pulsa); prossima(gen, risolvi); };
+    function chiudi(avanti) { if (chiuso) return; chiuso = true; clearInterval(pulsa); clearTimeout(guardia1); clearTimeout(guardia2); if (avanti) prossima(gen, risolvi); }
+    u.onstart = function () { partito = true; };
+    u.onboundary = function () { partito = true; CD.cervello.livello(0.9); };
+    u.onend = function () { chiudi(true); };
+    u.onerror = function (e) {
+      if (e && e.error === "not-allowed") { chiudi(false); coda.unshift(f); aspettaTocco(gen, risolvi); return; }   // serve un tocco
+      chiudi(true);
+    };
     sintesi.speak(u);
     setTimeout(function () { if (sintesi.paused) sintesi.resume(); }, 300);
+    // guardia: se dopo 3 secondi la voce non è partita (browser che la blocca), si aspetta un tocco invece di restare «gialli»
+    var guardia1 = setTimeout(function () {
+      if (chiuso || partito || gen !== generazione || sintesi.speaking) return;
+      try { sintesi.cancel(); } catch (e) { /* niente */ }
+      chiudi(false); coda.unshift(f); aspettaTocco(gen, risolvi);
+    }, 3000);
+    // guardia lunga: una frase non dura più di così (alcuni browser non mandano mai «fine»)
+    var guardia2 = setTimeout(function controlla() {
+      if (chiuso || gen !== generazione) return;
+      if (sintesi.speaking) { guardia2 = setTimeout(controlla, 4000); return; }
+      chiudi(true);
+    }, 8000 + f.length * 110);
   }
   CD.parla = function (testo, opz) {
     opz = opz || {};
@@ -113,12 +152,12 @@
     return new Promise(function (r) { prossima(gen, r); });
   };
   CD.taci = function () {
-    generazione++; coda = []; inCorso = false;
+    generazione++; coda = []; inCorso = false; inAttesa = null;
     if (sintesi) try { sintesi.cancel(); } catch (e) { /* niente */ }
     if (audioEl) { try { audioEl.pause(); } catch (e2) { /* niente */ } audioEl = null; }
     if (CD.cervello && CD.cervello.stato() === "parla") CD.cervello.stato("riposo");
   };
-  CD.staParlando = function () { return inCorso || !!(sintesi && sintesi.speaking) || !!(audioEl && !audioEl.paused); };
+  CD.staParlando = function () { return (inCorso && !inAttesa) || !!(sintesi && sintesi.speaking) || !!(audioEl && !audioEl.paused); };
   /* ⏹ STOP (in alto a destra, come nel Professore Digitale): ferma la voce, la lettura in corso e l'ascolto.
      Si illumina mentre Neura parla. Ideato da Danilo D'Auria - Codice MIT */
   CD.ferma = function () {

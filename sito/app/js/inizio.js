@@ -17,6 +17,16 @@
     ["#/sapere", "💡", "Cose da sapere", "Backup, password, truffe, privacy, salute e sostenibilità"],
     ["#/storia", "📜", "Storia dei computer", "Dall'abaco all'IA, con le invenzioni italiane e un quiz"]
   ];
+  var SEZIONI_TEL = [
+    ["#/telefono", "📱", "Il mio dispositivo", "Scheda del telefono o tablet e consigli su misura"],
+    ["#/telefono/aggiornamenti", "⬇️", "Aggiornamenti", "Sistema, app e browser, passo per passo"],
+    ["#/telefono/salute", "🩺", "Salute e sicurezza", "Spazio, batteria, backup, furto, truffe, privacy"],
+    ["#/telefono/app", "📦", "App consigliate", "Gratuite e affidabili, dallo store ufficiale"]
+  ];
+  function sezioni() {
+    if (!CD.telefono || !CD.telefono.attivo) return SEZIONI;
+    return [SEZIONI[0]].concat(SEZIONI_TEL, SEZIONI.filter(function (s) { return /sapere|storia/.test(s[0]); }));
+  }
   function saluto() { var h = CD.adesso().getHours(); return h < 5 ? "Buonanotte" : h < 13 ? "Buongiorno" : h < 18 ? "Buon pomeriggio" : "Buonasera"; }
   CD.registra("inizio", {
     titolo: "",
@@ -37,10 +47,16 @@
         '<div class="scheda"><h3>' + consiglio.icona + " Consiglio del giorno</h3><p><b>" + esc(consiglio.titolo) + "</b></p><p>" + esc(consiglio.sintesi) + '</p><a class="btn piccolo" href="#/sapere/' + consiglio.id + '">Leggi →</a></div>' +
         '<div class="scheda" id="home-agg"><h3>⬇️ Aggiornamenti</h3><p class="piccolo-testo">Nessun controllo recente.</p></div>' +
         (CD.imp.notizie && CD.imp.online !== false ? '<div class="scheda" id="home-notizie"><h3>📰 Ultime notizie</h3><p class="piccolo-testo">Carico i titoli…</p></div>' : "") + "</div>" +
-        '<h2 class="titolo-sezioni">Tutto quello che posso fare</h2><div class="griglia-schede">' + SEZIONI.map(function (s) {
+        '<h2 class="titolo-sezioni">Tutto quello che posso fare</h2><div class="griglia-schede">' + sezioni().map(function (s) {
           return '<a class="tessera" href="' + s[0] + '"><span class="em">' + s[1] + "</span><b>" + esc(s[2]) + "</b><small>" + esc(s[3]) + "</small></a>"; }).join("") + "</div>";
       CD.cervello.crea(CD.$("#cervello-home", el));
-      CD.$("#home-pilota", el).onclick = function () { CD.pilota(); };
+      var tel = CD.telefono && CD.telefono.attivo;
+      if (tel) {
+        var hp = CD.$("#home-pilota", el); hp.textContent = "🧭 Controllo del " + (CD.telefono.disp.tablet ? "tablet" : "telefono");
+        hp.onclick = function () { CD.vai("#/telefono/salute"); };
+        var nota = hp.parentNode.nextElementSibling; if (nota) nota.textContent = "Il controllo guidato vi aiuta a sistemare spazio, aggiornamenti, backup, sicurezza e batteria del dispositivo.";
+        var ag = CD.$("#home-agg", el); if (ag) ag.innerHTML = '<h3>⬇️ Aggiornamenti</h3><p class="piccolo-testo">Sistema e app aggiornati proteggono dai ladri informatici.</p><a class="btn piccolo" href="#/telefono/aggiornamenti">Come si fa →</a>';
+      } else CD.$("#home-pilota", el).onclick = function () { CD.pilota(); };
       CD.$("#home-parla", el).onclick = function () { CD.vai("#/neura"); setTimeout(function () { CD.neura.ascoltaEChiedi(); }, 300); };
       // momento giusto per comprare (con conto alla rovescia)
       var hn = CD.$("#home-notizie", el);
@@ -55,7 +71,11 @@
       var t = setInterval(function () { var o = CD.$("#home-ora"); if (!o) { clearInterval(t); return; } o.textContent = CD.oraTesto() + (CD.oraSync ? " (ora esatta)" : ""); }, 1000);
       // computer
       var pc = CD.$("#home-pc", el);
-      if (!CD.server) pc.innerHTML = '<h3>📱 Questo dispositivo</h3><p>State usando il Consulente Digitale senza il programma installato: la guida all\'acquisto, le cose da sapere e la storia funzionano. Per analizzare e ottimizzare un computer, installatelo lì.</p>';
+      if (tel) {
+        var dd = CD.telefono.disp;
+        pc.innerHTML = '<h3>📱 Questo dispositivo</h3><p><b>' + esc(dd.nome) + "</b><br><small>" + esc(dd.sistema || "") + " · " + esc(dd.browser) + "</small></p>" +
+          '<a class="btn piccolo" href="#/telefono">Scheda e consigli →</a>';
+      } else if (!CD.server) pc.innerHTML = '<h3>📱 Questo dispositivo</h3><p>State usando il Consulente Digitale senza il programma installato: la guida all\'acquisto, le cose da sapere e la storia funzionano. Per analizzare e ottimizzare un computer, installatelo lì.</p>';
       else CD.analisi.dati().then(function (r) {
         var p = CD.analisi.punteggi(r), w = CD.analisi.win11(r), so = CD.analisi.consigliaSistemi(r)[0];
         pc.innerHTML = '<h3>💻 Questo computer</h3><div class="riga">' + CD.metro(p.totale, 10, "Voto") + '<div style="flex:1"><p><b>' + esc((r.computer || {}).produttore || "") + " " + esc((r.computer || {}).modello || "") + "</b><br><small>" +

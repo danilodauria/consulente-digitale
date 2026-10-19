@@ -21,6 +21,12 @@
   function barra() {
     CD.$("#menu-btn").onclick = function () { var m = CD.$("#menu"); m.classList.toggle("aperto"); this.setAttribute("aria-expanded", m.classList.contains("aperto")); };
     CD.$("#btn-lingua").onclick = function () { CD.i18n.scegli(); };
+    CD.$("#btn-indietro").onclick = function () {
+      var h = percorso.pop();
+      while (h && CD.telefono && CD.telefono.attivo && CD.telefono.soloPC(h)) h = percorso.pop();   // pagine del computer: saltate
+      tornando = true;
+      location.replace(location.pathname + location.search + (h && h !== location.hash ? h : "#/"));
+    };
     CD.$("#btn-reset").onclick = function () { CD.backup.reset(); };
     CD.$("#btn-stop").onclick = function () { var era = CD.staParlando(); CD.ferma(); if (era) CD.avviso("⏹ Voce fermata", "", 1500); };
     CD.$("#btn-voce").onclick = function () { CD.imp.voce = !CD.imp.voce; if (!CD.imp.voce) CD.taci(); CD.salvaImpostazioni(); CD.avviso(CD.imp.voce ? "🔊 Voce accesa" : "🔇 Voce spenta"); };
@@ -43,13 +49,19 @@
   /* app per telefono: il service worker serve solo alla versione pubblicata sul sito (https, senza server locale) */
   function appTelefono() {
     if (CD.server || location.protocol !== "https:" || !("serviceWorker" in navigator)) return;
-    try { navigator.serviceWorker.register("sw.js").catch(function () {}); } catch (e) { /* browser senza supporto */ }
+    try {
+      var cera = !!navigator.serviceWorker.controller, ricaricato = false;
+      // arriva una versione nuova dell'app: si ricarica una volta sola, così si usano subito i file nuovi
+      navigator.serviceWorker.addEventListener("controllerchange", function () { if (cera && !ricaricato) { ricaricato = true; location.reload(); } });
+      navigator.serviceWorker.register("sw.js").then(function (r) { if (r && r.update) r.update(); }).catch(function () {});
+    } catch (e) { /* browser senza supporto (alcuni browser su iPhone) */ }
   }
 
   function avvia() {
     barra();
     return collegaServer().then(function () {
       CD.$("#spia-sistema").className = "spia" + (CD.server ? " on" : "");
+      if (CD.telefono) CD.telefono.prepara();         // app su telefono o tablet: solo i comandi utili lì
       return Promise.all([CD.carica("impostazioni"), CD.carica("profilo"), CD.neura.caricaStoria()]);
     }).then(function (r) {
       if (r[0]) for (var k in r[0]) if (Object.prototype.hasOwnProperty.call(r[0], k) && k in CD.PREDEFINITE) CD.imp[k] = r[0][k];
@@ -88,6 +100,12 @@
     try { if (sessionStorage.getItem(k)) return true; sessionStorage.setItem(k, "1"); } catch (e) { /* niente */ }
     return false;
   }
+  /* ← Indietro: torna alla pagina precedente del programma (o all'Inizio) */
+  var percorso = [], ultimo = location.hash || "#/", tornando = false;
+  window.addEventListener("hashchange", function () {
+    if (!tornando && ultimo !== location.hash) { percorso.push(ultimo); if (percorso.length > 50) percorso.shift(); }
+    tornando = false; ultimo = location.hash || "#/";
+  });
   window.addEventListener("online", CD.controllaRete);
   window.addEventListener("offline", CD.controllaRete);
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", avvia); else avvia();

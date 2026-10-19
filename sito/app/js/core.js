@@ -8,7 +8,7 @@
 (function () {
   "use strict";
   var CD = window.CD = window.CD || {};
-  CD.versione = "1.3.0";
+  CD.versione = "1.3.1";
 
   /* ------------------------------------------------------------------ utilita' */
   CD.$ = function (s, r) { return (r || document).querySelector(s); };

@@ -1,49 +1,44 @@
 {
  "app": "Consulente Digitale",
  "autore": "Danilo D'Auria",
- "versione": "1.3.0",
+ "versione": "1.3.1",
  "data": "2026-10-19",
  "novita": [
-  "App per telefono: la voce di Neura ora si sente anche su iPhone e iPad e in tutti i browser (Safari, Chrome, Firefox, Edge, Samsung Internet): parte al primo tocco dello schermo, senza restare «gialla»",
-  "App per telefono: il programma riconosce telefono o tablet, Android o Apple, e mostra solo i comandi utili lì",
-  "Nuove utility per telefono e tablet: «Il mio telefono» (scheda del dispositivo e consigli), «Aggiornamenti» passo per passo, «Salute e sicurezza» con il controllo guidato, «App consigliate», per Android e per iPhone/iPad",
-  "Banner «Aggiungi alla schermata Home» con l'icona del Consulente Digitale (su Android anche il pulsante «Installa»)",
-  "Nuovo pulsante ← Indietro in alto",
-  "Nonni Teach sul telefono: si ascoltano i podcast pubblicati",
-  "L'app del telefono si aggiorna da sola alla nuova versione"
+  "App per telefono: chi aveva già l'app ora riceve davvero la versione nuova (prima il telefono poteva tenere i file vecchi)",
+  "iPhone e iPad: la voce di Neura parte nello stesso istante del tocco, come richiede Apple; nel benvenuto c'è il pulsante «🔊 Toccate qui: Neura vi dà il benvenuto»"
  ],
  "sito": "https://danilodauria.github.io/consulente-digitale/",
  "progetto": "https://github.com/danilodauria/consulente-digitale",
  "scarica": {
   "windows": {
-   "nome": "ConsulenteDigitale-Setup-1.3.0.exe",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.3.0.exe",
-   "sha256": "a497e945c28f18a9abac968cd36d07a88e063eec7bd9465051f3c595a4bcb0dc",
-   "byte": 11427817
+   "nome": "ConsulenteDigitale-Setup-1.3.1.exe",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.3.1.exe",
+   "sha256": "9846727d7d300afb2de546fd5538dccc06d0f35b1416adf596101f08c385534a",
+   "byte": 11435192
   },
   "linux": {
-   "nome": "consulente-digitale_1.3.0_all.deb",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.3.0_all.deb",
-   "sha256": "4bac10c01d27bd7da409a0d984c9677746c4f67c086172a4d247e01d10c2256b",
-   "byte": 11067424
+   "nome": "consulente-digitale_1.3.1_all.deb",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.3.1_all.deb",
+   "sha256": "c8f1c9774a96f03acc592082dabf40e0054e12280ab3ad2dc69f81431b695caa",
+   "byte": 11074452
   },
   "mac": {
-   "nome": "ConsulenteDigitale-1.3.0-macOS.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.3.0-macOS.zip",
-   "sha256": "f065296545186cf005b38d72e289fb89c5a6fe839e739c95a8bf0c5ed3edf1f1",
-   "byte": 13099733
+   "nome": "ConsulenteDigitale-1.3.1-macOS.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.3.1-macOS.zip",
+   "sha256": "bd66b136973b8d4b3bb6c52c702bc14f306c4824b5fd671ae320023956d111ca",
+   "byte": 13108086
   },
   "portatile": {
-   "nome": "ConsulenteDigitale-1.3.0-portatile.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.3.0-portatile.zip",
-   "sha256": "7070b99ef233a0f9af2f4355866dbef7c6c2dcccc4a5551ebdadda7b6a1d99b8",
-   "byte": 11835362
+   "nome": "ConsulenteDigitale-1.3.1-portatile.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.3.1-portatile.zip",
+   "sha256": "3f8a8af601191461f1e03f52c149fca71fa9c53262cc1eee90b5c18b20e4701c",
+   "byte": 11843716
   },
   "vademecum": {
-   "nome": "Vademecum_Consulente_Digitale_1.3.0.pdf",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.3.0.pdf",
-   "sha256": "f41a4a860f8606b0cec7f8995b06d0d51f3400268e0270f61f64e7d864cd96f6",
-   "byte": 12760660
+   "nome": "Vademecum_Consulente_Digitale_1.3.1.pdf",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.3.1.pdf",
+   "sha256": "131391b431d81db3c20dab909c4e12561df791b067cf9b0de5aaa8e962febece",
+   "byte": 12766011
   }
  },
  "licenze": {

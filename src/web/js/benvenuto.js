@@ -19,6 +19,16 @@
         var t = CD.TIPI[k];
         return '<button class="tessera' + (bozza.tipo === k ? " scelta" : "") + '" data-t="' + k + '"><span class="em">' + t.icona + "</span><b>" + esc(t.nome) + "</b><small>" + esc(t.desc) + "</small></button>";
       }).join("") + "</div>" + '<p class="piccolo-testo">Si può cambiare quando volete da Impostazioni.</p></div>';
+    // telefono e tablet: la voce parte solo dopo un tocco, quindi un pulsante ben visibile per ascoltare Neura
+    if (CD.mobile && CD.voceBloccata && CD.voceBloccata() && CD.imp.voce) {
+      var testa = CD.$(".benv-testa", el);
+      testa.insertAdjacentHTML("afterend", '<button class="btn grande primario" id="benv-ascolta">🔊 Toccate qui: Neura vi dà il benvenuto</button>');
+      CD.$("#benv-ascolta", el).onclick = function (e) {      // si toglie dopo un attimo, così il tocco non «cade» sulla scheda sotto
+        var b = this; if (e) e.preventDefault(); b.disabled = true; b.style.opacity = ".5";
+        if (CD.voceBloccata && !CD.voceBloccata() && !CD.staParlando()) CD.parla("Benvenuti! Sono Neura. Ditemi chi userà il programma, così vi darò i consigli giusti.");
+        setTimeout(function () { if (b.parentNode) b.parentNode.removeChild(b); }, 1500);
+      };
+    }
     CD.cervello.crea(CD.$("#cervello-benv", el));
     CD.$$("#benv-tipi .tessera", el).forEach(function (b) {
       b.onclick = function () { bozza.tipo = b.getAttribute("data-t"); passo2(el); };

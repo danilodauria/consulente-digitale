@@ -2,6 +2,14 @@
  "_nota": "Novità di ogni versione, dalla più recente. Le usa tools/prepara-pubblicazione.py per il sito e per aggiornamenti.json. Testi CC BY-NC-SA 4.0 - Danilo D'Auria",
  "versioni": [
   {
+   "versione": "1.3.1",
+   "data": "2026-10-19",
+   "novita": [
+    "App per telefono: chi aveva già l'app ora riceve davvero la versione nuova (prima il telefono poteva tenere i file vecchi)",
+    "iPhone e iPad: la voce di Neura parte nello stesso istante del tocco, come richiede Apple; nel benvenuto c'è il pulsante «🔊 Toccate qui: Neura vi dà il benvenuto»"
+   ]
+  },
+  {
    "versione": "1.3.0",
    "data": "2026-10-19",
    "novita": [

@@ -69,10 +69,12 @@
   function sblocca() {
     if (sbloccata) return;
     sbloccata = true;
-    try { if (sintesi) { var u0 = new SpeechSynthesisUtterance(" "); u0.volume = 0; sintesi.speak(u0); } } catch (e) { /* niente */ }
     try { contesto = contesto || new (window.AudioContext || window.webkitAudioContext)(); if (contesto.resume) contesto.resume(); } catch (e2) { /* niente */ }
-    if (inAttesa) { var a = inAttesa; inAttesa = null; setTimeout(function () { prossima(a.gen, a.risolvi); }, 60); }
+    // iPhone: la prima frase deve partire DENTRO il tocco, subito (senza attese), altrimenti resta muta
+    if (inAttesa) { var a = inAttesa; inAttesa = null; prossima(a.gen, a.risolvi); }
+    else try { if (sintesi) { var u0 = new SpeechSynthesisUtterance(" "); u0.volume = 0; sintesi.speak(u0); } } catch (e) { /* niente */ }
   }
+  CD.voceBloccata = function () { return !sbloccata; };
   ["touchend", "click", "keydown"].forEach(function (ev) { document.addEventListener(ev, sblocca, true); });
   function aspettaTocco(gen, risolvi) {
     sbloccata = false; inAttesa = { gen: gen, risolvi: risolvi };
@@ -153,7 +155,8 @@
   };
   CD.taci = function () {
     generazione++; coda = []; inCorso = false; inAttesa = null;
-    if (sintesi) try { sintesi.cancel(); } catch (e) { /* niente */ }
+    // iPhone: «cancel» subito prima di «speak» può zittire la frase nuova: si annulla solo se c'è qualcosa in corso
+    if (sintesi && (sintesi.speaking || sintesi.pending)) try { sintesi.cancel(); } catch (e) { /* niente */ }
     if (audioEl) { try { audioEl.pause(); } catch (e2) { /* niente */ } audioEl = null; }
     if (CD.cervello && CD.cervello.stato() === "parla") CD.cervello.stato("riposo");
   };

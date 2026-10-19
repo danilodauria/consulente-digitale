@@ -18,22 +18,24 @@
     }, function () { return false; });
   }
 
+  /* un pulsante che manca (pagina e file di versioni diverse) non deve bloccare l'avvio */
+  function imposta(sel, f) { var e = CD.$(sel); if (e) e.onclick = f; }
   function barra() {
     CD.$("#menu-btn").onclick = function () { var m = CD.$("#menu"); m.classList.toggle("aperto"); this.setAttribute("aria-expanded", m.classList.contains("aperto")); };
-    CD.$("#btn-lingua").onclick = function () { CD.i18n.scegli(); };
-    CD.$("#btn-indietro").onclick = function () {
+    imposta("#btn-lingua", function () { CD.i18n.scegli(); });
+    imposta("#btn-indietro", function () {
       var h = percorso.pop();
       while (h && CD.telefono && CD.telefono.attivo && CD.telefono.soloPC(h)) h = percorso.pop();   // pagine del computer: saltate
       tornando = true;
       location.replace(location.pathname + location.search + (h && h !== location.hash ? h : "#/"));
-    };
-    CD.$("#btn-reset").onclick = function () { CD.backup.reset(); };
-    CD.$("#btn-stop").onclick = function () { var era = CD.staParlando(); CD.ferma(); if (era) CD.avviso("⏹ Voce fermata", "", 1500); };
-    CD.$("#btn-voce").onclick = function () { CD.imp.voce = !CD.imp.voce; if (!CD.imp.voce) CD.taci(); CD.salvaImpostazioni(); CD.avviso(CD.imp.voce ? "🔊 Voce accesa" : "🔇 Voce spenta"); };
-    CD.$("#btn-tema").onclick = function () { var t = ["notte", "giorno", "contrasto"]; CD.imp.tema = t[(t.indexOf(CD.imp.tema) + 1) % 3]; CD.salvaImpostazioni(); };
-    CD.$("#btn-testo").onclick = function () { CD.imp.testo = CD.imp.testo >= 26 ? 16 : CD.imp.testo + 2; CD.salvaImpostazioni(); CD.avviso("Testo: " + CD.imp.testo + " px"); };
-    CD.$("#profilo-breve").onclick = function () { CD.vai("#/benvenuto"); };
-    var s = CD.$("#spia-sistema");
+    });
+    imposta("#btn-reset", function () { CD.backup.reset(); });
+    imposta("#btn-stop", function () { var era = CD.staParlando(); CD.ferma(); if (era) CD.avviso("⏹ Voce fermata", "", 1500); });
+    imposta("#btn-voce", function () { CD.imp.voce = !CD.imp.voce; if (!CD.imp.voce) CD.taci(); CD.salvaImpostazioni(); CD.avviso(CD.imp.voce ? "🔊 Voce accesa" : "🔇 Voce spenta"); });
+    imposta("#btn-tema", function () { var t = ["notte", "giorno", "contrasto"]; CD.imp.tema = t[(t.indexOf(CD.imp.tema) + 1) % 3]; CD.salvaImpostazioni(); });
+    imposta("#btn-testo", function () { CD.imp.testo = CD.imp.testo >= 26 ? 16 : CD.imp.testo + 2; CD.salvaImpostazioni(); CD.avviso("Testo: " + CD.imp.testo + " px"); });
+    imposta("#profilo-breve", function () { CD.vai("#/benvenuto"); });
+    var s = CD.$("#spia-sistema") || document.createElement("span");
     var ua = navigator.userAgent || "";
     s.textContent = { windows: "🪟 Windows", linux: "🐧 Linux", mac: "🍎 macOS" }[CD.sistema()] || (/Android/i.test(ua) ? "📱 Android" : /iPad/i.test(ua) ? "📱 iPad" : /iPhone|iPod/i.test(ua) ? "📱 iPhone" : "📱 dispositivo");
     s.className = "spia" + (CD.server ? " on" : "");

@@ -24,7 +24,9 @@ self.addEventListener("activate", function (e) {
 });
 
 function dallaRete(req) {
-  return fetch(req).then(function (r) {
+  // «no-cache»: la pagina e le notizie si chiedono sempre al sito (niente copie vecchie del browser); senza rete si usa la copia
+  var dom = req.mode === "navigate" || /\.json$/.test(new URL(req.url).pathname) ? fetch(req.url, { cache: "no-cache", credentials: "same-origin" }) : fetch(req);
+  return dom.then(function (r) {
     if (r && r.ok && r.type === "basic") { var copia = r.clone(); caches.open(CASSA).then(function (c) { c.put(req, copia); }); }
     return r;
   }).catch(function () { return caches.match(req, { ignoreSearch: true }); });

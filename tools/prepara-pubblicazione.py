@@ -53,6 +53,22 @@ def app_telefono(sito, v):
     t = open(core, encoding="utf-8").read()
     t = re.sub(r'CD\.versione = "[0-9.]*"', 'CD.versione = "%s"' % v, t)
     open(core, "w", encoding="utf-8").write(t)
+    # index.html dell'app: file con «?v=versione» (niente copie vecchie del browser) e, in testa, la «guardia di versione»:
+    # se sul telefono c'è ancora l'app di una versione precedente, cancella la sua copia e il vecchio service worker e ricarica.
+    # È scritta dentro la pagina perché la pagina arriva sempre dalla rete, anche quando i vecchi file sono in copia.
+    idx = os.path.join(app, "index.html")
+    t = open(idx, encoding="utf-8").read()
+    t = re.sub(r'((?:src|href)="(?:js|css)/[^"?]+\.(?:js|css))"', r'\1?v=%s"' % v, t)
+    guardia = ("<script>/* Consulente Digitale - guardia di versione dell'app (Danilo D'Auria - MIT) */\n"
+               "(function(){var V=%s;try{if(location.protocol!=='https:'||localStorage.getItem('cd.app-versione')===V)return;"
+               "localStorage.setItem('cd.app-versione',V);}catch(e){return;}var n=0,p=[];"
+               "if(window.caches&&caches.keys)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!=='consulente-digitale-'+V;})"
+               ".map(function(x){n++;return caches.delete(x);}));}));"
+               "if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)p.push(navigator.serviceWorker.getRegistrations()"
+               ".then(function(r){return Promise.all(r.map(function(x){n++;return x.unregister();}));}));"
+               "Promise.all(p).then(function(){if(n)location.reload();},function(){});})();</script>\n") % json.dumps(v)
+    t = t.replace("<title>", guardia + "<title>", 1)
+    open(idx, "w", encoding="utf-8").write(t)
     file = sorted(os.path.relpath(os.path.join(r, x), app).replace(os.sep, "/") for r, _, fs in os.walk(app) for x in fs)
     file = ["./"] + [f for f in file if f != "sw.js"]
     sw = os.path.join(app, "sw.js")

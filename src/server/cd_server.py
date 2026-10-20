@@ -18,7 +18,7 @@ Serve l'interfaccia (src/web) SOLO su 127.0.0.1 e offre le API:
   GET  /api/programmi              catalogo dei programmi consigliati
   GET  /api/hardware/dettagli, /api/hardware/sensori   componenti in dettaglio e sensori in diretta (cd_hardware)
   GET  /api/aperture; POST /api/apri {id, token}       programmi e impostazioni che Neura apre col consenso (cd_aperture)
-  GET  /api/nonni[/<id>[/file/<nome>]], /api/nonni/sito.zip; POST /api/nonni/salva|sito, /api/nonni/<id>/audio/<n>|monta|elimina  (cd_nonni)
+  GET  /api/nonni                  dalla 1.4.0 Nonni Teach è nel Professore Digitale: quante interviste vecchie restano su questo PC
   GET  /api/programma; POST /api/programma/controlla|scarica|installa   aggiornamenti del programma (cd_programma)
   GET  /api/notizie[?nuovo=1]      notizie di informatica/elettronica dai feed RSS (cd_notizie), se attivate
   POST /api/backup {audio}, /api/backup/importa?modo= (X-CD-Token), /api/reset {cosa,interviste}   backup .cdbackup e reset (cd_backup)
@@ -54,7 +54,6 @@ import cd_sistema  # noqa: E402
 import cd_azioni   # noqa: E402
 import cd_hardware  # noqa: E402
 import cd_aperture  # noqa: E402
-import cd_nonni     # noqa: E402
 import cd_programma  # noqa: E402
 import cd_notizie   # noqa: E402
 import cd_backup    # noqa: E402
@@ -80,6 +79,7 @@ def _cartella_dati():
 
 
 DATA_DIR = _cartella_dati()
+PROFESSORE_URL = "https://danilodauria.github.io/professore-digitale/"   # dove sta Nonni Teach dalla 1.4.0
 os.environ.setdefault("CD_DATI_HW", DATA_DIR)
 MODELS_DIR = os.path.join(DATA_DIR, "modelli")
 RUNTIME_FILE = os.path.join(DATA_DIR, "server.json")
@@ -332,6 +332,17 @@ def voci_server():
     return out
 
 
+def interviste_vecchie():
+    """Interviste di Nonni Teach registrate con il Consulente fino alla 1.3.1 (cartella nonni-teach): non si cancellano mai da sole."""
+    base = os.path.join(DATA_DIR, "nonni-teach")
+    n = 0
+    if os.path.isdir(base):
+        for d in os.listdir(base):
+            if os.path.isfile(os.path.join(base, d, "episodio.json")):
+                n += 1
+    return {"trasferito": True, "episodi": n, "cartella": base, "professore": PROFESSORE_URL}
+
+
 def sintetizza(testo, voce="piper", velocita=1.0):
     testo = " ".join(str(testo).split())[:1500]
     with tempfile.NamedTemporaryFile(prefix="cd-tts-", suffix=".wav", delete=False) as f:
@@ -550,24 +561,9 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/rete":
             return self._send(200, {"online": internet_ok()})
         if path == "/api/nonni":
-            return self._send(200, {"episodi": cd_nonni.elenco(DATA_DIR), "ffmpeg": bool(cd_nonni.ffmpeg()), "voce_server": bool(voci_server()),
-                                    "sito": os.path.join(DATA_DIR, "nonni-teach-sito"), "url_predefinito": cd_nonni.SITO_PREDEFINITO})
-        if path == "/api/nonni/sito.zip":
-            zp = os.path.join(DATA_DIR, "nonni-teach-sito.zip")
-            if not os.path.isfile(zp):
-                return self._errore(404, "sito non ancora creato")
-            with open(zp, "rb") as f:
-                return self._send_file(f.read(), "application/zip", "nonni-teach-sito.zip")
-        if path.startswith("/api/nonni/"):
-            parti = path.split("/")
-            try:
-                if len(parti) == 4:
-                    return self._send(200, cd_nonni.leggi(DATA_DIR, parti[3]))
-                if len(parti) == 6 and parti[4] == "file":
-                    dati, ctype = cd_nonni.file_audio(DATA_DIR, parti[3], parti[5])
-                    return self._send_file(dati, ctype)
-            except ValueError as e:
-                return self._errore(404, str(e))
+            # Nonni Teach si è trasferito nel Professore Digitale (dalla 1.4.0): le interviste registrate qui restano sul disco
+            # (il Professore le copia da sé, oppure con un backup «con le interviste»)
+            return self._send(200, interviste_vecchie())
         if path == "/api/notizie":
             imp = leggi_json(os.path.join(DATA_DIR, "impostazioni.json"), {}) or {}
             if imp.get("online") is False or imp.get("notizie") is False:
@@ -649,13 +645,6 @@ class Handler(BaseHTTPRequestHandler):
                 return self._errore(403, "sessione scaduta: ricarica la pagina")
             corpo = self._corpo(cd_backup.MAX_BACKUP)
             return self._send(200, cd_backup.importa(DATA_DIR, corpo, CHIAVI_DATI, VERSIONE, self._query().get("modo", "unisci")))
-        # registrazione di una risposta di Nonni Teach (corpo audio grezzo, token nell'intestazione)
-        m = re.match(r"^/api/nonni/([a-z0-9-]+)/audio/(\d{1,2})$", path)
-        if m:
-            if self.headers.get("X-CD-Token") != TOKEN:
-                return self._errore(403, "sessione scaduta: ricarica la pagina")
-            corpo = self._corpo(cd_nonni.MAX_AUDIO)
-            return self._send(200, cd_nonni.salva_audio(DATA_DIR, m.group(1), m.group(2), corpo, self.headers.get("Content-Type")))
         # da qui in poi: azioni che cambiano il sistema -> serve il token della sessione
         req = self._json()
         if req.get("token") != TOKEN:
@@ -691,18 +680,6 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_file(corpo, "application/zip", nome)
         if path == "/api/reset":
             return self._send(200, cd_backup.reset(DATA_DIR, req.get("cosa"), CHIAVI_DATI, VERSIONE, bool(req.get("interviste"))))
-        if path == "/api/nonni/salva":
-            return self._send(200, cd_nonni.salva(DATA_DIR, req.get("episodio")))
-        if path == "/api/nonni/sito":
-            return self._send(200, cd_nonni.crea_sito(DATA_DIR, req.get("url"), req.get("titolo"), req.get("autore")))
-        m = re.match(r"^/api/nonni/([a-z0-9-]+)/(monta|elimina)$", path)
-        if m and m.group(2) == "elimina":
-            return self._send(200, cd_nonni.elimina(DATA_DIR, m.group(1)))
-        if m:
-            try:
-                return self._send(200, cd_nonni.monta(DATA_DIR, m.group(1), lambda t: sintetizza(t, "piper", 0.95)))
-            except RuntimeError as e:
-                return self._errore(500, str(e))
         if path == "/api/apri":
             try:
                 esito = cd_aperture.apri(req.get("id"))

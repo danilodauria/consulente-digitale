@@ -98,9 +98,6 @@ AZIONI = [
     {"id": "sensori_avanzati", "gruppo": "hardware", "icona": "🌡️", "rischio": "basso",
      "titolo": "Sensori avanzati", "descrizione": "Temperature dei core, ventole e consumi: su Windows con LibreHardwareMonitor (libero), sul Mac con powermetrics di Apple.",
      "s": {"windows": _s("sensori-avanzati.ps1", True), "mac": _s("sensori-avanzati.sh", True)}},
-    {"id": "ffmpeg_installa", "gruppo": "programmi", "icona": "🎚️", "rischio": "basso",
-     "titolo": "Installa FFmpeg (per i podcast)", "descrizione": "Lo strumento libero che monta le registrazioni di Nonni Teach in un unico podcast MP3 con i capitoli.",
-     "s": {"windows": _s("ffmpeg-installa.ps1"), "linux": _s("ffmpeg-installa.sh", True), "mac": _s("ffmpeg-installa.sh")}},
     # --- Strumenti degli esperti -----------------------------------------------
     {"id": "winutil", "gruppo": "esperti", "icona": "🧰", "rischio": "medio",
      "titolo": "Chris Titus WinUtil", "descrizione": "Lo strumento di christitus.com: installa programmi, rimuove il superfluo, ripara Windows Update. Si apre in una finestra sua.",

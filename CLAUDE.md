@@ -25,7 +25,6 @@ contenuti CC BY-NC-SA 4.0 (`LICENZA-CONTENUTI.md`). Leggere tutto prima di modif
 | `src/server/cd_azioni.py` | Catalogo azioni, composizione script (`_comune` + corpo), lavori con registro in diretta, elevazione UAC/pkexec/osascript |
 | `src/server/cd_hardware.py` | Dettagli dei componenti e sensori in diretta (sonda PowerShell/sh per Windows e Mac, /sys per Linux); `CD_HARDWARE_PROVA=1` = dati di prova |
 | `src/server/cd_aperture.py` | Catalogo chiuso delle finestre del sistema che Neura apre dopo il consenso (`POST /api/apri`); `CD_APERTURE_PROVA=1` non apre nulla |
-| `src/server/cd_nonni.py` | Nonni Teach: interviste, audio (`POST /api/nonni/<id>/audio/<n>` con `X-CD-Token`), montaggio FFmpeg con capitoli, sito + feed RSS |
 | `src/server/cd_programma.py` | «Scarica gli aggiornamenti»: manifesto `aggiornamenti.json` su GitHub Pages, host ammessi, SHA-256, installazione per sistema (`CD_MANIFESTO` per le prove) |
 | `src/server/cd_stt_worker.py` | Trascrizione vocale locale (Vosk/faster-whisper), dal Professore Digitale |
 | `src/azioni/{windows,linux,mac}/` | Script delle azioni. Protocollo righe: `@@PASSO|n|tot|testo`, `@@VOCE|fonte|nome|attuale|nuova|id|nota`, `@@INFO|chiave|valore`. PowerShell: **mai `exit`**, errori in `$global:CD_CODICE` |
@@ -35,7 +34,7 @@ contenuti CC BY-NC-SA 4.0 (`LICENZA-CONTENUTI.md`). Leggere tutto prima di modif
 | `src/web/js/acquisti.js` + `data-acquisti.js` | Guida all'acquisto, calendario delle occasioni, controllo annunci |
 | `src/web/js/analisi.js` | Punteggi, Windows 11, classifica dei sistemi operativi, migliorie, scheda stampabile |
 | `src/web/js/hardware.js`, `scheda-madre.js`, `interventi.js` | Sensori e schede tecniche; modello dei componenti con soglie (`CD.hw.SOGLIE`) e disegno SVG della scheda madre; diagnosi, lavori e schede stampabili |
-| `src/web/js/nonni.js`, `data-nonni.js` | Nonni Teach e la banca delle domande (contesti, temi) |
+| Nonni Teach (fino alla 1.3.1) | **Trasferito nel Professore Digitale dalla 1.4.0** (pd_nonni.py/pd_nonni.c, nonni.js, neura.js là). Qui restano: `GET /api/nonni` (quante interviste vecchie ci sono in `nonni-teach/`, mai cancellate da sole), il riquadro nell'Inizio, l'intenzione di Neura che rimanda al Professore, la chiave dati `nonni` e la cartella `nonni-teach/` nei backup «con le registrazioni» (servono a copiarle là). Non rimettere Nonni Teach qui |
 | `src/web/js/circolare.js`, `aperture.js`, `cerca.js`, `programma.js` | Economia circolare; banner del consenso; Cerca/Stampa in alto a destra; aggiornamenti del programma |
 | altre pagine | `benvenuto`, `inizio`, `aggiornamenti`, `ottimizza`, `strumenti` (con il pilota automatico), `programmi`, `sapere`, `storia`, `impostazioni`, `licenza` |
 | `src/server/cd_notizie.py`, `src/web/js/notizie.js` | Notizie: elenco chiuso di feed RSS verificati (`FONTI`), temi per regex, cache 30 min; solo titolo, riassunto e link (diritti delle testate). `CD_NOTIZIE_PROVA=1` = notizie finte. Il workflow crea `sito/notizie.json` per l'app del telefono |

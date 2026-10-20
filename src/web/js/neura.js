@@ -191,8 +191,8 @@
     { r: /(raee|economia circolare|smaltir|buttare (il|un|i|la|le|lo) (vecchio|vecchia|vecchi|pc|computer|telefon|cellulare|tablet|televisor|tv|pile|batteri)|riciclar|ricondizionat|diritto alla riparazione|isola ecologica|centro di raccolta|donare (il|un) (pc|computer|telefono)|rifiuti elettronici)/, f: function (n) {
       return { testo: CD.CIRC.risposta(n), comandi: [{ tipo: "vai", hash: "#/circolare", etichetta: "♻️ Cosa ne faccio? (percorso guidato)" }, { tipo: "vai", hash: "#/circolare/regole", etichetta: "📜 Regole e diritti" }] }; } },
     { r: /(nonni teach|intervist\w* (a |al |alla |i |il |la )?(nonn|anzian)|podcast|registrare i ricordi|memoria del quartiere)/, f: function () {
-      return { testo: "Con **Nonni Teach** faccio io le domande ai nonni (ne ho " + CD.NONNI.totale() + ", per centro anziani, scuola, biblioteca, famiglia e quartiere), registro le risposte e preparo il podcast con i capitoli. " +
-        "Prima serve il consenso della persona: c'è anche la liberatoria da stampare.", comandi: [{ tipo: "vai", hash: "#/nonni", etichetta: "🎙️ Nuova intervista" }, { tipo: "vai", hash: "#/nonni/liberatoria", etichetta: "📄 Liberatoria" }] }; } },
+      return { testo: "Nonni Teach si è trasferito nel Professore Digitale, il programma gratuito di Danilo D'Auria per imparare a usare il computer: lì sono sempre io a fare le domande ai nonni e a preparare il podcast. Le interviste registrate qui restano sul computer e il Professore le copia con un clic.",
+        comandi: [{ tipo: "url", url: CD.PROFESSORE_URL, etichetta: "🌐 Il Professore Digitale" }, { tipo: "fn", fn: function () { if (CD.backup) CD.backup.crea(true); }, etichetta: "💾 Backup con le registrazioni" }] }; } },
     { r: /(diagnosi|guast|si e rotto|lavori da (fare|eseguire)|scheda (lavori|intervento)|riparazione completa)/, f: function () {
       if (!CD.server) return null;
       return { testo: "Faccio la diagnosi completa: leggo sensori e componenti, trovo i problemi e preparo l'elenco dei lavori da eseguire, con le schede da stampare (diagnosi e lavori eseguiti).",
@@ -294,7 +294,7 @@
     var az = Object.keys(CD.azioni).map(function (k) { return "[[azione:" + k + "]] = " + CD.azioni[k].titolo; });
     if (az.length) righe.push("Puoi proporre un'azione automatica scrivendo su una riga a parte il suo comando (diventa un pulsante; la esegue l'utente). Comandi disponibili su questo computer:\n" + az.join("\n") +
       "\nPer [[azione:programma_installa|ID]] usa uno di questi ID: " + (CD.programmi ? CD.programmi.idDisponibili().join(", ") : "") + ".");
-    righe.push("Puoi aprire una pagina con [[vai:PAGINA]]: inizio, acquisti, acquisti/portatile, acquisti/smartphone, analisi, hardware, hardware/schema, interventi, nonni, nonni/archivio, circolare, circolare/regole, circolare/quiz, programma, notizie, notizie/salvate, aggiornamenti, ottimizza, strumenti, programmi, sapere, storia, impostazioni.");
+    righe.push("Puoi aprire una pagina con [[vai:PAGINA]]: inizio, acquisti, acquisti/portatile, acquisti/smartphone, analisi, hardware, hardware/schema, interventi, circolare, circolare/regole, circolare/quiz, programma, notizie, notizie/salvate, aggiornamenti, ottimizza, strumenti, programmi, sapere, storia, impostazioni.");
     if (CD.aperture && CD.aperture.lista.length) righe.push("Puoi proporre di aprire una finestra del sistema con [[apri:ID]] (diventa un pulsante; chiede il permesso): " +
       CD.aperture.lista.map(function (a) { return a.id + " = " + a.titolo; }).join(", ") + ".");
     if (CD.i18n && CD.i18n.attiva()) righe.push("IMPORTANTE: l'utente ha scelto la lingua " + CD.i18n.LINGUE[CD.i18n.lingua].ia + ". Rispondi SEMPRE e solo in questa lingua, anche se le informazioni qui sopra sono in italiano.");

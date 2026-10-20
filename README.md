@@ -18,7 +18,7 @@ quello che dite a Neura non esce dal PC.
 | 🩺 **Salute** | Disco (S.M.A.R.T.), batteria, controllo sicurezza, velocità di Internet, riparazioni, licenza di Windows, **pilota automatico** con rapporto stampabile. |
 | 🧬 **Hardware e sensori** | Come HWiNFO, CPU-Z e GPU-Z: componenti in dettaglio, temperature, ventole, tensioni e consumi in diretta; **schema della scheda madre** disegnato dai dati letti con i **punti di un guasto imminente**. |
 | 🛠️ **Diagnosi e interventi** | Diagnosi, **lavori da eseguire** (anche con un clic), lavori fatti, **scheda di diagnosi** e **scheda lavori eseguiti** da stampare. |
-| 🎙️ **Nonni Teach** | Neura intervista i nonni (centro anziani, scuola primaria, biblioteca, famiglia, quartiere…) con centinaia di domande, registra le risposte, crea il **podcast MP3 con capitoli**, il sito e il feed RSS per GitHub Pages. Consenso e liberatoria. |
+| 🎙️ **Nonni Teach** | Dalla 1.4.0 si è trasferito nel [Professore Digitale](https://danilodauria.github.io/professore-digitale/), dove Neura continua a intervistare i nonni. Le interviste registrate qui restano sul computer e il Professore le copia con un clic (o da un backup «con le registrazioni»). |
 | ♻️ **Economia circolare** | Cosa fare dei vecchi dispositivi, RAEE, diritto alla riparazione, USB-C, ecodesign, batterie; consigli, quiz, patto stampabile. |
 | 🪟 **Neura apre le finestre** | Impostazioni, gestione attività, dispositivi, dischi, stampanti… sempre dopo il consenso nel banner. |
 | 🔎 **Cerca** · 🖨️ **Stampa** | In alto a destra: trova tutto nel programma; stampa ogni pagina come scheda. |

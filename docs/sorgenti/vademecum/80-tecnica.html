@@ -127,7 +127,7 @@ e allegando <code>server.log</code> e la stampa in PDF del registro dell'azione.
 <tr><td><code>diario.json</code>, <code>acquisti.json</code></td><td>Ultimi aggiornamenti trovati e ultimo pilota automatico; ultima scelta guidata</td></tr>
 <tr><td><code>hardware.json</code>, <code>interventi.json</code></td><td>Ultimo controllo SMART per lo schema; schede di diagnosi e lavori (le ultime 60)</td></tr>
 <tr><td><code>hardware-completo.json</code></td><td>Banchi di memoria, slot e porte letti con «Inventario completo» (Linux)</td></tr>
-<tr><td><code>nonni-teach/</code>, <code>nonni-teach-sito/</code>, <code>nonni.json</code></td><td>Interviste con le registrazioni e il podcast; il sito da pubblicare (e il suo zip); le preferenze di pubblicazione</td></tr>
+<tr><td><code>nonni-teach/</code>, <code>nonni.json</code></td><td>Interviste di Nonni Teach registrate fino alla 1.3.1 e preferenze del sito del podcast: restano qui finché non le copiate nel Professore Digitale (capitolo 29)</td></tr>
 <tr><td><code>notizie.json</code>, <code>notizie-cache.json</code></td><td>Notizie salvate, temi e fonti scelti; ultima copia dei titoli scaricati</td></tr>
 <tr><td><code>traduzioni/</code></td><td>Le traduzioni fatte dall'IA locale per ogni lingua (si riusano subito)</td></tr>
 <tr><td><code>backup-automatici/</code></td><td>Le ultime 10 copie .cdbackup fatte da sole prima di importare o azzerare</td></tr>
@@ -169,7 +169,6 @@ CD_DATA_DIR=…   CD_SHARE_DIR=…   CD_PORT=…   OLLAMA_HOST=http://127.0.0.1:
 <tr><td><code>src/server/cd_azioni.py</code></td><td>Catalogo delle azioni, lista bianca dei parametri, lavori, permessi</td></tr>
 <tr><td><code>src/server/cd_hardware.py</code></td><td>Componenti in dettaglio e sensori in diretta (sonda per Windows e Mac); <code>CD_HARDWARE_PROVA=1</code> dà dati di prova</td></tr>
 <tr><td><code>src/server/cd_aperture.py</code></td><td>Catalogo delle finestre del sistema che Neura apre con il consenso</td></tr>
-<tr><td><code>src/server/cd_nonni.py</code></td><td>Nonni Teach: interviste, audio, montaggio con FFmpeg, sito e feed RSS</td></tr>
 <tr><td><code>src/server/cd_programma.py</code></td><td>Scarica gli aggiornamenti: manifesto, host ammessi, SHA-256, installazione</td></tr>
 <tr><td><code>src/azioni/{windows,linux,mac}/</code></td><td>Gli script, con le funzioni comuni in <code>_comune</code></td></tr>
 <tr><td><code>src/web/</code></td><td>Le pagine (JavaScript semplice, senza librerie esterne), stili, logo, catalogo dei programmi</td></tr>

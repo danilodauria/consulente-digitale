@@ -1,4 +1,4 @@
-Consulente Digitale 1.3.1 - app per telefono e tablet
+Consulente Digitale 1.4.0 - app per telefono e tablet
 © Danilo D'Auria - un progetto FeniceOS
 Codice: licenza MIT. Testi, grafica, dizionari delle lingue, personaggio di Neura e banche dati: CC BY-NC-SA 4.0
 https://creativecommons.org/licenses/by-nc-sa/4.0/deed.it

@@ -51,6 +51,10 @@ def main():
     shutil.rmtree(FOTO, ignore_errors=True)
     os.makedirs(FOTO)
     dati = tempfile.mkdtemp(prefix="cd-test-")
+    # un'intervista di Nonni Teach registrata con la 1.3: dalla 1.4.0 resta sul disco e si apre nel Professore Digitale
+    ep = os.path.join(dati, "nonni-teach", "20261016-1000-nonno-pippo")
+    os.makedirs(ep)
+    json.dump({"id": "20261016-1000-nonno-pippo", "titolo": "I racconti di nonno Pippo", "consenso_registrare": True, "domande": []}, open(os.path.join(ep, "episodio.json"), "w"))
     env = dict(os.environ, CD_DATA_DIR=dati, OLLAMA_HOST="http://127.0.0.1:%d" % PORTA_IA, CD_HARDWARE_PROVA="1", CD_APERTURE_PROVA="1", CD_NOTIZIE_PROVA="1")
     env.pop("DISPLAY", None)
     ia = subprocess.Popen([sys.executable, os.path.join(QUI, "finto_ollama.py"), str(PORTA_IA)])
@@ -61,6 +65,9 @@ def main():
         print("API")
         st = api("/api/status")
         controlla(st["app"] == "Consulente Digitale" and len(st["token"]) == 32, "status e token")
+        nt = api("/api/nonni")
+        controlla(nt.get("trasferito") is True and nt["episodi"] == 1 and "professore-digitale" in nt["professore"], "Nonni Teach trasferito: le interviste vecchie restano e si contano")
+        controlla(os.path.isfile(os.path.join(ep, "episodio.json")), "le interviste vecchie non vengono cancellate")
         az = api("/api/azioni")
         controlla(len(az["azioni"]) >= 15, "catalogo azioni (%d)" % len(az["azioni"]))
         for s in ("windows", "mac"):
@@ -116,6 +123,10 @@ def main():
             pg.wait_for_selector("#home-pc .metro", timeout=30000)
             time.sleep(1.5)
             pg.screenshot(path=os.path.join(FOTO, "03-inizio-giorno.png"))
+            pg.wait_for_selector("#home-nonni:not([hidden]) #home-nonni-pd", timeout=15000)
+            controlla("Professore Digitale" in pg.inner_text("#home-nonni") and "computer: 1." in pg.inner_text("#home-nonni"), "Inizio: avviso «Nonni Teach si è trasferito» con le interviste da copiare")
+            controlla(pg.locator('a[href="#/nonni"]').count() == 0 and not pg.evaluate("!!(CD.viste && CD.viste.nonni)"), "Nonni Teach tolto dal menu e dalle pagine")
+            pg.screenshot(path=os.path.join(FOTO, "03b-nonni-trasferito.png"))
             controlla(pg.get_attribute("html", "data-tema") == "giorno", "profilo centro anziani → tema chiaro")
             pg.evaluate("CD.imp.tema='notte'; CD.imp.testo=17; CD.salvaImpostazioni()")
             time.sleep(1.2)
@@ -129,6 +140,10 @@ def main():
             pg.wait_for_function("document.querySelectorAll('#chat-grande .msg-neura').length >= 2 && !/…$/.test(document.querySelector('#chat-grande .msg-neura:last-child').textContent)")
             ultima = pg.inner_text("#chat-grande .msg-neura:last-child")
             controlla("Sono le" in ultima, "Neura dice l'ora: " + ultima[:60])
+            pg.fill("#neura-input", "vorrei fare un podcast con i nonni")
+            pg.press("#neura-input", "Enter")
+            pg.wait_for_function("document.querySelectorAll('#chat-grande .msg-neura').length >= 3 && /Professore Digitale/.test(document.querySelector('#chat-grande .msg-neura:last-child').textContent)", timeout=15000)
+            controlla("🌐 Il Professore Digitale" in pg.inner_text("#chat-grande .msg-neura:last-child"), "Neura: Nonni Teach è nel Professore Digitale (con il pulsante)")
             pg.fill("#neura-input", "Mi spieghi in due parole come scegliere un buon computer per mio nipote?")
             pg.press("#neura-input", "Enter")
             pg.wait_for_selector("#chat-grande .msg-neura:last-child [data-cmd]", timeout=15000)
@@ -176,8 +191,7 @@ def main():
                                      ("ottimizza/script/windows", "11-script-windows", "[data-vedi]"), ("ottimizza/soluzioni", "12-soluzioni", "details"),
                                      ("strumenti", "13-strumenti", "[data-run]"), ("strumenti/ora", "14-ora", ".ora-mega"), ("programmi", "15-programmi", "[data-inst]"),
                                      ("sapere", "16-sapere", ".tessera"), ("sapere/truffe", "17-sapere-scheda", ".sapere-art"), ("storia", "18-storia", ".linea-tempo li"),
-                                     ("impostazioni", "19-impostazioni", "#imp-voce"), ("licenza", "20-licenza", ".cc-badge"), ("sostieni", "21-sostieni", ".qr svg"), ("nonni", "25-nonni-teach", "#nt-prepara"),
-                                     ("nonni/liberatoria", "26-liberatoria", "#nt-l-stampa"), ("strumenti/apri", "27-apri", "[data-ap]"),
+                                     ("impostazioni", "19-impostazioni", "#imp-voce"), ("licenza", "20-licenza", ".cc-badge"), ("sostieni", "21-sostieni", ".qr svg"), ("strumenti/apri", "27-apri", "[data-ap]"),
                                      ("circolare", "28-circolare", "[data-s]"), ("circolare/regole", "29-circolare-regole", ".scheda h3"), ("circolare/quiz", "30-circolare-quiz", "[data-r]")):
                 pg.goto(base + "#/" + vista)
                 pg.wait_for_selector(sel, timeout=15000)

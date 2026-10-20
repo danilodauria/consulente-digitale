@@ -61,7 +61,10 @@
 
   function avvia() {
     barra();
+    var ver = function () { var v = CD.$("#app-versione"); if (v) v.textContent = (CD.stato && CD.stato.versione) || CD.versione; };
+    ver();                                            // versione in fondo al menu, come nel Professore Digitale
     return collegaServer().then(function () {
+      ver();
       CD.$("#spia-sistema").className = "spia" + (CD.server ? " on" : "");
       if (CD.telefono) CD.telefono.prepara();         // app su telefono o tablet: solo i comandi utili lì
       return Promise.all([CD.carica("impostazioni"), CD.carica("profilo"), CD.neura.caricaStoria()]);

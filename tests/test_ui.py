@@ -123,6 +123,11 @@ def main():
             pg.wait_for_selector("#home-pc .metro", timeout=30000)
             time.sleep(1.5)
             pg.screenshot(path=os.path.join(FOTO, "03-inizio-giorno.png"))
+            piede = pg.inner_text(".menu-piede")
+            ver = open(os.path.join(RADICE, "VERSION")).read().strip()
+            controlla("Danilo D'Auria" in piede and "Codice MIT · Contenuti CC BY-NC-SA 4.0" in piede and ("v" + ver) in piede,
+                      "in fondo al menu: autore, licenza e versione %s" % ver)
+            controlla(pg.get_attribute(".menu-piede a.piede-lic", "href") == "#/licenza", "la licenza in fondo al menu apre la pagina Licenza")
             pg.wait_for_selector("#home-nonni:not([hidden]) #home-nonni-pd", timeout=15000)
             controlla("Professore Digitale" in pg.inner_text("#home-nonni") and "computer: 1." in pg.inner_text("#home-nonni"), "Inizio: avviso «Nonni Teach si è trasferito» con le interviste da copiare")
             controlla(pg.locator('a[href="#/nonni"]').count() == 0 and not pg.evaluate("!!(CD.viste && CD.viste.nonni)"), "Nonni Teach tolto dal menu e dalle pagine")

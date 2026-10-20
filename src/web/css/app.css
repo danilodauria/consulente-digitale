@@ -89,6 +89,9 @@ kbd { border: 1px solid var(--linea); border-bottom-width: 3px; border-radius: 6
 .menu a.attiva { background: linear-gradient(90deg, rgba(56, 189, 248, .22), rgba(167, 139, 250, .12)); border-color: rgba(56, 189, 248, .45); box-shadow: inset 3px 0 0 var(--neon); font-weight: 700; }
 .menu-sep { height: 1px; background: var(--linea); margin: .5rem .4rem; }
 .menu-piede { margin-top: auto; padding: .8rem .6rem 0; font-size: .75rem; color: var(--inchiostro2); }
+.menu-piede a.piede-lic { color: inherit; text-decoration: underline dotted; padding: 0; display: inline; font-size: inherit; border: 0; border-radius: 0; }
+.menu-piede a.piede-lic:hover { background: none; color: var(--inchiostro); }
+.menu-piede .piede-ver { opacity: .85; }
 .profilo-breve { margin-bottom: .6rem; padding: .5rem .6rem; border-radius: 12px; border: 1px dashed var(--vetro-bordo); font-size: .8rem; cursor: pointer; }
 .principale { padding: 1.4rem clamp(1rem, 2.5vw, 2.4rem) 7rem; min-width: 0; outline: none; }
 .vista { animation: compari .35s ease; max-width: 1280px; margin: 0 auto; }

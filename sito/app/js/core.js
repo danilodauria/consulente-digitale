@@ -8,7 +8,7 @@
 (function () {
   "use strict";
   var CD = window.CD = window.CD || {};
-  CD.versione = "1.4.0";
+  CD.versione = "1.4.1";
   CD.PROFESSORE_URL = "https://danilodauria.github.io/professore-digitale/";   // dalla 1.4.0 Nonni Teach sta nel Professore Digitale
 
   /* ------------------------------------------------------------------ utilita' */

@@ -2,6 +2,13 @@
  "_nota": "Novità di ogni versione, dalla più recente. Le usa tools/prepara-pubblicazione.py per il sito e per aggiornamenti.json. Testi CC BY-NC-SA 4.0 - Danilo D'Auria",
  "versioni": [
   {
+   "versione": "1.4.1",
+   "data": "2026-10-21",
+   "novita": [
+    "In fondo al menu, sotto «Ideato e sviluppato da Danilo D'Auria», ci sono ora la licenza (un clic apre la pagina della licenza) e la versione del programma, come nel Professore Digitale"
+   ]
+  },
+  {
    "versione": "1.4.0",
    "data": "2026-10-20",
    "novita": [
@@ -69,4 +76,4 @@
    ]
   }
  ]
-}
+}

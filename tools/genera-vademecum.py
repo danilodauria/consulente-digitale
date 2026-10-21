@@ -30,7 +30,7 @@ NODE = r"""
 global.window = { CD: { registra: function () {}, esc: function (s) { return s; }, hooks: { avvio: [] },
   uno: function (l, f) { for (var i = 0; i < l.length; i++) if (f(l[i])) return l[i]; return null; } } };
 var fs = require('fs'), vm = require('vm');
-['data-acquisti.js', 'data-sapere.js', 'data-storia.js', 'data-nonni.js', 'circolare.js', 'scheda-madre.js'].forEach(function (f) {
+['data-acquisti.js', 'data-sapere.js', 'data-storia.js', 'circolare.js', 'scheda-madre.js'].forEach(function (f) {
   vm.runInThisContext(fs.readFileSync(process.argv[1] + '/' + f, 'utf8'));
 });
 var CD = window.CD, anno = +process.argv[2], ev = [];
@@ -44,7 +44,7 @@ CD.ACQ.eventi.forEach(function (e) {
 });
 var acq = JSON.parse(JSON.stringify(CD.ACQ)); acq.eventi = ev;
 process.stdout.write(JSON.stringify({ acq: acq, sapere: CD.SAPERE, problemi: CD.PROBLEMI, glossario: CD.GLOSSARIO, storia: CD.STORIA,
-  nonni: CD.NONNI, nonniTotale: CD.NONNI.totale(), circ: CD.CIRC, soglie: CD.hw.SOGLIE }));
+  circ: CD.CIRC, soglie: CD.hw.SOGLIE }));
 """
 
 
@@ -258,27 +258,6 @@ def quiz_storia(d):
 
 
 # --------------------------------------------------------------------------- novità 1.1
-def temi_nonni(d):
-    n = d["nonni"]
-    r = ['<table class="compatta"><thead><tr><th></th><th>Tema</th><th>Domande</th><th>Un esempio</th></tr></thead><tbody>']
-    for k, t in n["temi"].items():
-        es = t["d"][0].replace("{nome}, ", "").replace("{nome}", "").replace("{luogo}", "il quartiere")
-        r.append('<tr><td class="ico">%s</td><td><b>%s</b></td><td class="centro">%d</td><td><i>«%s»</i></td></tr>' % (t["icona"], E(t["nome"]), len(t["d"]), E(es[0].upper() + es[1:])))
-    r.append("</tbody></table>")
-    return "\n".join(r)
-
-
-def contesti_nonni(d):
-    n = d["nonni"]
-    r = ['<table class="compatta"><thead><tr><th></th><th>Contesto</th><th>Temi proposti</th><th>Domande speciali</th></tr></thead><tbody>']
-    for k, c in n["contesti"].items():
-        r.append('<tr><td class="ico">%s</td><td><b>%s</b><br><span class="small">%s</span></td><td class="small">%s</td><td class="small">%s</td></tr>' % (
-            c["icona"], E(c["nome"]), E(c["testo"]), ", ".join(E(n["temi"][t]["nome"]) for t in c["temi"]),
-            "<br>".join("«" + E(x.replace("{luogo}", "il quartiere")) + "»" for x in c["extra"])))
-    r.append("</tbody></table>")
-    return "\n".join(r)
-
-
 def soglie_hw(d):
     s = d["soglie"]
     righe = [("🧠 Processore", "%d °C" % s["cpu"][0], "%d °C" % s["cpu"][1]), ("🎮 Scheda video", "%d °C" % s["gpu"][0], "%d °C" % s["gpu"][1]),
@@ -346,8 +325,7 @@ def main():
         "CURIOSITA": lista(d["storia"]["curiosita"]),
         "DETTAGLIO_HARDWARE": dettaglio_azioni(("hardware",)), "DETTAGLIO_RECUPERO": dettaglio_azioni(("recupero",)),
         "DETTAGLIO_ANTIVIRUS": dettaglio_azioni(("antivirus",)), "DETTAGLIO_KIT": dettaglio_azioni(("kit",)), "SOGLIE_HW": soglie_hw(d), "APERTURE": tab_aperture(), "N_APERTURE": str(len(cd_aperture.CATALOGO)),
-        "TEMI_NONNI": temi_nonni(d), "CONTESTI_NONNI": contesti_nonni(d), "N_DOMANDE_NONNI": str(d["nonniTotale"]), "N_TEMI_NONNI": str(len(d["nonni"]["temi"])),
-        "N_CONTESTI_NONNI": str(len(d["nonni"]["contesti"])), "NOVITA": novita(),
+        "NOVITA": novita(),
         "SOSTIENI_QR_PAYPAL": "", "SOSTIENI_QR_IBAN": "",
     }
     sost.update(circ(d))

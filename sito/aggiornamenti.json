@@ -1,8 +1,8 @@
 {
  "app": "Consulente Digitale",
  "autore": "Danilo D'Auria",
- "versione": "1.4.0",
- "data": "2026-10-21",
+ "versione": "1.5.0",
+ "data": "2026-10-22",
  "novita": [
   "🛟 Salvadati, il nuovo strumento di recupero dati: al primo avvio analizza dischi, chiavette e schede e trova le unità RAW o illeggibili dal sistema in uso; ricerca superficiale (veloce) o approfondita (anche su unità formattate)",
   "Salvadati recupera foto, documenti, video, musica e archivi cancellati o non più visibili, controlla ogni file e scarta quelli danneggiati e i doppioni prima di contarli; nomi leggibili (data dello scatto, titolo del documento) e cartelle ordinate",
@@ -17,34 +17,34 @@
  "progetto": "https://github.com/danilodauria/consulente-digitale",
  "scarica": {
   "windows": {
-   "nome": "ConsulenteDigitale-Setup-1.4.0.exe",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.4.0.exe",
-   "sha256": "568a9adfbc40e1089bb790487c846c89cead2cc55e499919051299780468d4ca",
-   "byte": 12493468
+   "nome": "ConsulenteDigitale-Setup-1.5.0.exe",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.5.0.exe",
+   "sha256": "89e40f1593ac83914b206b9aa3a82c32282004a62754500a77c0f3a54891ce6a",
+   "byte": 11577961
   },
   "linux": {
-   "nome": "consulente-digitale_1.4.0_all.deb",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.4.0_all.deb",
-   "sha256": "974855ddbfcfeb049f967e1ec20e7259a0891d4378af89e67082e20f84037e31",
-   "byte": 12133304
+   "nome": "consulente-digitale_1.5.0_all.deb",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.5.0_all.deb",
+   "sha256": "7c34d070147cbffd12b87da0856aab6a6175c646777dd91093e77f9366c71114",
+   "byte": 11217932
   },
   "mac": {
-   "nome": "ConsulenteDigitale-1.4.0-macOS.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.4.0-macOS.zip",
-   "sha256": "d5d30a6ddf7912b32c634a7f1881f727965f72f4b8fd3f675986f27bd9257e23",
-   "byte": 14269417
+   "nome": "ConsulenteDigitale-1.5.0-macOS.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.5.0-macOS.zip",
+   "sha256": "b26e67f83fa174d6b367c6eacda51fc94aed918b587a9a2b6d10057603625ad9",
+   "byte": 13277269
   },
   "portatile": {
-   "nome": "ConsulenteDigitale-1.4.0-portatile.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.4.0-portatile.zip",
-   "sha256": "c761296548f33c612035b7cea345603be06659bf2767a57ad04d7a1501ad83f4",
-   "byte": 13003931
+   "nome": "ConsulenteDigitale-1.5.0-portatile.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.5.0-portatile.zip",
+   "sha256": "00bfd47cae27ee035f8107adeccf24dd3927b13be8e09bebe911c4ee29d55714",
+   "byte": 12011999
   },
   "vademecum": {
-   "nome": "Vademecum_Consulente_Digitale_1.4.0.pdf",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.4.0.pdf",
-   "sha256": "fa317517277206774b5a324d8cfca73170e9253112298f8194ed30b04ece345f",
-   "byte": 14141214
+   "nome": "Vademecum_Consulente_Digitale_1.5.0.pdf",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.5.0.pdf",
+   "sha256": "138cf1d4e9d1e7b37427b1b392515d74b3c7af71480badd7fe3fb69e7d3b3a2b",
+   "byte": 12964323
   }
  },
  "licenze": {

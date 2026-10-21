@@ -89,6 +89,9 @@ kbd { border: 1px solid var(--linea); border-bottom-width: 3px; border-radius: 6
 .menu a.attiva { background: linear-gradient(90deg, rgba(56, 189, 248, .22), rgba(167, 139, 250, .12)); border-color: rgba(56, 189, 248, .45); box-shadow: inset 3px 0 0 var(--neon); font-weight: 700; }
 .menu-sep { height: 1px; background: var(--linea); margin: .5rem .4rem; }
 .menu-piede { margin-top: auto; padding: .8rem .6rem 0; font-size: .75rem; color: var(--inchiostro2); }
+.menu-piede a.piede-lic { color: inherit; text-decoration: underline dotted; padding: 0; display: inline; font-size: inherit; border: 0; border-radius: 0; }
+.menu-piede a.piede-lic:hover { background: none; color: var(--inchiostro); }
+.menu-piede .piede-ver { opacity: .85; }
 .profilo-breve { margin-bottom: .6rem; padding: .5rem .6rem; border-radius: 12px; border: 1px dashed var(--vetro-bordo); font-size: .8rem; cursor: pointer; }
 .principale { padding: 1.4rem clamp(1rem, 2.5vw, 2.4rem) 7rem; min-width: 0; outline: none; }
 .vista { animation: compari .35s ease; max-width: 1280px; margin: 0 auto; }
@@ -260,25 +263,6 @@ pre.codice { background: #020617; color: #d1fae5; border-radius: 12px; padding: 
 .orologio { min-width: 0; flex: 0 1 auto; overflow: hidden; }
 .ora-piccola { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 @media (max-width: 1420px) { .marchio small { display: none; } }
-
-/* --- Nonni Teach (Danilo D'Auria - CC BY-NC-SA 4.0) --- */
-.nt-domande li { margin: .35rem 0; } .nt-domande [contenteditable] { outline: none; border-bottom: 1px dashed var(--linea); }
-.nt-palco { display: flex; flex-direction: column; gap: .8rem; }
-.nt-puntini { display: flex; flex-wrap: wrap; gap: .3rem; }
-.nt-puntini button { width: 2.1rem; height: 2.1rem; border-radius: 50%; border: 1px solid var(--vetro-bordo); background: var(--pannello); color: var(--inchiostro2); cursor: pointer; font-weight: 700; }
-.nt-puntini button.fatta { background: var(--ok-tenue); color: var(--ok); border-color: var(--ok); }
-.nt-puntini button.ora { outline: 3px solid var(--neon); color: var(--inchiostro); }
-.nt-domanda { background: radial-gradient(circle at 20% 0, var(--neon-tenue), transparent 70%), var(--pannello); border: 1px solid var(--vetro-bordo); border-radius: 22px; padding: 1.2rem 1.4rem; box-shadow: var(--bagliore); }
-.nt-domanda p { font-size: 1.7rem; line-height: 1.35; margin: .3rem 0 0; font-weight: 700; }
-.nt-domanda p.nt-ascolto { color: var(--neon3); }
-.nt-reg { display: flex; align-items: center; gap: .8rem; }
-.nt-livello { flex: 1; height: 14px; border-radius: 99px; background: var(--pannello); border: 1px solid var(--vetro-bordo); overflow: hidden; }
-.nt-livello i { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--ok), var(--neon), var(--neon2)); transition: width .1s; }
-.nt-reg b { font: 700 1.3rem var(--mono); min-width: 4ch; }
-.btn.nt-in-reg { background: var(--male); border-color: var(--male); color: #fff; animation: nt-pulsa 1.2s infinite; }
-@keyframes nt-pulsa { 50% { box-shadow: 0 0 0 10px rgba(248, 113, 113, .15); } }
-.nt-ep audio, .nt-palco audio, #nt-online audio { width: 100%; margin-top: .4rem; }
-.nt-cap { font-variant-numeric: tabular-nums; margin: .15rem 0; }
 
 /* --- Economia circolare --- */
 .circ-numeri { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: .7rem; margin-bottom: 1rem; }

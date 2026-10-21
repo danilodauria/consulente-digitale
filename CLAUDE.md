@@ -25,7 +25,6 @@ contenuti CC BY-NC-SA 4.0 (`LICENZA-CONTENUTI.md`). Leggere tutto prima di modif
 | `src/server/cd_azioni.py` | Catalogo azioni, composizione script (`_comune` + corpo), lavori con registro in diretta, elevazione UAC/pkexec/osascript |
 | `src/server/cd_hardware.py` | Dettagli dei componenti e sensori in diretta (sonda PowerShell/sh per Windows e Mac, /sys per Linux); `CD_HARDWARE_PROVA=1` = dati di prova |
 | `src/server/cd_aperture.py` | Catalogo chiuso delle finestre del sistema che Neura apre dopo il consenso (`POST /api/apri`); `CD_APERTURE_PROVA=1` non apre nulla |
-| `src/server/cd_nonni.py` | Nonni Teach: interviste, audio (`POST /api/nonni/<id>/audio/<n>` con `X-CD-Token`), montaggio FFmpeg con capitoli, sito + feed RSS |
 | `src/server/cd_programma.py` | «Scarica gli aggiornamenti»: manifesto `aggiornamenti.json` su GitHub Pages, host ammessi, SHA-256, installazione per sistema (`CD_MANIFESTO` per le prove) |
 | `src/server/cd_recupero.py`, `src/web/js/salvadati.js` | Salvadati: analisi unità (RAW/illeggibili/cifrate), piani in `CD_DATI/recupero/piano-<id>.json|.sh`, PhotoRec (`recupero-avvia`), controllo integrità dei file, doppioni, nomi, rapporto, copia. `CD_RECUPERO_PROVA=1` (+ `CD_RECUPERO_IMMAGINE`, `CD_RECUPERO_DEST`) |
 | `src/server/cd_kit.py`, `src/web/js/kit.js` | Kit di emergenza: SystemRescue (URL e SHA-256 fissi in `cd_kit.py`) + cartella `neura/` + `sysrescue.d/500-neura.yaml` (gui_autostart → `avvia-neura.sh`, `CD_SOCCORSO=1`). Script `kit-crea.ps1` (UEFI, FAT32 ≤31 GB, nome RESCUE1302) e `kit-crea.sh`. `CD_KIT_PROVA=1` scrive in un'immagine |
@@ -39,7 +38,7 @@ contenuti CC BY-NC-SA 4.0 (`LICENZA-CONTENUTI.md`). Leggere tutto prima di modif
 | `src/web/js/acquisti.js` + `data-acquisti.js` | Guida all'acquisto, calendario delle occasioni, controllo annunci |
 | `src/web/js/analisi.js` | Punteggi, Windows 11, classifica dei sistemi operativi, migliorie, scheda stampabile |
 | `src/web/js/hardware.js`, `scheda-madre.js`, `interventi.js` | Sensori e schede tecniche; modello dei componenti con soglie (`CD.hw.SOGLIE`) e disegno SVG della scheda madre; diagnosi, lavori e schede stampabili |
-| `src/web/js/nonni.js`, `data-nonni.js` | Nonni Teach e la banca delle domande (contesti, temi) |
+| Nonni Teach (fino alla 1.3.1) | **Trasferito nel Professore Digitale dalla 1.4.0** (pd_nonni.py/pd_nonni.c, nonni.js, neura.js là). Qui restano: `GET /api/nonni` (quante interviste vecchie ci sono in `nonni-teach/`, mai cancellate da sole), il riquadro nell'Inizio, l'intenzione di Neura che rimanda al Professore, la chiave dati `nonni` e la cartella `nonni-teach/` nei backup «con le registrazioni» (servono a copiarle là). Non rimettere Nonni Teach qui |
 | `src/web/js/circolare.js`, `aperture.js`, `cerca.js`, `programma.js` | Economia circolare; banner del consenso; Cerca/Stampa in alto a destra; aggiornamenti del programma |
 | altre pagine | `benvenuto`, `inizio`, `aggiornamenti`, `ottimizza`, `strumenti` (con il pilota automatico), `programmi`, `sapere`, `storia`, `impostazioni`, `licenza` |
 | `src/server/cd_notizie.py`, `src/web/js/notizie.js` | Notizie: elenco chiuso di feed RSS verificati (`FONTI`), temi per regex, cache 30 min; solo titolo, riassunto e link (diritti delle testate). `CD_NOTIZIE_PROVA=1` = notizie finte. Il workflow crea `sito/notizie.json` per l'app del telefono |

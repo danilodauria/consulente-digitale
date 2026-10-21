@@ -2,8 +2,8 @@
  "_nota": "Novità di ogni versione, dalla più recente. Le usa tools/prepara-pubblicazione.py per il sito e per aggiornamenti.json. Testi CC BY-NC-SA 4.0 - Danilo D'Auria",
  "versioni": [
   {
-   "versione": "1.4.0",
-   "data": "2026-10-21",
+   "versione": "1.5.0",
+   "data": "2026-10-22",
    "novita": [
     "🛟 Salvadati, il nuovo strumento di recupero dati: al primo avvio analizza dischi, chiavette e schede e trova le unità RAW o illeggibili dal sistema in uso; ricerca superficiale (veloce) o approfondita (anche su unità formattate)",
     "Salvadati recupera foto, documenti, video, musica e archivi cancellati o non più visibili, controlla ogni file e scarta quelli danneggiati e i doppioni prima di contarli; nomi leggibili (data dello scatto, titolo del documento) e cartelle ordinate",
@@ -13,6 +13,23 @@
     "🚑 Kit di emergenza: crea una chiavetta avviabile con SystemRescue e Neura Soccorso per i PC che non si avviano; su Windows anche l'Unità di ripristino ufficiale",
     "🧠 Neura Soccorso: dalla chiavetta fa la diagnosi (disco che si guasta, Windows ibernato, file system da riparare, voci di avvio UEFI perse, aggiornamenti bloccati, disco pieno, GRUB, BitLocker, RAID/VMD), spiega la causa più probabile e ripara con un clic",
     "Neura capisce nuove richieste: «ho cancellato le foto», «la chiavetta non si legge», «ho un virus», «il computer non si avvia»; vademecum con due nuovi capitoli"
+   ]
+  },
+  {
+   "versione": "1.4.1",
+   "data": "2026-10-21",
+   "novita": [
+    "In fondo al menu, sotto «Ideato e sviluppato da Danilo D'Auria», ci sono ora la licenza (un clic apre la pagina della licenza) e la versione del programma, come nel Professore Digitale"
+   ]
+  },
+  {
+   "versione": "1.4.0",
+   "data": "2026-10-20",
+   "novita": [
+    "🎙️ Nonni Teach si è trasferito nel Professore Digitale, il programma gratuito di Danilo D'Auria: lì Neura continua a intervistare i nonni, identica a prima",
+    "Le interviste già registrate restano sul computer: il Professore Digitale le copia con un clic (da un altro computer, con un backup «con le registrazioni»)",
+    "Nella pagina Inizio un riquadro ricorda quante interviste ci sono e come portarle nel Professore Digitale; anche Neura ve lo spiega se le chiedete di Nonni Teach",
+    "Il programma è più leggero: tolti la pagina Nonni Teach e l'installazione di FFmpeg, che servivano solo ai podcast"
    ]
   },
   {

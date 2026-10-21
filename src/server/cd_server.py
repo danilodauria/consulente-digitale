@@ -18,11 +18,14 @@ Serve l'interfaccia (src/web) SOLO su 127.0.0.1 e offre le API:
   GET  /api/programmi              catalogo dei programmi consigliati
   GET  /api/hardware/dettagli, /api/hardware/sensori   componenti in dettaglio e sensori in diretta (cd_hardware)
   GET  /api/aperture; POST /api/apri {id, token}       programmi e impostazioni che Neura apre col consenso (cd_aperture)
-  GET  /api/nonni                  dalla 1.4.0 Nonni Teach è nel Professore Digitale: quante interviste vecchie restano su questo PC
+  GET  /api/nonni[/<id>[/file/<nome>]], /api/nonni/sito.zip; POST /api/nonni/salva|sito, /api/nonni/<id>/audio/<n>|monta|elimina  (cd_nonni)
   GET  /api/programma; POST /api/programma/controlla|scarica|installa   aggiornamenti del programma (cd_programma)
   GET  /api/notizie[?nuovo=1]      notizie di informatica/elettronica dai feed RSS (cd_notizie), se attivate
   POST /api/backup {audio}, /api/backup/importa?modo= (X-CD-Token), /api/reset {cosa,interviste}   backup .cdbackup e reset (cd_backup)
   GET  /api/traduci?lingua=; POST /api/traduci {lingua,testi,modello}   traduzioni dei contenuti con l'IA locale (cd_traduci)
+  GET  /api/recupero/analisi|destinazioni|stato; POST /api/recupero/piano|elabora|copia|apri   Salvadati (cd_recupero)
+  GET  /api/kit/unita; POST /api/kit/piano {disco}   chiavetta di emergenza SystemRescue + Neura (cd_kit)
+  GET  /api/soccorso/diagnosi|stato; POST /api/soccorso/ripara {chiavi|tutte_sicure}, /riavvia   Neura Soccorso (cd_soccorso)
   POST /api/velocita               prova della velocita' di Internet (solo su richiesta)
   GET/POST /api/data/<chiave>      dati dell'utente (impostazioni, profilo, schede salvate, conversazione)
   POST /api/ciao, /api/spegni      presenza della finestra e spegnimento
@@ -54,10 +57,14 @@ import cd_sistema  # noqa: E402
 import cd_azioni   # noqa: E402
 import cd_hardware  # noqa: E402
 import cd_aperture  # noqa: E402
+import cd_nonni     # noqa: E402
 import cd_programma  # noqa: E402
 import cd_notizie   # noqa: E402
 import cd_backup    # noqa: E402
 import cd_traduci   # noqa: E402
+import cd_recupero  # noqa: E402
+import cd_kit       # noqa: E402
+import cd_soccorso  # noqa: E402
 
 QUI = os.path.dirname(os.path.abspath(__file__))
 SHARE_DIR = os.environ.get("CD_SHARE_DIR") or os.path.normpath(os.path.join(QUI, ".."))
@@ -79,7 +86,6 @@ def _cartella_dati():
 
 
 DATA_DIR = _cartella_dati()
-PROFESSORE_URL = "https://danilodauria.github.io/professore-digitale/"   # dove sta Nonni Teach dalla 1.4.0
 os.environ.setdefault("CD_DATI_HW", DATA_DIR)
 MODELS_DIR = os.path.join(DATA_DIR, "modelli")
 RUNTIME_FILE = os.path.join(DATA_DIR, "server.json")
@@ -332,17 +338,6 @@ def voci_server():
     return out
 
 
-def interviste_vecchie():
-    """Interviste di Nonni Teach registrate con il Consulente fino alla 1.3.1 (cartella nonni-teach): non si cancellano mai da sole."""
-    base = os.path.join(DATA_DIR, "nonni-teach")
-    n = 0
-    if os.path.isdir(base):
-        for d in os.listdir(base):
-            if os.path.isfile(os.path.join(base, d, "episodio.json")):
-                n += 1
-    return {"trasferito": True, "episodi": n, "cartella": base, "professore": PROFESSORE_URL}
-
-
 def sintetizza(testo, voce="piper", velocita=1.0):
     testo = " ".join(str(testo).split())[:1500]
     with tempfile.NamedTemporaryFile(prefix="cd-tts-", suffix=".wav", delete=False) as f:
@@ -549,7 +544,7 @@ class Handler(BaseHTTPRequestHandler):
                 "nome_sistema": (cd_sistema.analizza().get("sistema") or {}).get("nome", ""), "token": TOKEN,
                 "dati": DATA_DIR, "voci_server": voci_server(), "stt": bool(stt_prova().get("engine")),
                 "online_permesso": imp.get("online", True) is not False, "python": sys.version.split()[0],
-                "amministratore": _sono_amministratore()})
+                "amministratore": _sono_amministratore(), "soccorso": cd_soccorso.disponibile(), "chiavetta": cd_soccorso.ATTIVO})
         if path == "/api/sistema":
             return self._send(200, cd_sistema.analizza(q.get("nuovo") == "1"))
         if path == "/api/ora":
@@ -561,9 +556,41 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/rete":
             return self._send(200, {"online": internet_ok()})
         if path == "/api/nonni":
-            # Nonni Teach si è trasferito nel Professore Digitale (dalla 1.4.0): le interviste registrate qui restano sul disco
-            # (il Professore le copia da sé, oppure con un backup «con le interviste»)
-            return self._send(200, interviste_vecchie())
+            return self._send(200, {"episodi": cd_nonni.elenco(DATA_DIR), "ffmpeg": bool(cd_nonni.ffmpeg()), "voce_server": bool(voci_server()),
+                                    "sito": os.path.join(DATA_DIR, "nonni-teach-sito"), "url_predefinito": cd_nonni.SITO_PREDEFINITO})
+        if path == "/api/nonni/sito.zip":
+            zp = os.path.join(DATA_DIR, "nonni-teach-sito.zip")
+            if not os.path.isfile(zp):
+                return self._errore(404, "sito non ancora creato")
+            with open(zp, "rb") as f:
+                return self._send_file(f.read(), "application/zip", "nonni-teach-sito.zip")
+        if path.startswith("/api/nonni/"):
+            parti = path.split("/")
+            try:
+                if len(parti) == 4:
+                    return self._send(200, cd_nonni.leggi(DATA_DIR, parti[3]))
+                if len(parti) == 6 and parti[4] == "file":
+                    dati, ctype = cd_nonni.file_audio(DATA_DIR, parti[3], parti[5])
+                    return self._send_file(dati, ctype)
+            except ValueError as e:
+                return self._errore(404, str(e))
+        if path == "/api/kit/unita":
+            return self._send(200, {"unita": cd_kit.unita(), "info": cd_kit.info()})
+        if path == "/api/soccorso/diagnosi":
+            return self._send(200, cd_soccorso.diagnosi())
+        if path == "/api/soccorso/stato":
+            return self._send(200, cd_soccorso.stato())
+        if path == "/api/recupero/analisi":
+            return self._send(200, cd_recupero.analizza())
+        if path == "/api/recupero/destinazioni":
+            return self._send(200, {"destinazioni": cd_recupero.destinazioni(os.path.expanduser("~"), DATA_DIR)})
+        if path == "/api/recupero/stato":
+            try:
+                cd_recupero.leggi_piano(DATA_DIR, q.get("piano", ""))
+            except ValueError as e:
+                return self._errore(404, str(e))
+            return self._send(200, {"stato": cd_recupero.stato(q.get("piano")), "copia": cd_recupero.stato_copia(q.get("piano")),
+                                    "esito": cd_recupero.leggi_esito(DATA_DIR, q.get("piano"))})
         if path == "/api/notizie":
             imp = leggi_json(os.path.join(DATA_DIR, "impostazioni.json"), {}) or {}
             if imp.get("online") is False or imp.get("notizie") is False:
@@ -645,10 +672,61 @@ class Handler(BaseHTTPRequestHandler):
                 return self._errore(403, "sessione scaduta: ricarica la pagina")
             corpo = self._corpo(cd_backup.MAX_BACKUP)
             return self._send(200, cd_backup.importa(DATA_DIR, corpo, CHIAVI_DATI, VERSIONE, self._query().get("modo", "unisci")))
+        # registrazione di una risposta di Nonni Teach (corpo audio grezzo, token nell'intestazione)
+        m = re.match(r"^/api/nonni/([a-z0-9-]+)/audio/(\d{1,2})$", path)
+        if m:
+            if self.headers.get("X-CD-Token") != TOKEN:
+                return self._errore(403, "sessione scaduta: ricarica la pagina")
+            corpo = self._corpo(cd_nonni.MAX_AUDIO)
+            return self._send(200, cd_nonni.salva_audio(DATA_DIR, m.group(1), m.group(2), corpo, self.headers.get("Content-Type")))
         # da qui in poi: azioni che cambiano il sistema -> serve il token della sessione
         req = self._json()
         if req.get("token") != TOKEN:
             return self._errore(403, "sessione scaduta: ricarica la pagina")
+        if path == "/api/kit/piano":
+            try:
+                return self._send(200, {"piano": cd_kit.prepara(DATA_DIR, SHARE_DIR, req.get("disco"))})
+            except ValueError as e:
+                return self._errore(400, str(e))
+        if path == "/api/soccorso/ripara":
+            try:
+                return self._send(200, cd_soccorso.ripara(req.get("chiavi") or [], bool(req.get("tutte_sicure"))))
+            except ValueError as e:
+                return self._errore(400, str(e))
+        if path == "/api/soccorso/riavvia":
+            return self._send(200, cd_soccorso.riavvia())
+        if path == "/api/recupero/piano":
+            try:
+                p = cd_recupero.prepara(DATA_DIR, os.path.expanduser("~"), req.get("sorgente"), req.get("modo"), req.get("categorie") or [], req.get("destinazione"))
+            except ValueError as e:
+                return self._errore(400, str(e))
+            return self._send(200, {"piano": p, "stima": cd_recupero.stima(p)})
+        if path == "/api/recupero/elabora":
+            try:
+                return self._send(200, cd_recupero.elabora(DATA_DIR, req.get("piano"), bool(req.get("non_verificati"))))
+            except ValueError as e:
+                return self._errore(400, str(e))
+        if path == "/api/recupero/copia":
+            try:
+                return self._send(200, cd_recupero.copia(DATA_DIR, os.path.expanduser("~"), req.get("piano"), req.get("destinazione")))
+            except ValueError as e:
+                return self._errore(400, str(e))
+        if path == "/api/recupero/apri":
+            es = cd_recupero.leggi_esito(DATA_DIR, req.get("piano")) if cd_recupero.RE_ID.match(str(req.get("piano") or "")) else {}
+            cart = es.get("cartella") or ""
+            if not cart or not os.path.isdir(cart):
+                return self._errore(404, "cartella non trovata")
+            if not cd_recupero.PROVA:
+                try:
+                    if cd_sistema.WINDOWS:
+                        os.startfile(cart)  # pylint: disable=no-member
+                    elif cd_sistema.MAC:
+                        subprocess.Popen(["open", cart])
+                    elif shutil.which("xdg-open"):
+                        subprocess.Popen(["xdg-open", cart], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                except OSError:
+                    pass
+            return self._send(200, {"ok": True, "cartella": cart})
         if path == "/api/azioni/avvia":
             try:
                 lav = cd_azioni.avvia(str(req.get("id", "")), req.get("parametro", ""), DATA_DIR)
@@ -680,6 +758,18 @@ class Handler(BaseHTTPRequestHandler):
             return self._send_file(corpo, "application/zip", nome)
         if path == "/api/reset":
             return self._send(200, cd_backup.reset(DATA_DIR, req.get("cosa"), CHIAVI_DATI, VERSIONE, bool(req.get("interviste"))))
+        if path == "/api/nonni/salva":
+            return self._send(200, cd_nonni.salva(DATA_DIR, req.get("episodio")))
+        if path == "/api/nonni/sito":
+            return self._send(200, cd_nonni.crea_sito(DATA_DIR, req.get("url"), req.get("titolo"), req.get("autore")))
+        m = re.match(r"^/api/nonni/([a-z0-9-]+)/(monta|elimina)$", path)
+        if m and m.group(2) == "elimina":
+            return self._send(200, cd_nonni.elimina(DATA_DIR, m.group(1)))
+        if m:
+            try:
+                return self._send(200, cd_nonni.monta(DATA_DIR, m.group(1), lambda t: sintetizza(t, "piper", 0.95)))
+            except RuntimeError as e:
+                return self._errore(500, str(e))
         if path == "/api/apri":
             try:
                 esito = cd_aperture.apri(req.get("id"))

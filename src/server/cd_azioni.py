@@ -98,6 +98,9 @@ AZIONI = [
     {"id": "sensori_avanzati", "gruppo": "hardware", "icona": "🌡️", "rischio": "basso",
      "titolo": "Sensori avanzati", "descrizione": "Temperature dei core, ventole e consumi: su Windows con LibreHardwareMonitor (libero), sul Mac con powermetrics di Apple.",
      "s": {"windows": _s("sensori-avanzati.ps1", True), "mac": _s("sensori-avanzati.sh", True)}},
+    {"id": "ffmpeg_installa", "gruppo": "programmi", "icona": "🎚️", "rischio": "basso",
+     "titolo": "Installa FFmpeg (per i podcast)", "descrizione": "Lo strumento libero che monta le registrazioni di Nonni Teach in un unico podcast MP3 con i capitoli.",
+     "s": {"windows": _s("ffmpeg-installa.ps1"), "linux": _s("ffmpeg-installa.sh", True), "mac": _s("ffmpeg-installa.sh")}},
     # --- Strumenti degli esperti -----------------------------------------------
     {"id": "winutil", "gruppo": "esperti", "icona": "🧰", "rischio": "medio",
      "titolo": "Chris Titus WinUtil", "descrizione": "Lo strumento di christitus.com: installa programmi, rimuove il superfluo, ripara Windows Update. Si apre in una finestra sua.",
@@ -121,6 +124,42 @@ AZIONI = [
     {"id": "ia_modello", "gruppo": "ia", "icona": "📥", "rischio": "nessuno", "parametro": "modello",
      "titolo": "Scarica il modello di IA", "descrizione": "Scarica il «cervello» adatto alla memoria di questo computer.",
      "s": {"windows": _s("ia-modello.ps1"), "linux": _s("ia-modello.sh"), "mac": _s("ia-modello.sh")}},
+    # --- Salvadati: recupero dati (il disco da salvare si legge soltanto) -------------------------------------------
+    {"id": "recupero_motore", "gruppo": "recupero", "icona": "🧰", "rischio": "nessuno",
+     "titolo": "Installa il motore di recupero", "descrizione": "TestDisk e PhotoRec (CGSecurity, software libero GPL) dalle fonti ufficiali.",
+     "s": {"windows": _s("recupero-motore.ps1", True), "linux": _s("recupero-motore.sh", True), "mac": _s("recupero-motore.sh")}},
+    {"id": "recupero_avvia", "gruppo": "recupero", "icona": "🛟", "rischio": "nessuno", "parametro": "piano",
+     "titolo": "Cerca e recupera i file", "descrizione": "Legge l'unità senza modificarla e salva i file trovati su un altro disco.",
+     "s": {"windows": _s("recupero-avvia.ps1", True), "linux": _s("recupero-avvia.sh", True), "mac": _s("recupero-avvia.sh", True)}},
+    {"id": "recupero_visibili", "gruppo": "recupero", "icona": "👁️", "rischio": "basso", "parametro": "piano",
+     "titolo": "Rendi di nuovo visibili i file", "descrizione": "Toglie gli attributi «nascosto» e «di sistema» (per esempio messi da un virus delle chiavette). Non tocca il contenuto.",
+     "s": {"windows": _s("recupero-visibili.ps1", True), "linux": _s("recupero-visibili.sh", True), "mac": _s("recupero-visibili.sh", True)}},
+    {"id": "recupero_ripara", "gruppo": "recupero", "icona": "🔧", "rischio": "medio", "parametro": "piano",
+     "titolo": "Ripara il file system dell'unità", "descrizione": "CHKDSK / fsck / Utility Disco. Da fare SOLO dopo aver salvato i dati: può cancellare file rovinati.",
+     "s": {"windows": _s("recupero-ripara.ps1", True), "linux": _s("recupero-ripara.sh", True), "mac": _s("recupero-ripara.sh", True)}},
+    # --- Antivirus: Microsoft Defender e MRT su Windows, ClamAV (Cisco Talos, GPL) su Linux e Mac ---------------
+    {"id": "antivirus_aggiorna", "gruppo": "antivirus", "icona": "🔄", "rischio": "nessuno",
+     "titolo": "Aggiorna l'antivirus", "descrizione": "Scarica le firme dei virus più recenti (Microsoft Defender / ClamAV).",
+     "s": {"windows": _s("antivirus-aggiorna.ps1", True), "linux": _s("antivirus-aggiorna.sh", True), "mac": _s("antivirus-aggiorna.sh")}},
+    {"id": "antivirus_scansione", "gruppo": "antivirus", "icona": "🛡️", "rischio": "basso", "parametro": "antivirus",
+     "titolo": "Controllo antivirus", "descrizione": "Rapido, completo o delle chiavette. Su Windows le minacce vanno in quarantena (si possono ripristinare).",
+     "s": {"windows": _s("antivirus-scansione.ps1", True), "linux": _s("antivirus-scansione.sh", True), "mac": _s("antivirus-scansione.sh")}},
+    {"id": "antivirus_quarantena", "gruppo": "antivirus", "icona": "🔒", "rischio": "basso",
+     "titolo": "Metti in quarantena i file infetti", "descrizione": "Sposta i file trovati dall'ultimo controllo in una cartella chiusa (si possono ripristinare).",
+     "s": {"linux": _s("antivirus-quarantena.sh", True), "mac": _s("antivirus-quarantena.sh")}},
+    {"id": "antivirus_mrt", "gruppo": "antivirus", "icona": "🧽", "rischio": "basso",
+     "titolo": "Strumento di rimozione malware (MRT)", "descrizione": "Lo strumento Microsoft che cerca e rimuove i malware più diffusi. Controllo completo.",
+     "s": {"windows": _s("antivirus-mrt.ps1", True)}},
+    {"id": "antivirus_avvio", "gruppo": "antivirus", "icona": "🔁", "rischio": "medio", "riavvio": True,
+     "titolo": "Controllo all'avvio (Microsoft Defender Offline)", "descrizione": "Il PC si riavvia SUBITO e controlla il disco prima che parta Windows (circa 15 minuti). Salvate il lavoro.",
+     "s": {"windows": _s("antivirus-avvio.ps1", True)}},
+    # --- Kit di emergenza su chiavetta -----------------------------------------------------------------------
+    {"id": "kit_crea", "gruppo": "kit", "icona": "🚑", "rischio": "alto", "parametro": "piano",
+     "titolo": "Crea la chiavetta di emergenza", "descrizione": "CANCELLA la chiavetta scelta e la prepara con SystemRescue e Neura Soccorso.",
+     "s": {"windows": _s("kit-crea.ps1", True), "linux": _s("kit-crea.sh", True)}},
+    {"id": "kit_ripristino_windows", "gruppo": "kit", "icona": "🪟", "rischio": "nessuno",
+     "titolo": "Unità di ripristino di Windows", "descrizione": "Apre lo strumento ufficiale di Windows per creare una chiavetta di ripristino.",
+     "s": {"windows": _s("kit-ripristino-windows.ps1", False, True)}},
 ]
 PER_ID = dict((a["id"], a) for a in AZIONI)
 
@@ -343,6 +382,14 @@ def valida_parametro(azione, valore):
     if tipo == "modello":
         if not RE_MODELLO.match(valore):
             raise ValueError("nome del modello non valido")
+        return valore
+    if tipo == "piano":
+        if not re.match(r"^[a-f0-9]{12}$", valore):
+            raise ValueError("piano non valido")
+        return valore
+    if tipo == "antivirus":
+        if valore not in ("rapida", "completa", "chiavette"):
+            raise ValueError("tipo di controllo non valido")
         return valore
     if tipo == "fonti":
         scelte = [x for x in re.split(r"[ ,]+", valore) if x]

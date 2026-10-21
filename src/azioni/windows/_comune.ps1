@@ -81,3 +81,18 @@ function Cerca-WindowsUpdate($criterio = 'IsInstalled=0 and IsHidden=0') {
     $cercatore.Online = $true
     return @{ sessione = $sessione; risultato = $cercatore.Search($criterio) }
 }
+
+# Salvadati: dove si trova PhotoRec (installato con winget per l'utente o per tutto il computer)
+function Trova-PhotoRec {
+    $c = Get-Command photorec_win.exe -ErrorAction SilentlyContinue
+    if ($c) { return $c.Source }
+    $radici = @("$env:ProgramFiles\TestDisk", "${env:ProgramFiles(x86)}\TestDisk", "$env:LOCALAPPDATA\Microsoft\WinGet\Packages")
+    $radici += @(Get-ChildItem 'C:\Users' -Directory -ErrorAction SilentlyContinue | ForEach-Object { Join-Path $_.FullName 'AppData\Local\Microsoft\WinGet\Packages' })
+    foreach ($r in $radici) {
+        if ($r -and (Test-Path $r)) {
+            $f = Get-ChildItem -Path $r -Recurse -Filter photorec_win.exe -ErrorAction SilentlyContinue | Select-Object -First 1
+            if ($f) { return $f.FullName }
+        }
+    }
+    return $null
+}

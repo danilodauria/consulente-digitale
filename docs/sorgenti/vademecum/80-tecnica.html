@@ -5,8 +5,8 @@
 <div class="capitoli"><div><b>36</b> Privacy e sicurezza</div><div><b>37</b> Tornare indietro</div><div><b>38</b> Risoluzione dei problemi</div><div><b>39</b> Riferimento rapido</div><div><b>40</b> Per chi sviluppa</div></div></section>
 
 <!-- ======================================================= 31 -->
-<section class="capitolo"><span class="marca">§§c36§§</span>
-<div class="capitolo-testa"><span class="num">36</span><div><div class="eti">CAPITOLO</div><h1>Privacy e sicurezza</h1></div></div>
+<section class="capitolo"><span class="marca">§§c38§§</span>
+<div class="capitolo-testa"><span class="num">38</span><div><div class="eti">CAPITOLO</div><h1>Privacy e sicurezza</h1></div></div>
 <p class="intro">Un programma che può aggiornare e modificare il computer deve essere <b>più sicuro</b> di un programma qualsiasi. Ecco tutte le difese e l'elenco completo di ciò che esce dal computer.</p>
 <h2>Le difese</h2>
 <ul>
@@ -48,8 +48,8 @@ shasum -a 256 ConsulenteDigitale-{{VERSIONE}}-macOS.zip</pre>
 </section>
 
 <!-- ======================================================= 32 -->
-<section class="capitolo"><span class="marca">§§c37§§</span>
-<div class="capitolo-testa"><span class="num">37</span><div><div class="eti">CAPITOLO</div><h1>Tornare indietro</h1></div></div>
+<section class="capitolo"><span class="marca">§§c39§§</span>
+<div class="capitolo-testa"><span class="num">39</span><div><div class="eti">CAPITOLO</div><h1>Tornare indietro</h1></div></div>
 <p class="intro">Ogni modifica si può annullare. Il modo più semplice è il <b>punto di ripristino</b> (Windows) o l'<b>istantanea</b> (Linux con Timeshift, Mac con Time Machine) creati prima
 delle azioni con rischio medio e dal pulsante «Crea un punto di ripristino».</p>
 <div class="box consiglio"><span class="t">I dati del programma</span>Per le impostazioni, la conversazione, le schede e le interviste del Consulente stesso c'è il file <b>.cdbackup</b>
@@ -82,9 +82,9 @@ I file eliminati dalla <b>pulizia</b> (temporanei, cache) non tornano, ma non se
 </section>
 
 <!-- ======================================================= 33 -->
-<section class="capitolo"><span class="marca">§§c38§§</span>
-<div class="capitolo-testa"><span class="num">38</span><div><div class="eti">CAPITOLO</div><h1>Risoluzione dei problemi</h1></div></div>
-<p class="intro">Il primo posto dove guardare è il <b>registro del motore</b>, <code>server.log</code> nella cartella dei dati (capitolo 39), e il registro dell'azione nella console.</p>
+<section class="capitolo"><span class="marca">§§c40§§</span>
+<div class="capitolo-testa"><span class="num">40</span><div><div class="eti">CAPITOLO</div><h1>Risoluzione dei problemi</h1></div></div>
+<p class="intro">Il primo posto dove guardare è il <b>registro del motore</b>, <code>server.log</code> nella cartella dei dati (capitolo 41), e il registro dell'azione nella console.</p>
 <table class="compatta"><thead><tr><th>Sintomo</th><th>Causa probabile</th><th>Rimedio</th></tr></thead><tbody>
 <tr><td>🪟 «Windows ha protetto il PC»</td><td>Programma non ancora firmato</td><td>Ulteriori informazioni → Esegui comunque (capitolo 4), dopo aver controllato l'impronta.</td></tr>
 <tr><td>🪟 Doppio clic sull'icona e non succede nulla</td><td>Primo avvio: si sta scaricando Python; oppure il download è fallito</td><td>Attendete un minuto. Se compare il messaggio su Python: collegatevi a Internet o installate Python da python.org e riaprite.</td></tr>
@@ -112,8 +112,8 @@ e allegando <code>server.log</code> e la stampa in PDF del registro dell'azione.
 </section>
 
 <!-- ======================================================= 34 -->
-<section class="capitolo"><span class="marca">§§c39§§</span>
-<div class="capitolo-testa"><span class="num">39</span><div><div class="eti">CAPITOLO</div><h1>Riferimento rapido</h1></div></div>
+<section class="capitolo"><span class="marca">§§c41§§</span>
+<div class="capitolo-testa"><span class="num">41</span><div><div class="eti">CAPITOLO</div><h1>Riferimento rapido</h1></div></div>
 <h2>Dove stanno i file</h2>
 <table class="compatta"><thead><tr><th></th><th>Programma</th><th>Dati (impostazioni, conversazione, registri)</th></tr></thead><tbody>
 <tr><td>🪟 Windows</td><td><code>%LOCALAPPDATA%\Programs\ConsulenteDigitale</code></td><td><code>%APPDATA%\ConsulenteDigitale</code></td></tr>
@@ -127,7 +127,7 @@ e allegando <code>server.log</code> e la stampa in PDF del registro dell'azione.
 <tr><td><code>diario.json</code>, <code>acquisti.json</code></td><td>Ultimi aggiornamenti trovati e ultimo pilota automatico; ultima scelta guidata</td></tr>
 <tr><td><code>hardware.json</code>, <code>interventi.json</code></td><td>Ultimo controllo SMART per lo schema; schede di diagnosi e lavori (le ultime 60)</td></tr>
 <tr><td><code>hardware-completo.json</code></td><td>Banchi di memoria, slot e porte letti con «Inventario completo» (Linux)</td></tr>
-<tr><td><code>nonni-teach/</code>, <code>nonni.json</code></td><td>Interviste di Nonni Teach registrate fino alla 1.3.1 e preferenze del sito del podcast: restano qui finché non le copiate nel Professore Digitale (capitolo 29)</td></tr>
+<tr><td><code>nonni-teach/</code>, <code>nonni-teach-sito/</code>, <code>nonni.json</code></td><td>Interviste con le registrazioni e il podcast; il sito da pubblicare (e il suo zip); le preferenze di pubblicazione</td></tr>
 <tr><td><code>notizie.json</code>, <code>notizie-cache.json</code></td><td>Notizie salvate, temi e fonti scelti; ultima copia dei titoli scaricati</td></tr>
 <tr><td><code>traduzioni/</code></td><td>Le traduzioni fatte dall'IA locale per ogni lingua (si riusano subito)</td></tr>
 <tr><td><code>backup-automatici/</code></td><td>Le ultime 10 copie .cdbackup fatte da sole prima di importare o azzerare</td></tr>
@@ -160,8 +160,8 @@ CD_DATA_DIR=…   CD_SHARE_DIR=…   CD_PORT=…   OLLAMA_HOST=http://127.0.0.1:
 </section>
 
 <!-- ======================================================= 35 -->
-<section class="capitolo"><span class="marca">§§c40§§</span>
-<div class="capitolo-testa"><span class="num">40</span><div><div class="eti">CAPITOLO</div><h1>Per chi sviluppa</h1></div></div>
+<section class="capitolo"><span class="marca">§§c42§§</span>
+<div class="capitolo-testa"><span class="num">42</span><div><div class="eti">CAPITOLO</div><h1>Per chi sviluppa</h1></div></div>
 <p class="intro">Il codice è software libero (MIT): si può studiare, migliorare e adattare. I sorgenti contengono la cronologia completa e il file <code>CLAUDE.md</code> con le regole del progetto.</p>
 <table class="compatta"><thead><tr><th>Percorso</th><th>Contenuto</th></tr></thead><tbody>
 <tr><td><code>src/server/cd_server.py</code></td><td>Il motore: API, ora NTP, prova della velocità, IA, voce, finestra</td></tr>
@@ -169,6 +169,7 @@ CD_DATA_DIR=…   CD_SHARE_DIR=…   CD_PORT=…   OLLAMA_HOST=http://127.0.0.1:
 <tr><td><code>src/server/cd_azioni.py</code></td><td>Catalogo delle azioni, lista bianca dei parametri, lavori, permessi</td></tr>
 <tr><td><code>src/server/cd_hardware.py</code></td><td>Componenti in dettaglio e sensori in diretta (sonda per Windows e Mac); <code>CD_HARDWARE_PROVA=1</code> dà dati di prova</td></tr>
 <tr><td><code>src/server/cd_aperture.py</code></td><td>Catalogo delle finestre del sistema che Neura apre con il consenso</td></tr>
+<tr><td><code>src/server/cd_nonni.py</code></td><td>Nonni Teach: interviste, audio, montaggio con FFmpeg, sito e feed RSS</td></tr>
 <tr><td><code>src/server/cd_programma.py</code></td><td>Scarica gli aggiornamenti: manifesto, host ammessi, SHA-256, installazione</td></tr>
 <tr><td><code>src/azioni/{windows,linux,mac}/</code></td><td>Gli script, con le funzioni comuni in <code>_comune</code></td></tr>
 <tr><td><code>src/web/</code></td><td>Le pagine (JavaScript semplice, senza librerie esterne), stili, logo, catalogo dei programmi</td></tr>

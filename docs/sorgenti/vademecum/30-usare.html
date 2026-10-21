@@ -35,7 +35,7 @@ il sistema operativo consigliato, i programmi proposti, il tono di Neura e l'asp
 <li><b>🤖 Può fare da sola i controlli che non cambiano nulla</b>: per esempio, se chiedete «ci sono aggiornamenti?», Neura avvia subito la ricerca. Le azioni che <b>modificano</b> il computer chiedono sempre conferma.</li>
 </ul>
 <p>Con <b>Iniziamo! 🚀</b> si arriva alla plancia e Neura propone subito il <b>pilota automatico</b> (capitolo 24). Per cambiare profilo in seguito: il riquadro del profilo in fondo al menu,
-oppure <b>Impostazioni → Chi usa il programma → Cambia</b>. Sotto il riquadro ci sono l'autore, la licenza (un clic apre la pagina <b>📜 Licenza e autore</b>) e la <b>versione</b> del programma, come nel Professore Digitale.</p>
+oppure <b>Impostazioni → Chi usa il programma → Cambia</b>.</p>
 </section>
 
 <!-- ======================================================= 9 -->
@@ -131,11 +131,11 @@ cercati con le parole chiave.</li>
 <tr><td><span class="frase">apri la gestione attività</span><span class="frase">apri le impostazioni del Wi-Fi</span><span class="frase">mostrami i dischi</span></td><td>apre la finestra del sistema giusta, <b>dopo il vostro consenso</b> (vedi sotto).</td></tr>
 <tr><td><span class="frase">a che temperatura è il processore?</span><span class="frase">la ventola fa rumore</span></td><td>legge i sensori, dice cosa va controllato e porta all'hardware e allo schema della scheda madre (capitoli 26 e 27).</td></tr>
 <tr><td><span class="frase">fai la diagnosi</span><span class="frase">lavori da fare</span></td><td>porta alla diagnosi con i lavori da eseguire (capitolo 27).</td></tr>
-<tr><td><span class="frase">intervista ai nonni</span><span class="frase">podcast</span></td><td>ricorda che Nonni Teach ora è nel Professore Digitale (capitolo 29).</td></tr>
-<tr><td><span class="frase">dove butto il vecchio telefono?</span><span class="frase">RAEE</span><span class="frase">ricondizionato</span></td><td>risponde con le regole dell'economia circolare (capitolo 30).</td></tr>
+<tr><td><span class="frase">intervista ai nonni</span><span class="frase">podcast</span></td><td>presenta Nonni Teach (capitolo 31).</td></tr>
+<tr><td><span class="frase">dove butto il vecchio telefono?</span><span class="frase">RAEE</span><span class="frase">ricondizionato</span></td><td>risponde con le regole dell'economia circolare (capitolo 32).</td></tr>
 <tr><td><span class="frase">aggiorna il programma</span></td><td>dice la versione e porta a «Scarica gli aggiornamenti» (capitolo 28).</td></tr>
 <tr><td><span class="frase">raccontami una barzelletta</span></td><td>… ci prova 😄</td></tr>
-<tr><td><span class="frase">il computer è lento</span><span class="frase">non va Internet</span><span class="frase">ho paura di un virus</span>…</td><td>senza IA: i passi della soluzione e i pulsanti delle azioni giuste (capitolo 31).</td></tr>
+<tr><td><span class="frase">il computer è lento</span><span class="frase">non va Internet</span><span class="frase">ho paura di un virus</span>…</td><td>senza IA: i passi della soluzione e i pulsanti delle azioni giuste (capitolo 33).</td></tr>
 </tbody></table>
 <h2>I pulsanti nelle risposte</h2>
 <p>Quando la soluzione è un'azione del programma, Neura la propone come <b>pulsante</b> sotto la risposta: «🔎 Cerca gli aggiornamenti», «🚀 Ottimizzazione completa consigliata»,
@@ -183,7 +183,7 @@ modello della libreria di Ollama (per esempio <code>llama3.2:3b</code>): il nome
 data e ora, il profilo, un riassunto dell'hardware, la pagina aperta, l'elenco delle azioni possibili (che può proporre come pulsanti), le schede della guida legate alla domanda,
 il calendario delle offerte se si parla di acquisti, e gli ultimi 12 messaggi. Niente di tutto questo esce dal computer.</p>
 <div class="box attenzione"><span class="t">L'IA può sbagliare</span>Anche la migliore intelligenza artificiale a volte sbaglia con sicurezza. Per i prezzi dà fasce indicative e non inventa modelli che non conosce,
-ma le informazioni importanti vanno sempre verificate (capitolo 31, «Usare bene l'intelligenza artificiale»).</div>
+ma le informazioni importanti vanno sempre verificate (capitolo 33, «Usare bene l'intelligenza artificiale»).</div>
 <div class="box tecnico"><span class="t">Dettagli</span>Ollama ascolta su <code>127.0.0.1:11434</code> (si cambia con la variabile <code>OLLAMA_HOST</code>). Il modello resta in memoria 20 minuti dopo l'ultima domanda,
 con un contesto di 6.144 «gettoni» e temperatura 0,55; i modelli che «ragionano» rispondono senza il ragionamento esteso, per essere più rapidi. Con una scheda video NVIDIA, AMD recente
 o un chip Apple, Ollama la usa da solo e le risposte sono molto più veloci.</div>
@@ -210,7 +210,7 @@ Nelle altre lingue (capitolo 13) Neura sceglie una voce di quella lingua, se il 
 <p>La prima volta che premete 🎤 senza la trascrizione locale, una finestra spiega in modo onesto dove va la voce e chiede <b>«Accendo il microfono»</b> o <b>«No grazie, scrivo»</b>.
 Il consenso si revoca in <b>Impostazioni → Microfono</b>. Il Consulente non salva mai la voce.</p>
 <div class="box tecnico"><span class="t">Installare la trascrizione locale</span>Nel Python usato dal programma: <code>python3 -m pip install vosk</code> (molto leggero) oppure <code>faster-whisper</code> (più preciso).
-Poi il modello: per Vosk la cartella <code>vosk-it</code> (es. «vosk-model-small-it» rinominata) dentro <code>modelli</code> nella cartella dei dati (capitolo 39); per faster-whisper
+Poi il modello: per Vosk la cartella <code>vosk-it</code> (es. «vosk-model-small-it» rinominata) dentro <code>modelli</code> nella cartella dei dati (capitolo 41); per faster-whisper
 <code>modelli/whisper/base</code> (o <code>small</code>, <code>tiny</code>). È lo stesso sistema del Professore Digitale. Su Windows il Python scaricato in automatico dal programma non ha <code>pip</code>: per la trascrizione locale installate Python da python.org e cancellate la cartella <code>python</code> dentro la cartella del programma: da quel momento il programma userà il Python completo. Neura registra finché non sente circa un secondo e mezzo di silenzio
 (al massimo 20 secondi; si ferma dopo 8 secondi se nessuno parla).</div>
 </section>
@@ -265,7 +265,7 @@ Neura capisce i comandi rapidi (per esempio «che ore sono?») in italiano; nell
 <p>In <b>Impostazioni → 💾 Backup, ripristino e reset</b> il pulsante <b>«Crea un backup»</b> prepara un file come
 <code>ConsulenteDigitale-backup-20261018-2130.cdbackup</code> e lo salva nella cartella dei download. Dentro ci sono impostazioni, profilo, conversazione con Neura,
 diagnosi e schede dei lavori, notizie salvate, preferenze di acquisto, dati dell'hardware e di Nonni Teach. Con la casella <b>«con le registrazioni»</b> entrano anche
-le voci delle interviste di Nonni Teach (il file diventa più grande): è il modo per portarle nel Professore Digitale su un altro computer.</p>
+le voci delle interviste di Nonni Teach (il file diventa più grande).</p>
 <p>Per <b>ripristinare</b>: «Importa un backup» e scegliete il file, oppure <b>trascinate il file .cdbackup sulla finestra</b>. Funziona sullo stesso computer o su un altro,
 con <b>Windows, Linux o macOS</b>, e anche nell'app per telefono (capitolo 7). Prima di importare il programma chiede se <b>unire</b> i dati a quelli che ci sono o
 <b>sostituirli</b>.</p>

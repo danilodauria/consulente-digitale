@@ -67,6 +67,7 @@
     var domanda = opz.senzaConferma && a.rischio === "nessuno" ? Promise.resolve(true) : CD.conferma(a.icona + " " + esc(a.titolo),
       "<p>" + esc(a.descrizione) + "</p>" +
       (a.admin ? '<div class="avviso">🔐 Servono i permessi di amministratore. ' + (ADMIN[CD.sistema()] || "") + "</div>" : "") +
+      (a.rischio === "alto" ? '<div class="avviso male">⛔ <b>Attenzione: operazione che cancella dati.</b> Controllate bene l\'unità scelta.</div>' : "") +
       (a.rischio === "medio" ? '<div class="avviso att">⚠️ Cambia impostazioni del sistema. Prima viene creato un punto di ripristino quando possibile.</div>' : "") +
       (a.riavvio ? '<div class="avviso">🔄 Alla fine potrebbe servire un <b>riavvio</b>: salvate il lavoro aperto.</div>' : "") +
       (a.finestra ? '<div class="avviso">🪟 Si aprirà una finestra a parte: continuate lì.</div>' : "") +

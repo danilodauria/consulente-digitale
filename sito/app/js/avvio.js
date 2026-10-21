@@ -61,10 +61,7 @@
 
   function avvia() {
     barra();
-    var ver = function () { var v = CD.$("#app-versione"); if (v) v.textContent = (CD.stato && CD.stato.versione) || CD.versione; };
-    ver();                                            // versione in fondo al menu, come nel Professore Digitale
     return collegaServer().then(function () {
-      ver();
       CD.$("#spia-sistema").className = "spia" + (CD.server ? " on" : "");
       if (CD.telefono) CD.telefono.prepara();         // app su telefono o tablet: solo i comandi utili lì
       return Promise.all([CD.carica("impostazioni"), CD.carica("profilo"), CD.neura.caricaStoria()]);
@@ -82,7 +79,10 @@
     }).then(function () {
       CD.sincronizzaOra(); appTelefono();
       if (CD.server) { CD.analisi.dati().catch(function () {}); CD.programmi.carica().catch(function () {}); }
-      var primo = !CD.profilo && !/noprofilo/.test(parametri);
+      // dalla chiavetta di emergenza: solo le pagine di soccorso, e si parte dalla diagnosi
+      var chiavetta = CD.server && CD.stato.chiavetta;
+      if (chiavetta) { document.body.classList.add("soccorso"); if (!location.hash || location.hash === "#/") location.hash = "#/soccorso"; }
+      var primo = !CD.profilo && !/noprofilo/.test(parametri) && !chiavetta;
       if (primo && location.hash.indexOf("#/benvenuto") !== 0) location.hash = "#/benvenuto"; else CD.mostraVista();
       if (!primo && CD.imp.saluto && !/nosaluto/.test(parametri) && !sessionStorageOk("cd.salutato")) {
         setTimeout(function () {

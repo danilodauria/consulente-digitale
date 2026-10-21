@@ -13,6 +13,9 @@
     ["#/aggiornamenti", "⬇️", "Aggiornamenti e driver", "Sistema, programmi, driver e firmware dalle fonti ufficiali"],
     ["#/ottimizza", "🚀", "Ottimizza", "Pulsanti automatici e script pronti per Windows, Linux e macOS"],
     ["#/strumenti", "🩺", "Salute e riparazioni", "Disco, batteria, sicurezza, velocità di Internet, ora esatta"],
+    ["#/recupero", "🛟", "Salvadati", "Recupera foto e documenti cancellati o su unità illeggibili"],
+    ["#/antivirus", "🛡️", "Antivirus", "Defender, MRT e ClamAV: gratuiti e sempre aggiornati"],
+    ["#/kit", "🚑", "Kit di emergenza", "Chiavetta che fa ripartire e ripara i PC che non si avviano"],
     ["#/programmi", "📦", "Programmi consigliati", "I migliori programmi gratuiti, installati con un clic"],
     ["#/sapere", "💡", "Cose da sapere", "Backup, password, truffe, privacy, salute e sostenibilità"],
     ["#/storia", "📜", "Storia dei computer", "Dall'abaco all'IA, con le invenzioni italiane e un quiz"]
@@ -46,8 +49,7 @@
         '<div class="scheda" id="home-momento"><h3>📅 Il momento per comprare</h3><div id="home-cal"></div></div>' +
         '<div class="scheda"><h3>' + consiglio.icona + " Consiglio del giorno</h3><p><b>" + esc(consiglio.titolo) + "</b></p><p>" + esc(consiglio.sintesi) + '</p><a class="btn piccolo" href="#/sapere/' + consiglio.id + '">Leggi →</a></div>' +
         '<div class="scheda" id="home-agg"><h3>⬇️ Aggiornamenti</h3><p class="piccolo-testo">Nessun controllo recente.</p></div>' +
-        (CD.imp.notizie && CD.imp.online !== false ? '<div class="scheda" id="home-notizie"><h3>📰 Ultime notizie</h3><p class="piccolo-testo">Carico i titoli…</p></div>' : "") +
-        '<div class="scheda" id="home-nonni" hidden></div></div>' +
+        (CD.imp.notizie && CD.imp.online !== false ? '<div class="scheda" id="home-notizie"><h3>📰 Ultime notizie</h3><p class="piccolo-testo">Carico i titoli…</p></div>' : "") + "</div>" +
         '<h2 class="titolo-sezioni">Tutto quello che posso fare</h2><div class="griglia-schede">' + sezioni().map(function (s) {
           return '<a class="tessera" href="' + s[0] + '"><span class="em">' + s[1] + "</span><b>" + esc(s[2]) + "</b><small>" + esc(s[3]) + "</small></a>"; }).join("") + "</div>";
       CD.cervello.crea(CD.$("#cervello-home", el));
@@ -59,16 +61,6 @@
         var ag = CD.$("#home-agg", el); if (ag) ag.innerHTML = '<h3>⬇️ Aggiornamenti</h3><p class="piccolo-testo">Sistema e app aggiornati proteggono dai ladri informatici.</p><a class="btn piccolo" href="#/telefono/aggiornamenti">Come si fa →</a>';
       } else CD.$("#home-pilota", el).onclick = function () { CD.pilota(); };
       CD.$("#home-parla", el).onclick = function () { CD.vai("#/neura"); setTimeout(function () { CD.neura.ascoltaEChiedi(); }, 300); };
-      // Nonni Teach si è trasferito nel Professore Digitale (1.4.0): se qui ci sono ancora interviste, si spiega dove sono finite
-      if (CD.server && !tel) CD.api("/api/nonni").then(function (j) {
-        var box = CD.$("#home-nonni", el); if (!box || !j || !j.episodi) return;
-        box.hidden = false;
-        box.innerHTML = "<h3>🎙️ Nonni Teach si è trasferito</h3><p>Ora Nonni Teach sta nel Professore Digitale, il programma gratuito di Danilo D'Auria: lì Neura continua a intervistare i nonni.</p>" +
-          "<p>Interviste registrate qui su questo computer: " + j.episodi + ". Restano al sicuro: aprendo Nonni Teach nel Professore Digitale si copiano con un clic.</p>" +
-          '<div class="riga"><button class="btn piccolo primario" id="home-nonni-pd">🌐 Il Professore Digitale</button><button class="btn piccolo" id="home-nonni-bk">💾 Backup con le registrazioni</button></div>';
-        CD.$("#home-nonni-pd", box).onclick = function () { CD.apriLink(CD.PROFESSORE_URL); };
-        CD.$("#home-nonni-bk", box).onclick = function () { if (CD.backup) CD.backup.crea(true); };
-      }, function () { /* niente */ });
       // momento giusto per comprare (con conto alla rovescia)
       var hn = CD.$("#home-notizie", el);
       if (hn && CD.notizie) CD.notizie.titoli(3).then(function (l) {

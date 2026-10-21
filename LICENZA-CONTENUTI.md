@@ -8,8 +8,7 @@ Sono contenuti, e quindi coperti da questa licenza:
 - le schede «Cose da sapere», i problemi e le soluzioni, il glossario (`src/web/js/data-sapere.js`);
 - la storia dei computer e dei sistemi operativi, le curiosità e il quiz (`src/web/js/data-storia.js`);
 - il catalogo commentato dei programmi consigliati (`src/web/dati/programmi.json`);
-- **Nonni Teach** (banca delle domande, contesti, temi, liberatoria): fino alla versione 1.3.1 era qui; dalla 1.4.0 si è trasferito nel **Professore Digitale**,
-  con la stessa licenza CC BY-NC-SA 4.0 (© Danilo D'Auria). Qui restano solo l'avviso e il formato con cui le vecchie interviste si copiano là;
+- la banca delle domande di **Nonni Teach**, i contesti, i temi, la liberatoria e i testi della pagina (`src/web/js/data-nonni.js`, `src/web/js/nonni.js`);
 - i testi dell'**economia circolare**: numeri, regole, consigli, domande, quiz e patto (`src/web/js/circolare.js`);
 - lo **schema della scheda madre** generato dal programma, le regole e le soglie della diagnosi, i testi delle schede di diagnosi e dei lavori
   (`src/web/js/scheda-madre.js`, `src/web/js/hardware.js`, `src/web/js/interventi.js`);
@@ -17,7 +16,7 @@ Sono contenuti, e quindi coperti da questa licenza:
 - i testi delle **notizie** del programma (temi, filtri per profilo, pagina stampabile) — non i titoli e i riassunti delle notizie, che restano delle testate (vedi sotto);
 - il **formato `.cdbackup`** e i suoi testi (`LICENZA.txt`, `LEGGIMI.txt` scritti in ogni backup da `src/server/cd_backup.py`), i testi del reset e del backup;
 - l'**app per telefono e tablet** pubblicata in `sito/app/` (stessa interfaccia, con `manifest.webmanifest`, icone e `LICENZA.txt`);
-- le novità delle versioni (`docs/novita.json`), il sito del progetto generato da `tools/prepara-pubblicazione.py`;
+- le novità delle versioni (`docs/novita.json`), il sito del progetto generato da `tools/prepara-pubblicazione.py` e la pagina del podcast generata da Nonni Teach;
 - i testi delle pagine, le schede stampabili, le descrizioni delle azioni;
 - le immagini, le icone (compresa l'icona di Neura disegnata da `tools/disegna-icona.py`), la grafica, il personaggio del cervello digitale «Neura» e il marchio della fenice.
 
@@ -48,10 +47,16 @@ sul diritto d'autore (L. 633/1941). Per usi diversi da quelli consentiti, contat
 ## Che cosa resta fuori
 - Il **codice** del programma (server Python, pagine, script per Windows, Linux e macOS) è distribuito con licenza MIT (file `LICENSE`).
 - Gli **strumenti di altri autori** che il programma può installare o avviare su richiesta (Ollama e i modelli di IA,
-  Chris Titus Tech WinUtil e LinUtil, Homebrew, winget, Flatpak/Flathub, fwupd, Vosk, faster-whisper, Piper, LibreHardwareMonitor
-  e i programmi del catalogo) mantengono la propria licenza e si scaricano sempre dalle loro fonti ufficiali.
-- Le **registrazioni di Nonni Teach** fatte fino alla 1.3.1 appartengono alle persone intervistate e a chi le realizza: il programma le conserva
-  e le lascia copiare nel Professore Digitale; si pubblicano solo con il consenso dato nella liberatoria.
+  Chris Titus Tech WinUtil e LinUtil, Homebrew, winget, Flatpak/Flathub, fwupd, Vosk, faster-whisper, Piper, LibreHardwareMonitor,
+  FFmpeg e i programmi del catalogo) mantengono la propria licenza e si scaricano sempre dalle loro fonti ufficiali.
+- **Salvadati, Antivirus e Kit di emergenza** usano, senza copiarne il codice, strumenti liberi o inclusi nei sistemi:
+  PhotoRec e TestDisk (CGSecurity, Christophe Grenier, GPL v2+), SystemRescue (system-rescue.org, GPL; ogni programma
+  contenuto mantiene la sua licenza), ClamAV (Cisco Talos, GPL v2), Microsoft Defender, Microsoft Defender Offline e lo
+  Strumento di rimozione software dannoso MRT (Microsoft, inclusi in Windows), e2fsprogs, ntfs-3g/ntfsprogs, efibootmgr,
+  GRUB e smartmontools (GPL). Il nome «Salvadati», il logo del salvagente, l'idea, le icone, la grafica, i testi e gli
+  script di diagnosi e riparazione di «Neura Soccorso» sono opera originale di Danilo D'Auria.
+- Le **registrazioni di Nonni Teach** appartengono alle persone intervistate e a chi le realizza: si pubblicano solo con il loro
+  consenso; il sito generato le propone con licenza CC BY-NC-SA 4.0 come indicato nella liberatoria.
 - Le **notizie** (titoli, riassunti, immagini) appartengono alle testate che le pubblicano: ANSA, HDblog, Punto Informatico, Tom's Hardware, Hardware Upgrade,
   IlSoftware.it, HTML.it, Elettronica News, Red Hot Cyber. Il programma legge solo i loro feed RSS pubblici e mostra titolo, poche righe, fonte e link all'articolo originale.
 - I **dati** che l'utente mette nel programma e nei file `.cdbackup` appartengono all'utente.

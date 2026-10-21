@@ -54,7 +54,8 @@
 
   /* ------------------------------------------------------------------ modalità telefono */
   var SOLO_PC = { analisi: "#/telefono", hardware: "#/telefono", interventi: "#/telefono/salute", aggiornamenti: "#/telefono/aggiornamenti",
-    ottimizza: "#/telefono/salute", strumenti: "#/telefono/salute", programmi: "#/telefono/app", programma: "#/telefono/aggiornamenti" };
+    ottimizza: "#/telefono/salute", strumenti: "#/telefono/salute", programmi: "#/telefono/app", programma: "#/telefono/aggiornamenti",
+    recupero: "#/telefono/salute", antivirus: "#/telefono/salute", kit: "#/telefono/salute", soccorso: "#/telefono/salute" };
   T.soloPC = function (h) { return !!SOLO_PC[String(h || "").replace(/^#\/?/, "").split("/")[0]]; };
   T.prepara = function () {
     T.attivo = !CD.server && T.disp.os !== "altro";

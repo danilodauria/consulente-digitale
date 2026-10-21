@@ -1,0 +1,151 @@
+<!-- Vademecum del Consulente Digitale - Parte V (fine): Salvadati, antivirus, kit di emergenza e Neura Soccorso (versione 1.4.0)
+     Testi di Danilo D'Auria - CC BY-NC-SA 4.0 -->
+<div class="pagina">
+
+<!-- ======================================================= 29 -->
+<section class="capitolo"><span class="marca">§§c29§§</span>
+<div class="capitolo-testa"><span class="num">29</span><div><div class="eti">CAPITOLO</div><h1>Salvadati: recuperare foto e documenti</h1></div></div>
+<p class="intro"><b>🛟 Salvadati</b> recupera le foto, i documenti, i video e la musica <b>cancellati per sbaglio</b>, oppure rimasti su chiavette, schede di memoria e dischi
+che il computer <b>non riesce più a leggere</b> (unità «RAW», formattate, con un file system di un altro sistema). Lavora come i programmi dei professionisti del recupero,
+ma fa tutto da solo e vi spiega ogni passo in parole semplici. Il motore che cerca i file è <b>PhotoRec</b> (CGSecurity, Christophe Grenier, software libero GPL);
+l'analisi, il controllo dei file, i nomi, il rapporto e la maschera finale sono del Consulente Digitale.</p>
+
+<div class="box attenzione"><span class="t">La regola d'oro del recupero</span>Finché i dati non sono salvati, <b>non formattate</b>, non installate programmi e non copiate
+nulla sull'unità da salvare: ogni scrittura può coprire per sempre i file cancellati. Per questo Salvadati <b>legge soltanto</b> l'unità e mette i file trovati
+<b>sempre su un altro disco</b> (se scegliete lo stesso disco, il programma si rifiuta).</div>
+
+<h2>1. L'analisi, al primo avvio</h2>
+<p>Aprendo la pagina, Salvadati guarda subito <b>tutti i dischi, le chiavette e le schede</b> collegati e per ognuno dice lo stato:</p>
+<table class="compatta"><thead><tr><th>Stato</th><th>Cosa vuol dire</th><th>Cosa fare</th></tr></thead><tbody>
+<tr><td><span class="et v">leggibile</span></td><td>Il sistema la legge: si possono cercare i file cancellati.</td><td>Ricerca superficiale (veloce).</td></tr>
+<tr><td><span class="et g">RAW</span></td><td>Il sistema non riconosce il file system. Windows di solito chiede di «formattare»: <b>non fatelo</b>.</td><td>Ricerca approfondita, poi eventualmente riparazione.</td></tr>
+<tr><td><span class="et g">illeggibile qui</span></td><td>Ha un file system che questo sistema non sa leggere (per esempio un disco Linux «ext4» su Windows, o un disco del Mac).</td><td>Ricerca approfondita.</td></tr>
+<tr><td><span class="et r">cifrata</span></td><td>È protetta (BitLocker, FileVault, LUKS): senza la chiave non si legge.</td><td>Recuperate la chiave (su Windows: account.microsoft.com/devices/recoverykey).</td></tr>
+<tr><td><span class="et b">di sistema</span></td><td>Partizioni di avvio o di ripristino: non contengono i vostri file.</td><td>Niente.</td></tr>
+</tbody></table>
+<figure><img src="img/salvadati-analisi.jpg" alt=""><figcaption><b>Figura 29.1</b> L'analisi: un disco esterno RAW e un disco Linux illeggibile su questo sistema, una chiavetta leggibile.</figcaption></figure>
+<p>Se manca il motore di ricerca compare il pulsante <b>🧰 Installa il motore di recupero</b>: TestDisk e PhotoRec si installano dalle fonti ufficiali
+(winget su Windows, il repository della distribuzione su Linux, Homebrew sul Mac). Se collegate una chiavetta dopo, premete <b>🔄 Ripeti l'analisi</b>.</p>
+
+<h2>2. Le quattro scelte</h2>
+<ol class="passi">
+<li><b>Quale unità salvare</b>: una partizione oppure <b>tutto il disco</b> (serve quando le partizioni sono state cancellate). Le unità con problemi sono già selezionate.</li>
+<li><b>Tipo di analisi</b>: <b>⚡ Superficiale</b> cerca nello spazio libero delle unità leggibili, dove stanno i file appena cancellati (minuti);
+<b>🔬 Approfondita</b> legge tutta l'unità settore per settore, anche se è RAW o formattata, con un controllo più severo (ore, trova di più). Per le unità RAW o illeggibili
+il programma propone da solo l'approfondita.</li>
+<li><b>Cosa cercare</b>: 🖼️ foto (anche RAW delle fotocamere), 📄 documenti (PDF, Word, Excel, PowerPoint, LibreOffice, testo), 🎬 video, 🎵 musica, 🗜️ archivi. Meno tipi = ricerca più veloce e pulita.</li>
+<li><b>Dove mettere i file recuperati</b>: un disco esterno o una chiavetta capiente, con lo spazio libero indicato. Il disco da salvare non si può scegliere.</li>
+</ol>
+<figure class="media"><img src="img/salvadati-scelte.jpg" alt=""><figcaption><b>Figura 29.2</b> Le quattro scelte.</figcaption></figure>
+<figure class="media"><img src="img/salvadati-ricerca.jpg" alt=""><figcaption><b>Figura 29.3</b> La ricerca: avanzamento in diretta e numero di file trovati.</figcaption></figure>
+
+<h2>3. Il controllo dei file: solo quelli integri</h2>
+<p>Un programma di recupero trova spesso anche pezzi di file rovinati. Salvadati li <b>controlla uno per uno</b> prima di contarli, guardando dentro la loro struttura:</p>
+<ul>
+<li><b>foto</b> JPEG (inizio, tabelle e fine dell'immagine), PNG (somme di controllo di ogni blocco), GIF, BMP, TIFF e RAW delle fotocamere;</li>
+<li><b>documenti</b> PDF (intestazione e fine), Word/Excel/PowerPoint e LibreOffice (archivio interno integro), vecchi file Office, testo;</li>
+<li><b>video e musica</b> MP4/MOV (struttura dei blocchi), AVI/WAV, MP3 (fotogrammi audio), OGG, FLAC, MKV.</li>
+</ul>
+<p>I file <b>danneggiati vengono scartati</b>, i <b>doppioni</b> (stesso contenuto) si tolgono. Ai rimasti si dà un <b>nome leggibile</b>: le foto prendono la data dello scatto
+(«Foto 2023-07-11_18-30-01.jpg»), i documenti il loro titolo; i documenti Office trovati come archivio ritrovano l'estensione giusta. Tutto va nelle cartelle
+<b>Foto, Documenti, Video, Musica, Archivi</b> dentro «Salvadati <i>data ora</i>», con il <b>Rapporto Salvadati</b> (pagina da stampare) e l'elenco <code>elenco.csv</code>.</p>
+
+<h2>4. La maschera finale</h2>
+<figure><img src="img/salvadati-risultato.jpg" alt=""><figcaption><b>Figura 29.4</b> Il risultato: file recuperati integri, spazio necessario per il backup, file scartati perché danneggiati e doppioni tolti, divisi per tipo.</figcaption></figure>
+<ul>
+<li><b>File recuperati integri e funzionanti</b> e <b>spazio necessario per il backup</b> (in MB o GB): contano <b>solo</b> i file che hanno superato il controllo.</li>
+<li><b>Scartati perché danneggiati</b> e <b>doppioni tolti</b>: quello che è stato lasciato fuori, e perché.</li>
+<li><b>📂 Apri la cartella</b>, <b>🖨️ Stampa il rapporto</b>.</li>
+<li><b>💾 Copia di sicurezza su un'altra unità</b>: scegliete un disco esterno o una partizione interna; prima di copiare il programma controlla che lo spazio basti.</li>
+</ul>
+
+<h2>Rendere di nuovo visibili i file e riparare l'unità</h2>
+<p>Nella tabella dell'analisi, accanto alle unità esterne:</p>
+<ul>
+<li><b>👁️ Rendi visibili</b>: alcuni virus delle chiavette <b>nascondono</b> cartelle e file e mettono al loro posto dei collegamenti. Il pulsante toglie gli attributi
+«nascosto» e «di sistema» (Windows), il flag «hidden» (Mac) o li sistema su FAT (Linux), <b>senza toccare il contenuto</b>, e avvisa se ci sono collegamenti sospetti
+(<code>.lnk</code>, <code>autorun.inf</code>) da controllare con l'antivirus.</li>
+<li><b>🔧 Ripara</b>: CHKDSK su Windows, fsck su Linux, Utility Disco sul Mac. Va fatta <b>solo dopo</b> aver salvato i dati, perché la riparazione può eliminare i file rovinati.
+Il disco del sistema e le unità RAW non si «riparano» da qui.</li>
+</ul>
+{{DETTAGLIO_RECUPERO}}
+<div class="box consiglio"><span class="t">Quando chiamare un laboratorio</span>Se il disco <b>fa rumori</b> (ticchettii, grattate), si scollega da solo o il controllo SMART dice
+che si sta guastando, non insistete con le ricerche: ogni ora di lavoro può peggiorare il danno. Spegnetelo e affidatelo a un laboratorio di recupero dati.</div>
+<p>Si può chiedere a Neura: <span class="frase">ho cancellato le foto per sbaglio</span> <span class="frase">la chiavetta non si legge più</span> <span class="frase">il disco è RAW</span></p>
+</section>
+
+<!-- ======================================================= 30 -->
+<section class="capitolo"><span class="marca">§§c30§§</span>
+<div class="capitolo-testa"><span class="num">30</span><div><div class="eti">CAPITOLO</div><h1>Antivirus, kit di emergenza e Neura Soccorso</h1></div></div>
+<p class="intro">Tre strumenti per i momenti difficili: un <b>🛡️ antivirus</b> gratuito e sempre aggiornato, una <b>🚑 chiavetta di emergenza</b> che fa partire anche i computer
+che non si avviano e, sulla chiavetta, <b>Neura Soccorso</b>, che capisce dov'è il guasto e lo ripara.</p>
+
+<h2>🛡️ L'antivirus</h2>
+<figure class="media"><img src="img/antivirus.jpg" alt=""><figcaption><b>Figura 30.1</b> La pagina Antivirus.</figcaption></figure>
+<table class="compatta"><thead><tr><th>Pulsante</th><th>🪟 Windows</th><th>🐧 Linux e 🍎 Mac</th></tr></thead><tbody>
+<tr><td><b>🔄 Aggiorna</b></td><td>Firme di <b>Microsoft Defender</b> (Update-MpSignature, o MpCmdRun se serve)</td><td>Installa <b>ClamAV</b> (Cisco Talos, GPL) se manca e lo aggiorna con freshclam</td></tr>
+<tr><td><b>⚡ Rapido · 🔬 Completo · 🔌 Chiavette</b></td><td>Controllo di Defender; le minacce vanno in quarantena e compaiono nell'elenco</td><td>Controllo di ClamAV; i file infetti vanno nell'elenco, nulla viene cancellato</td></tr>
+<tr><td><b>🔒 Quarantena</b></td><td>— (la fa Defender da solo: Sicurezza di Windows → Cronologia protezione)</td><td>Sposta i file trovati in una cartella chiusa, con l'elenco per rimetterli a posto</td></tr>
+<tr><td><b>🧽 Rimozione malware (MRT)</b></td><td>Lo strumento Microsoft aggiornato ogni mese, controllo completo</td><td>—</td></tr>
+<tr><td><b>🔁 Controllo all'avvio</b></td><td><b>Microsoft Defender Offline</b>: il PC si riavvia subito e controlla il disco prima di Windows (circa 15 minuti)</td><td>Con la chiavetta di emergenza</td></tr>
+</tbody></table>
+{{DETTAGLIO_ANTIVIRUS}}
+<div class="box consiglio"><span class="t">Un solo antivirus</span>Due antivirus attivi insieme si ostacolano. Su Windows 10 e 11 Microsoft Defender basta per l'uso di casa;
+se avete un altro antivirus, il programma lo segnala e Defender resta in secondo piano.</div>
+
+<h2>🚑 Il kit di emergenza</h2>
+<p>Dal menu <b>🚑 Kit di emergenza</b> si prepara, <b>su un computer che funziona</b>, una chiavetta da <b>almeno 4 GB</b> (viene cancellata). Sulla chiavetta finiscono:</p>
+<ul>
+<li><b>SystemRescue</b> (system-rescue.org, software libero GPL): un sistema Linux di soccorso con desktop grafico e gli strumenti dei tecnici (TestDisk/PhotoRec, GParted, ddrescue, ntfs-3g, GRUB, efibootmgr, smartmontools, Firefox).
+Il programma lo scarica dal sito ufficiale e ne controlla l'<b>impronta SHA-256</b>.</li>
+<li><b>Neura Soccorso</b>: il Consulente Digitale stesso (cartella <code>neura</code>), che parte <b>da solo</b> appena compare il desktop.</li>
+<li>La configurazione <code>sysrescue.d/500-neura.yaml</code> (avvio grafico automatico, tastiera italiana) e il foglio <code>LEGGIMI-KIT.txt</code>.</li>
+</ul>
+<figure class="media"><img src="img/kit.jpg" alt=""><figcaption><b>Figura 30.2</b> Il kit: la scelta della chiavetta. Le unità non adatte (disco del sistema, troppo piccole, non rimovibili) non si possono scegliere.</figcaption></figure>
+<figure class="media"><img src="img/kit-conferma.jpg" alt=""><figcaption><b>Figura 30.3</b> La conferma, con il nome e la dimensione della chiavetta che verrà cancellata.</figcaption></figure>
+<p>Prima di cancellare, lo script <b>ricontrolla</b> che la chiavetta sia ancora quella scelta (numero, collegamento USB, dimensione) e che non sia un disco del sistema.
+La chiavetta creata da <b>Windows</b> parte sui PC con <b>UEFI</b> (quasi tutti quelli dal 2012 in poi); quella creata da <b>Linux</b>, quando c'è syslinux, anche sui PC più vecchi con BIOS.
+Dal Mac il kit non si crea. Su Windows c'è anche il pulsante per lo strumento ufficiale <b>Unità di ripristino</b> (chiavetta da 16 GB per reinstallare o «Ripristino all'avvio»).</p>
+{{DETTAGLIO_KIT}}
+
+<h2>Avviare il PC dalla chiavetta</h2>
+<ol class="passi">
+<li>Spegnete il PC, inserite la chiavetta, accendetelo e premete subito il tasto del <b>menu di avvio</b>: di solito <b>F12</b> (Dell, Lenovo, Acer), <b>F9</b> (HP), <b>F11</b> o <b>F8</b> (MSI, Asus), <b>Esc</b>; sui Lenovo anche il tastino Novo.</li>
+<li>Scegliete la voce con <b>USB</b> o il nome della chiavetta (UEFI). Nel menu di SystemRescue premete Invio sulla prima voce.</li>
+<li>In uno o due minuti si apre il desktop e <b>Neura Soccorso</b> parte da sola.</li>
+</ol>
+<div class="box attenzione"><span class="t">Secure Boot</span>Se la chiavetta non compare o il PC la rifiuta, entrate nel BIOS/UEFI (F2 o Canc all'accensione) e disattivate
+<b>Secure Boot</b> il tempo necessario; alla fine riattivatelo. Questo passaggio dipende dal modello del PC.</div>
+
+<h2>🧠 Neura Soccorso: la diagnosi</h2>
+<p>Neura guarda i dischi del PC guasto <b>senza cambiare nulla</b> e cerca le cause, nell'ordine in cui le cerca un tecnico. Poi dice in una frase qual è la causa più probabile
+e lo ripete a voce.</p>
+<figure><img src="img/soccorso.jpg" alt=""><figcaption><b>Figura 30.4</b> Neura Soccorso: la causa più probabile, i problemi in ordine di gravità (🔴 grave, 🟠 da sistemare, 🔵 informazione) e i pulsanti per riparare.</figcaption></figure>
+<table class="compatta"><thead><tr><th>Cosa controlla</th><th>Cosa può trovare</th><th>Riparazione</th><th>Rischio</th></tr></thead><tbody>
+<tr><td>Salute del disco (SMART)</td><td>Disco che si sta guastando</td><td>Nessuna: prima si salvano i dati con Salvadati, poi si cambia il disco</td><td>—</td></tr>
+<tr><td>Windows</td><td>Disco «ibernato» dall'avvio rapido</td><td>Toglie il file di ibernazione (si perde solo la sessione sospesa)</td><td>medio</td></tr>
+<tr><td>Windows</td><td>File system NTFS non chiuso bene o con errori</td><td>ntfsfix + controllo completo di Windows al prossimo avvio</td><td>basso</td></tr>
+<tr><td>Windows</td><td>Aggiornamento rimasto a metà (riavvii continui)</td><td>Mette da parte <code>pending.xml</code> (con copia)</td><td>medio</td></tr>
+<tr><td>Windows / Linux</td><td>Disco pieno</td><td>Svuota cartelle temporanee, aggiornamenti già scaricati, cache dei pacchetti</td><td>basso</td></tr>
+<tr><td>Linux</td><td>File system ext2/3/4 con errori</td><td>e2fsck automatico (solo correzioni sicure)</td><td>basso</td></tr>
+<tr><td>Avvio UEFI</td><td>Voce «Windows Boot Manager» o di Linux sparita (spesso dopo un aggiornamento del BIOS)</td><td>Ricrea la voce con efibootmgr</td><td>basso</td></tr>
+<tr><td>Avvio UEFI</td><td>Manca l'avvio di riserva <code>EFI\Boot\bootx64.efi</code></td><td>Copia il file di avvio di Windows</td><td>basso</td></tr>
+<tr><td>Avvio Linux</td><td>GRUB da reinstallare</td><td>grub-install e grub-mkconfig nel sistema installato</td><td>medio</td></tr>
+<tr><td>Avvio Windows</td><td>File di avvio o BCD mancanti (errore 0xc000000f)</td><td>Guida passo passo con la chiavetta di ripristino di Windows: <code>bcdboot C:\Windows</code></td><td>—</td></tr>
+<tr><td>BitLocker</td><td>Disco cifrato</td><td>Dove trovare la chiave di ripristino</td><td>—</td></tr>
+<tr><td>Nessun disco / nessun sistema</td><td>BIOS in modalità RAID/VMD, disco staccato, sistema cancellato</td><td>Consigli (AHCI nel BIOS) e Salvadati</td><td>—</td></tr>
+<tr><td>Memoria RAM</td><td>Blocchi e riavvii improvvisi</td><td>Memtest86+ dal menu della chiavetta</td><td>—</td></tr>
+</tbody></table>
+<h2>Riparare con un clic</h2>
+<ul>
+<li><b>🔧 Ripara</b> accanto a ogni problema: una sola riparazione, dopo la conferma. Quelle «con cautela» chiedono di salvare prima i dati.</li>
+<li><b>🪄 Ripara tutto ciò che è sicuro</b>: esegue in un colpo solo le riparazioni a <b>rischio basso</b>, nell'ordine giusto (prima i file system, poi l'avvio).</li>
+<li>Il <b>registro</b> mostra ogni comando eseguito e l'esito. Alla fine: <b>🔁 Riavvia il PC</b> e togliete la chiavetta.</li>
+</ul>
+<figure class="media"><img src="img/soccorso-riparato.jpg" alt=""><figcaption><b>Figura 30.5</b> Il registro delle riparazioni.</figcaption></figure>
+<div class="box consiglio"><span class="t">Sicurezza</span>Neura Soccorso può eseguire <b>solo</b> le riparazioni nate dalla sua diagnosi, su quel disco e quella partizione: il browser non può chiedere
+altri comandi. La chiavetta stessa non viene mai toccata. Dalla chiavetta funzionano anche <b>Salvadati</b> (per copiare i file su un disco esterno prima di riparare)
+e l'<b>antivirus</b> (ClamAV, se c'è Internet), con Windows spento: i virus non possono nascondersi.</div>
+<p>Si può chiedere a Neura: <span class="frase">il computer non si avvia</span> <span class="frase">prepara la chiavetta di emergenza</span> <span class="frase">ho un virus</span></p>
+</section>
+</div>

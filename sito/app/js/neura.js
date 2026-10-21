@@ -191,8 +191,8 @@
     { r: /(raee|economia circolare|smaltir|buttare (il|un|i|la|le|lo) (vecchio|vecchia|vecchi|pc|computer|telefon|cellulare|tablet|televisor|tv|pile|batteri)|riciclar|ricondizionat|diritto alla riparazione|isola ecologica|centro di raccolta|donare (il|un) (pc|computer|telefono)|rifiuti elettronici)/, f: function (n) {
       return { testo: CD.CIRC.risposta(n), comandi: [{ tipo: "vai", hash: "#/circolare", etichetta: "♻️ Cosa ne faccio? (percorso guidato)" }, { tipo: "vai", hash: "#/circolare/regole", etichetta: "📜 Regole e diritti" }] }; } },
     { r: /(nonni teach|intervist\w* (a |al |alla |i |il |la )?(nonn|anzian)|podcast|registrare i ricordi|memoria del quartiere)/, f: function () {
-      return { testo: "Nonni Teach si è trasferito nel Professore Digitale, il programma gratuito di Danilo D'Auria per imparare a usare il computer: lì sono sempre io a fare le domande ai nonni e a preparare il podcast. Le interviste registrate qui restano sul computer e il Professore le copia con un clic.",
-        comandi: [{ tipo: "url", url: CD.PROFESSORE_URL, etichetta: "🌐 Il Professore Digitale" }, { tipo: "fn", fn: function () { if (CD.backup) CD.backup.crea(true); }, etichetta: "💾 Backup con le registrazioni" }] }; } },
+      return { testo: "Con **Nonni Teach** faccio io le domande ai nonni (ne ho " + CD.NONNI.totale() + ", per centro anziani, scuola, biblioteca, famiglia e quartiere), registro le risposte e preparo il podcast con i capitoli. " +
+        "Prima serve il consenso della persona: c'è anche la liberatoria da stampare.", comandi: [{ tipo: "vai", hash: "#/nonni", etichetta: "🎙️ Nuova intervista" }, { tipo: "vai", hash: "#/nonni/liberatoria", etichetta: "📄 Liberatoria" }] }; } },
     { r: /(diagnosi|guast|si e rotto|lavori da (fare|eseguire)|scheda (lavori|intervento)|riparazione completa)/, f: function () {
       if (!CD.server) return null;
       return { testo: "Faccio la diagnosi completa: leggo sensori e componenti, trovo i problemi e preparo l'elenco dei lavori da eseguire, con le schede da stampare (diagnosi e lavori eseguiti).",
@@ -244,6 +244,15 @@
       return { testo: "La storia dei computer è piena di sorprese, e di italiani geniali come Olivetti e Federico Faggin! Una curiosità: " + c, comandi: [{ tipo: "vai", hash: "#/storia", etichetta: "📜 Viaggio nella storia" }] }; } },
     { r: /(velocita (di )?internet|quanto va internet|speed ?test|prova (la )?connessione)/, f: function () {
       return { testo: "Misuro la velocità di Internet (download, upload e tempo di risposta) quando volete.", comandi: [{ tipo: "vai", hash: "#/strumenti/rete", etichetta: "📶 Prova la velocità" }] }; } },
+    { r: /(recuper\w* (i |le |dei |delle )?(file|foto|dati|documenti)|(ho )?cancellat\w* (per sbaglio )?(le |i |delle |dei )?(foto|file|documenti)|file (spariti|scomparsi|nascosti)|(chiavetta|disco|scheda|sd)\b.*(non (si )?(legge|apre|vede)|raw|formattar)|\braw\b|salvadati)/, f: function () {
+      return { testo: "Con **Salvadati** analizzo dischi e chiavette (anche quelli RAW o illeggibili), cerco i file cancellati, scarto quelli rovinati e vi dico quanti ne ho salvati e quanto spazio serve. Importante: non formattate e non scrivete nulla sull'unità da salvare.",
+        comandi: [{ tipo: "vai", hash: "#/recupero", etichetta: "🛟 Apri Salvadati" }] }; } },
+    { r: /(virus|antivirus|malware|trojan|ransomware|infett|defender|clamav|\bmrt\b)/, f: function () {
+      return { testo: CD.sistema() === "windows" ? "Uso Microsoft Defender e lo Strumento di rimozione malware di Microsoft, già dentro Windows e gratuiti: aggiorno le firme, controllo il disco o le chiavette e, se serve, faccio il controllo all'avvio prima di Windows." :
+        "Uso ClamAV, l'antivirus libero: lo aggiorno, controllo il disco o le chiavette e metto in quarantena i file infetti.", comandi: [{ tipo: "vai", hash: "#/antivirus", etichetta: "🛡️ Antivirus" }] }; } },
+    { r: /((pc|computer|portatile|windows|linux)\b.*(non (si )?(avvia|accende|parte)|schermo (blu|nero)|bloccat\w* all.avvio)|chiavetta (di )?(emergenza|soccorso|avviabile)|kit di emergenza|soccorso)/, f: function () {
+      return { testo: "Per un computer che non si avvia preparo la **chiavetta di emergenza**: la inserite, accendete e io parto da lì. Faccio la diagnosi (disco, avvio, aggiornamenti bloccati, Windows ibernato…), vi dico in parole semplici dov'è il problema e lo riparo con un clic. Si prepara da un altro computer che funziona.",
+        comandi: [{ tipo: "vai", hash: "#/kit", etichetta: "🚑 Kit di emergenza" }, { tipo: "vai", hash: "#/recupero", etichetta: "🛟 Salvadati" }] }; } },
     { r: /(barzelletta|fammi ridere|qualcosa di divertente)/, f: function () {
       var b = ["Perché il computer è andato dal dottore? Aveva un virus… ma per fortuna era solo un raffreddore di sistema!",
         "Sapete come si chiama un computer che canta? Un Dell… a voce!", "Il mio mouse è timido: appena lo sposto, la freccia si nasconde dietro le finestre.",
@@ -294,7 +303,7 @@
     var az = Object.keys(CD.azioni).map(function (k) { return "[[azione:" + k + "]] = " + CD.azioni[k].titolo; });
     if (az.length) righe.push("Puoi proporre un'azione automatica scrivendo su una riga a parte il suo comando (diventa un pulsante; la esegue l'utente). Comandi disponibili su questo computer:\n" + az.join("\n") +
       "\nPer [[azione:programma_installa|ID]] usa uno di questi ID: " + (CD.programmi ? CD.programmi.idDisponibili().join(", ") : "") + ".");
-    righe.push("Puoi aprire una pagina con [[vai:PAGINA]]: inizio, acquisti, acquisti/portatile, acquisti/smartphone, analisi, hardware, hardware/schema, interventi, circolare, circolare/regole, circolare/quiz, programma, notizie, notizie/salvate, aggiornamenti, ottimizza, strumenti, programmi, sapere, storia, impostazioni.");
+    righe.push("Puoi aprire una pagina con [[vai:PAGINA]]: inizio, acquisti, acquisti/portatile, acquisti/smartphone, analisi, hardware, hardware/schema, interventi, nonni, nonni/archivio, circolare, circolare/regole, circolare/quiz, programma, notizie, notizie/salvate, aggiornamenti, ottimizza, strumenti, programmi, sapere, storia, impostazioni.");
     if (CD.aperture && CD.aperture.lista.length) righe.push("Puoi proporre di aprire una finestra del sistema con [[apri:ID]] (diventa un pulsante; chiede il permesso): " +
       CD.aperture.lista.map(function (a) { return a.id + " = " + a.titolo; }).join(", ") + ".");
     if (CD.i18n && CD.i18n.attiva()) righe.push("IMPORTANTE: l'utente ha scelto la lingua " + CD.i18n.LINGUE[CD.i18n.lingua].ia + ". Rispondi SEMPRE e solo in questa lingua, anche se le informazioni qui sopra sono in italiano.");

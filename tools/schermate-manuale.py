@@ -53,7 +53,17 @@ def main():
     json.dump({"versione": v, "data": nov["data"], "novita": nov["novita"]}, open(os.path.join(sito, "aggiornamenti.json"), "w"))
     web = subprocess.Popen([sys.executable, "-m", "http.server", str(PORTA + 2), "--bind", "127.0.0.1"], cwd=sito, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     env = dict(os.environ, CD_DATA_DIR=dati, OLLAMA_HOST="http://127.0.0.1:%d" % PIA, CD_HARDWARE_PROVA="1", CD_APERTURE_PROVA="1", CD_NOTIZIE_PROVA="1",
-               CD_MANIFESTO="http://127.0.0.1:%d/aggiornamenti.json" % (PORTA + 2))
+               CD_MANIFESTO="http://127.0.0.1:%d/aggiornamenti.json" % (PORTA + 2), CD_RECUPERO_PROVA="1", CD_KIT_PROVA="1", CD_SOCCORSO_PROVA="1",
+               CD_KIT_IMMAGINE=os.path.join(dati, "chiavetta-kit.img"))
+    open(os.path.join(dati, "chiavetta-kit.img"), "wb").close()
+    img_rec = None
+    if shutil.which("photorec") and shutil.which("mcopy"):      # chiavetta di prova vera per le foto di Salvadati
+        sys.path.insert(0, os.path.join(RADICE, "tests"))
+        import test_recupero
+        os.makedirs(os.path.join(dati, "rec"))
+        img_rec = test_recupero.prepara_immagine(os.path.join(dati, "rec"))
+        os.makedirs(os.path.join(dati, "disco-esterno"))
+        env.update(CD_RECUPERO_IMMAGINE=img_rec, CD_RECUPERO_DEST=os.path.join(dati, "disco-esterno"))
     ia = subprocess.Popen([sys.executable, os.path.join(RADICE, "tests", "finto_ollama.py"), str(PIA)])
     srv = subprocess.Popen([sys.executable, os.path.join(RADICE, "src", "server", "cd_server.py"), "--port", str(PORTA), "--inattivo", "0"],
                            env=env, stdout=subprocess.DEVNULL)
@@ -161,7 +171,7 @@ def main():
             vai("storia", ".linea-tempo li"); foto("storia")
             vai("impostazioni", "#imp-voce"); foto("impostazioni", full=True)
             vai("licenza", ".cc-badge"); foto("licenza")
-            # --- novità 1.1: hardware, diagnosi, aperture, cerca, economia circolare, aggiornamenti (Nonni Teach dalla 1.4.0 è nel Professore Digitale)
+            # --- novità 1.1: hardware, diagnosi, aperture, cerca, Nonni Teach, economia circolare, aggiornamenti
             vai("hardware", ".hw-tessera"); foto("hardware", attesa=9)
             pg.click('[data-tab="schema"]'); pg.wait_for_selector(".hw-schema svg"); foto("hardware-schema", sel=".hw-schema", attesa=1.2)
             foto("hardware-legenda", sel=".sm-problemi", attesa=0.3)
@@ -175,6 +185,20 @@ def main():
             pg.click("#bc-no")
             pg.click("#btn-cerca"); pg.keyboard.type("batteria"); foto("cerca", attesa=1)
             pg.keyboard.press("Escape")
+            vai("nonni", "#nt-prepara"); foto("nonni-inizio")
+            pg.fill("#nt-nome", "nonno Pippo"); pg.fill("#nt-luogo", "il quartiere San Lorenzo"); pg.fill("#nt-chi", "classe 4ª B")
+            pg.select_option("#nt-quante", "8"); pg.check("#nt-c1"); pg.check("#nt-c2"); pg.click("#nt-prepara"); pg.wait_for_selector("#nt-via")
+            foto("nonni-domande", sel="#nt-elenco")
+            pg.click("#nt-via"); pg.wait_for_selector("#nt-rec")
+            for k in range(3):
+                pg.click("#nt-rec"); time.sleep(2.2)
+                if k == 2:
+                    foto("nonni-intervista", attesa=0.2)
+                pg.click("#nt-rec"); time.sleep(1.5)
+            pg.click("#nt-fine"); time.sleep(10)
+            vai("nonni/archivio", "[data-ascolta]"); pg.click("[data-ascolta]"); pg.wait_for_selector(".nt-ascolto-box audio"); foto("nonni-archivio", attesa=1)
+            vai("nonni/pubblica", "#nt-crea"); pg.click("#nt-crea"); pg.wait_for_selector("#nt-esito .avviso"); foto("nonni-pubblica", full=True)
+            vai("nonni/liberatoria", "#nt-l-stampa"); foto("nonni-liberatoria")
             vai("circolare", "[data-s]"); foto("circolare")
             vai("circolare/regole", ".scheda h3"); foto("circolare-regole")
             vai("circolare/quiz", "[data-r]"); pg.click("[data-r]"); foto("circolare-quiz")
@@ -188,10 +212,30 @@ def main():
             pg.evaluate("CD.i18n.cambia('en')"); time.sleep(4); vai("", "#home-pc .metro"); foto("inglese", attesa=1.5)
             pg.evaluate("CD.i18n.cambia('it')"); time.sleep(4)
             vai("programma", "#pg-controlla"); pg.click("#pg-controlla"); pg.wait_for_selector("#pg-esito ul"); foto("programma")
+            # 1.4.0: Salvadati, antivirus, kit di emergenza, Neura Soccorso
+            vai("recupero", "#sd-analisi table"); foto("salvadati-analisi", sel="#sd-analisi")
+            if img_rec:
+                pg.check('input[name="sd-sorg"][value="%s"]' % img_rec)
+            foto("salvadati-scelte", sel="#sd-scelte .scheda")
+            if img_rec:
+                pg.select_option("#sd-dest", "dest-prova"); pg.click("#sd-avvia"); pg.wait_for_selector(".modale")
+                foto("salvadati-conferma", sel=".modale", attesa=0.5)
+                pg.click(".modale .pulsanti button.primario"); pg.wait_for_selector("#lav-stato.ok", timeout=120000)
+                foto("salvadati-ricerca", sel=".modale", attesa=0.5)
+                pg.click(".modale .pulsanti button.primario"); pg.wait_for_selector(".maschera-salvadati", timeout=60000)
+                foto("salvadati-risultato", sel=".maschera-salvadati", attesa=1)
+            vai("antivirus", "[data-av]"); foto("antivirus")
+            vai("kit", "#kit-crea"); foto("kit", full=True)
+            pg.check('input[name="kit-u"]'); pg.click("#kit-crea"); pg.wait_for_selector(".modale"); foto("kit-conferma", sel=".modale", attesa=0.6)
+            pg.keyboard.press("Escape")
+            vai("soccorso", ".sintesi-neura"); foto("soccorso", attesa=1.2)
+            pg.click("#sc-tutto"); pg.click(".modale .pulsanti button.primario"); pg.wait_for_selector("text=Riparazione finita", timeout=20000)
+            foto("soccorso-riparato", sel="#sc-lavoro", attesa=0.6)
             # schede di stampa: si cattura il documento preparato per la stampante
             for nome, codice in (("stampa-analisi", "CD.analisi.dati().then(CD.analisi.stampa)"),
                                  ("stampa-diagnosi", "CD.interventi.carica().then(function(d){CD.interventi.stampaDiagnosi(d.schede[0])})"),
-                                 ("stampa-lavori", "CD.interventi.carica().then(function(d){CD.interventi.stampaEseguiti(d.schede[0])})")):
+                                 ("stampa-lavori", "CD.interventi.carica().then(function(d){CD.interventi.stampaEseguiti(d.schede[0])})"),
+                                 ("stampa-liberatoria", "CD.nonniTeach.stampaLiberatoria({intervistato:'Giuseppe «nonno Pippo» Rossi', luogo:'Centro anziani San Lorenzo'})")):
                 pg.evaluate("window.__orig=window.__orig||CD.stampa; CD.stampa=function(t,c,o){window.__orig(t,c,o)}; " + codice)
                 time.sleep(2.5)
                 html = pg.evaluate("document.getElementById('cornice-stampa').contentDocument.documentElement.outerHTML")

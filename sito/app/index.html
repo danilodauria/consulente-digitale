@@ -7,7 +7,7 @@
 <meta name="author" content="Danilo D'Auria">
 <meta name="description" content="Consulente Digitale: il cervello che sceglie, aggiorna e ottimizza i tuoi dispositivi. Windows, Linux e macOS, con intelligenza artificiale sul computer.">
 <script>/* Consulente Digitale - guardia di versione dell'app (Danilo D'Auria - MIT) */
-(function(){var V="1.4.1";try{if(location.protocol!=='https:'||localStorage.getItem('cd.app-versione')===V)return;localStorage.setItem('cd.app-versione',V);}catch(e){return;}var n=0,p=[];if(window.caches&&caches.keys)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!=='consulente-digitale-'+V;}).map(function(x){n++;return caches.delete(x);}));}));if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)p.push(navigator.serviceWorker.getRegistrations().then(function(r){return Promise.all(r.map(function(x){n++;return x.unregister();}));}));Promise.all(p).then(function(){if(n)location.reload();},function(){});})();</script>
+(function(){var V="1.4.0";try{if(location.protocol!=='https:'||localStorage.getItem('cd.app-versione')===V)return;localStorage.setItem('cd.app-versione',V);}catch(e){return;}var n=0,p=[];if(window.caches&&caches.keys)p.push(caches.keys().then(function(k){return Promise.all(k.filter(function(x){return x!=='consulente-digitale-'+V;}).map(function(x){n++;return caches.delete(x);}));}));if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)p.push(navigator.serviceWorker.getRegistrations().then(function(r){return Promise.all(r.map(function(x){n++;return x.unregister();}));}));Promise.all(p).then(function(){if(n)location.reload();},function(){});})();</script>
 <title>Consulente Digitale</title>
 <link rel="icon" href="img/logo-piccolo.svg" type="image/svg+xml">
 <link rel="manifest" href="manifest.webmanifest">
@@ -18,10 +18,10 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Consulente">
 <meta name="license" content="Contenuti CC BY-NC-SA 4.0 · Codice MIT · © Danilo D'Auria">
-<link rel="stylesheet" href="css/app.css?v=1.4.1">
-<link rel="stylesheet" href="css/cervello.css?v=1.4.1">
-<link rel="stylesheet" href="css/pagine.css?v=1.4.1">
-<link rel="stylesheet" href="css/stampa.css?v=1.4.1">
+<link rel="stylesheet" href="css/app.css?v=1.4.0">
+<link rel="stylesheet" href="css/cervello.css?v=1.4.0">
+<link rel="stylesheet" href="css/pagine.css?v=1.4.0">
+<link rel="stylesheet" href="css/stampa.css?v=1.4.0">
 </head>
 <body>
 <a class="salta" href="#principale">Vai al contenuto</a>
@@ -57,8 +57,9 @@
   </header>
 
   <nav class="menu" id="menu" aria-label="Menu principale">
+    <a href="#/soccorso" data-v="soccorso" data-soccorso hidden><span>🚑</span>Neura Soccorso</a>
     <a href="#/" data-v="inizio"><span>🏠</span>Inizio</a>
-    <a href="#/neura" data-v="neura"><span>🧠</span>Parla con Neura</a>
+    <a href="#/neura" data-v="neura" data-soccorso><span>🧠</span>Parla con Neura</a>
     <a href="#/notizie" data-v="notizie"><span>📰</span>Notizie</a>
     <a href="#/acquisti" data-v="acquisti"><span>🛒</span>Cosa comprare</a>
     <a href="#/analisi" data-v="analisi"><span>🔬</span>Analisi del PC</a>
@@ -67,21 +68,23 @@
     <a href="#/aggiornamenti" data-v="aggiornamenti"><span>⬇️</span>Aggiornamenti e driver</a>
     <a href="#/ottimizza" data-v="ottimizza"><span>🚀</span>Ottimizza</a>
     <a href="#/strumenti" data-v="strumenti"><span>🩺</span>Salute e riparazioni</a>
+    <a href="#/recupero" data-v="recupero" data-soccorso><span>🛟</span>Salvadati (recupero dati)</a>
+    <a href="#/antivirus" data-v="antivirus" data-soccorso><span>🛡️</span>Antivirus</a>
+    <a href="#/kit" data-v="kit"><span>🚑</span>Kit di emergenza</a>
     <a href="#/programmi" data-v="programmi"><span>📦</span>Programmi consigliati</a>
     <a href="#/circolare" data-v="circolare"><span>♻️</span>Economia circolare</a>
+    <a href="#/nonni" data-v="nonni"><span>🎙️</span>Nonni Teach</a>
     <a href="#/sapere" data-v="sapere"><span>💡</span>Cose da sapere</a>
     <a href="#/storia" data-v="storia"><span>📜</span>Storia dei computer</a>
     <div class="menu-sep"></div>
     <a href="#/programma" data-v="programma"><span>🔄</span>Scarica gli aggiornamenti</a>
     <a href="#/impostazioni" data-v="impostazioni"><span>⚙️</span>Impostazioni</a>
     <a href="#/sostieni" data-v="sostieni"><span>❤️</span>Sostieni il progetto</a>
-    <a href="#/licenza" data-v="licenza"><span>📜</span>Licenza e autore</a>
+    <a href="#/licenza" data-v="licenza" data-soccorso><span>📜</span>Licenza e autore</a>
     <a href="docs/Vademecum_Consulente_Digitale.pdf" target="_blank" rel="noopener" id="menu-vademecum"><span>📘</span>Vademecum (PDF)</a>
     <div class="menu-piede">
       <div id="profilo-breve" class="profilo-breve"></div>
-      <small>Ideato e sviluppato da<br><b>Danilo D'Auria</b><br>
-        <a href="#/licenza" class="piede-lic">Codice MIT · Contenuti CC BY-NC-SA 4.0</a><br>
-        <span class="piede-ver" data-no-trad>v<span id="app-versione"></span></span></small>
+      <small>Ideato e sviluppato da<br><b>Danilo D'Auria</b></small>
     </div>
   </nav>
 
@@ -110,38 +113,43 @@
 <iframe id="cornice-stampa" class="cornice-stampa" title="Stampa" aria-hidden="true" tabindex="-1"></iframe>
 <noscript><p style="padding:2rem;color:#fff">Il Consulente Digitale ha bisogno di JavaScript attivo nel browser.</p></noscript>
 
-<script src="js/core.js?v=1.4.1"></script>
-<script src="js/licenza.js?v=1.4.1"></script>
-<script src="js/i18n.js?v=1.4.1"></script>
-<script src="js/cervello.js?v=1.4.1"></script>
-<script src="js/voce.js?v=1.4.1"></script>
-<script src="js/lavori.js?v=1.4.1"></script>
-<script src="js/cerca.js?v=1.4.1"></script>
-<script src="js/backup.js?v=1.4.1"></script>
-<script src="js/data-sapere.js?v=1.4.1"></script>
-<script src="js/data-acquisti.js?v=1.4.1"></script>
-<script src="js/data-storia.js?v=1.4.1"></script>
-<script src="js/data-sostieni.js?v=1.4.1"></script>
-<script src="js/neura.js?v=1.4.1"></script>
-<script src="js/benvenuto.js?v=1.4.1"></script>
-<script src="js/inizio.js?v=1.4.1"></script>
-<script src="js/acquisti.js?v=1.4.1"></script>
-<script src="js/analisi.js?v=1.4.1"></script>
-<script src="js/scheda-madre.js?v=1.4.1"></script>
-<script src="js/hardware.js?v=1.4.1"></script>
-<script src="js/interventi.js?v=1.4.1"></script>
-<script src="js/notizie.js?v=1.4.1"></script>
-<script src="js/circolare.js?v=1.4.1"></script>
-<script src="js/aggiornamenti.js?v=1.4.1"></script>
-<script src="js/ottimizza.js?v=1.4.1"></script>
-<script src="js/strumenti.js?v=1.4.1"></script>
-<script src="js/programmi.js?v=1.4.1"></script>
-<script src="js/sapere.js?v=1.4.1"></script>
-<script src="js/storia.js?v=1.4.1"></script>
-<script src="js/telefono.js?v=1.4.1"></script>
-<script src="js/impostazioni.js?v=1.4.1"></script>
-<script src="js/programma.js?v=1.4.1"></script>
-<script src="js/aperture.js?v=1.4.1"></script>
-<script src="js/avvio.js?v=1.4.1"></script>
+<script src="js/core.js?v=1.4.0"></script>
+<script src="js/licenza.js?v=1.4.0"></script>
+<script src="js/i18n.js?v=1.4.0"></script>
+<script src="js/cervello.js?v=1.4.0"></script>
+<script src="js/voce.js?v=1.4.0"></script>
+<script src="js/lavori.js?v=1.4.0"></script>
+<script src="js/cerca.js?v=1.4.0"></script>
+<script src="js/backup.js?v=1.4.0"></script>
+<script src="js/data-sapere.js?v=1.4.0"></script>
+<script src="js/data-acquisti.js?v=1.4.0"></script>
+<script src="js/data-storia.js?v=1.4.0"></script>
+<script src="js/data-sostieni.js?v=1.4.0"></script>
+<script src="js/neura.js?v=1.4.0"></script>
+<script src="js/benvenuto.js?v=1.4.0"></script>
+<script src="js/inizio.js?v=1.4.0"></script>
+<script src="js/acquisti.js?v=1.4.0"></script>
+<script src="js/analisi.js?v=1.4.0"></script>
+<script src="js/scheda-madre.js?v=1.4.0"></script>
+<script src="js/hardware.js?v=1.4.0"></script>
+<script src="js/interventi.js?v=1.4.0"></script>
+<script src="js/notizie.js?v=1.4.0"></script>
+<script src="js/circolare.js?v=1.4.0"></script>
+<script src="js/data-nonni.js?v=1.4.0"></script>
+<script src="js/nonni.js?v=1.4.0"></script>
+<script src="js/aggiornamenti.js?v=1.4.0"></script>
+<script src="js/ottimizza.js?v=1.4.0"></script>
+<script src="js/strumenti.js?v=1.4.0"></script>
+<script src="js/salvadati.js?v=1.4.0"></script>
+<script src="js/antivirus.js?v=1.4.0"></script>
+<script src="js/kit.js?v=1.4.0"></script>
+<script src="js/programmi.js?v=1.4.0"></script>
+<script src="js/sapere.js?v=1.4.0"></script>
+<script src="js/storia.js?v=1.4.0"></script>
+<script src="js/telefono.js?v=1.4.0"></script>
+<script src="js/impostazioni.js?v=1.4.0"></script>
+<script src="js/programma.js?v=1.4.0"></script>
+<script src="js/aperture.js?v=1.4.0"></script>
+<script src="js/avvio.js?v=1.4.0"></script>
 </body>
 </html>

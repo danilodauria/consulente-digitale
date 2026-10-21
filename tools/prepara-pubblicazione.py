@@ -122,7 +122,7 @@ def main():
     img = os.path.join(RADICE, "docs", "sorgenti", "img")
     foto = []
     for nome, didascalia in (("inizio.jpg", "La pagina iniziale"), ("neura.jpg", "Neura, il cervello che ascolta e risponde"), ("hardware-schema.jpg", "Lo schema della scheda madre con i punti a rischio"),
-                             ("hardware.jpg", "Sensori in diretta"), ("interventi.jpg", "Diagnosi e lavori da eseguire"),
+                             ("hardware.jpg", "Sensori in diretta"), ("interventi.jpg", "Diagnosi e lavori da eseguire"), ("nonni-intervista.jpg", "Nonni Teach: l'intervista"),
                              ("analisi.jpg", "L'analisi del computer"), ("circolare.jpg", "Economia circolare")):
         if os.path.isfile(os.path.join(img, nome)):
             shutil.copy2(os.path.join(img, nome), os.path.join(sito, "img", nome))
@@ -172,7 +172,7 @@ header img{width:140px;height:140px;filter:drop-shadow(0 0 30px rgba(56,189,248,
 <div><b>🛠️ Diagnosi e interventi</b><br>Lavori da eseguire e lavori fatti, con le schede professionali da stampare.</div>
 <div><b>⬇️ Aggiornamenti e driver</b><br>Solo da fonti ufficiali: Windows Update, winget, la vostra distribuzione, Apple, fwupd.</div>
 <div><b>🛒 Cosa comprare e quando</b><br>Guida all'acquisto e calendario delle offerte con l'ora esatta dell'INRiM.</div>
-<div><b>🎙️ Nonni Teach</b><br>Dalla versione 1.4.0 è nel <a href="https://danilodauria.github.io/professore-digitale/">Professore Digitale</a>, dove Neura continua a intervistare i nonni. <a href="%(podcast)s">Ascolta i podcast</a>.</div>
+<div><b>🎙️ Nonni Teach</b><br>I nonni raccontano, Neura intervista e crea il podcast. <a href="%(podcast)s">Ascolta i podcast</a>.</div>
 <div><b>♻️ Economia circolare</b><br>Riparare, riusare, donare, riciclare bene: regole, consigli e quiz.</div>
 <div><b>💡 Cose da sapere e 📜 storia</b><br>Sicurezza, truffe, glossario e la storia dei computer con gli italiani che l'hanno fatta.</div></div>
 %(foto)s

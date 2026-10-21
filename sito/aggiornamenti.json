@@ -1,47 +1,54 @@
 {
  "app": "Consulente Digitale",
  "autore": "Danilo D'Auria",
- "versione": "1.4.1",
+ "versione": "1.4.0",
  "data": "2026-10-21",
  "novita": [
-  "In fondo al menu, sotto «Ideato e sviluppato da Danilo D'Auria», ci sono ora la licenza (un clic apre la pagina della licenza) e la versione del programma, come nel Professore Digitale"
+  "🛟 Salvadati, il nuovo strumento di recupero dati: al primo avvio analizza dischi, chiavette e schede e trova le unità RAW o illeggibili dal sistema in uso; ricerca superficiale (veloce) o approfondita (anche su unità formattate)",
+  "Salvadati recupera foto, documenti, video, musica e archivi cancellati o non più visibili, controlla ogni file e scarta quelli danneggiati e i doppioni prima di contarli; nomi leggibili (data dello scatto, titolo del documento) e cartelle ordinate",
+  "Maschera finale: quanti file integri sono stati recuperati e quanti MB o GB servono per il backup; copia di sicurezza su un disco esterno o un'altra partizione con il controllo dello spazio; rapporto stampabile",
+  "«Rendi di nuovo visibili i file» (per esempio dopo un virus delle chiavette) e riparazione dell'unità (CHKDSK, fsck, Utility Disco)",
+  "🛡️ Antivirus gratuito e aggiornabile: Microsoft Defender (rapido, completo, chiavette, controllo all'avvio con Defender Offline) e Strumento di rimozione malware MRT su Windows; ClamAV con quarantena su Linux e Mac",
+  "🚑 Kit di emergenza: crea una chiavetta avviabile con SystemRescue e Neura Soccorso per i PC che non si avviano; su Windows anche l'Unità di ripristino ufficiale",
+  "🧠 Neura Soccorso: dalla chiavetta fa la diagnosi (disco che si guasta, Windows ibernato, file system da riparare, voci di avvio UEFI perse, aggiornamenti bloccati, disco pieno, GRUB, BitLocker, RAID/VMD), spiega la causa più probabile e ripara con un clic",
+  "Neura capisce nuove richieste: «ho cancellato le foto», «la chiavetta non si legge», «ho un virus», «il computer non si avvia»; vademecum con due nuovi capitoli"
  ],
  "sito": "https://danilodauria.github.io/consulente-digitale/",
  "progetto": "https://github.com/danilodauria/consulente-digitale",
  "scarica": {
   "windows": {
-   "nome": "ConsulenteDigitale-Setup-1.4.1.exe",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.4.1.exe",
-   "sha256": "5ecb82b579564478a3e536afc70d16b72e200d60d47683bbc751e78e75df13d3",
-   "byte": 10566457
+   "nome": "ConsulenteDigitale-Setup-1.4.0.exe",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.4.0.exe",
+   "sha256": "568a9adfbc40e1089bb790487c846c89cead2cc55e499919051299780468d4ca",
+   "byte": 12493468
   },
   "linux": {
-   "nome": "consulente-digitale_1.4.1_all.deb",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.4.1_all.deb",
-   "sha256": "ce0b721237fb8d20925ce8a3b49e66adc2d4eb5faa7cf11037dcab21ce76e134",
-   "byte": 10206108
+   "nome": "consulente-digitale_1.4.0_all.deb",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.4.0_all.deb",
+   "sha256": "974855ddbfcfeb049f967e1ec20e7259a0891d4378af89e67082e20f84037e31",
+   "byte": 12133304
   },
   "mac": {
-   "nome": "ConsulenteDigitale-1.4.1-macOS.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.4.1-macOS.zip",
-   "sha256": "76b63902f3645487ce1f6f48c09eefe0c1e588e3a722ee674ecfcd90e62a3def",
-   "byte": 12173177
+   "nome": "ConsulenteDigitale-1.4.0-macOS.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.4.0-macOS.zip",
+   "sha256": "d5d30a6ddf7912b32c634a7f1881f727965f72f4b8fd3f675986f27bd9257e23",
+   "byte": 14269417
   },
   "portatile": {
-   "nome": "ConsulenteDigitale-1.4.1-portatile.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.4.1-portatile.zip",
-   "sha256": "a350f5ab74929e80cb25a8dcc0357eb7d0eeaec1c2aabc150d2d9ec6dca8a5da",
-   "byte": 10909023
+   "nome": "ConsulenteDigitale-1.4.0-portatile.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.4.0-portatile.zip",
+   "sha256": "c761296548f33c612035b7cea345603be06659bf2767a57ad04d7a1501ad83f4",
+   "byte": 13003931
   },
   "vademecum": {
-   "nome": "Vademecum_Consulente_Digitale_1.4.1.pdf",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.4.1.pdf",
-   "sha256": "c0fc9413d197fde0b82a9d14151bcdd29146279b4c3309ab799b8c9fb3d31555",
-   "byte": 11666133
+   "nome": "Vademecum_Consulente_Digitale_1.4.0.pdf",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.4.0.pdf",
+   "sha256": "fa317517277206774b5a324d8cfca73170e9253112298f8194ed30b04ece345f",
+   "byte": 14141214
   }
  },
  "licenze": {
   "codice": "MIT",
   "contenuti": "CC BY-NC-SA 4.0"
  }
-}
+}

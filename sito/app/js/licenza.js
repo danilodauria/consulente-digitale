@@ -60,6 +60,9 @@
         '<div class="scheda"><h2>🧩 Strumenti di altri autori</h2><p>Il Consulente Digitale usa, quando li installate voi, strumenti che restano dei loro autori e con la loro licenza: ' +
         "Ollama e i modelli di intelligenza artificiale (licenze dei rispettivi autori), Chris Titus Tech WinUtil e LinUtil (MIT, christitus.com), Homebrew (BSD), winget (Microsoft, MIT), " +
         "Flatpak e Flathub, fwupd/LVFS, Vosk e faster-whisper, Piper. I programmi consigliati si scaricano sempre dalle loro fonti ufficiali.</p>" +
+        "<p><b>Salvadati, Antivirus e Kit di emergenza</b>: PhotoRec e TestDisk (CGSecurity, Christophe Grenier, GPL), SystemRescue (system-rescue.org, GPL), " +
+        "ClamAV (Cisco Talos, GPL), Microsoft Defender, Defender Offline e MRT (Microsoft, inclusi in Windows), e2fsprogs, ntfs-3g, efibootmgr, GRUB, smartmontools (GPL). " +
+        "Nome e logo di Salvadati, idea, icone, grafica, testi e script di Neura Soccorso: Danilo D'Auria.</p>" +
         "<p class=\"piccolo-testo\">I marchi citati (Windows, macOS, Linux e gli altri) appartengono ai rispettivi proprietari e sono usati solo per descrivere la compatibilità.</p></div>";
       CD.$("#lic-copia", el).onclick = function () { CD.copiaTesto(L.citazione); };
     }

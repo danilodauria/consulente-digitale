@@ -27,6 +27,7 @@
     programmi: ["📦", "Programmi consigliati da installare con un clic"],
     sapere: ["💡", "Cose da sapere per un uso sicuro e consapevole, glossario"],
     circolare: ["♻️", "Economia circolare, RAEE, riparare, riusare, recuperare"],
+    nonni: ["👵", "Nonni Teach: interviste ai nonni, podcast della memoria"],
     storia: ["📜", "Storia dei computer e dei sistemi operativi, quiz"],
     impostazioni: ["⚙️", "Profilo, aspetto, voce, microfono, cervello, Internet"],
     programma: ["🔄", "Aggiornamenti del Consulente Digitale"],

@@ -54,8 +54,9 @@ for s in 48 64 128 256 512; do mkdir -p "$P/usr/share/icons/hicolor/${s}x${s}/ap
 mkdir -p "$P/usr/share/icons/hicolor/scalable/apps"; cp src/web/img/logo.svg "$P/usr/share/icons/hicolor/scalable/apps/consulente-digitale.svg"
 cp "$LIC" "$P/usr/share/doc/consulente-digitale/copyright"
 sed "s/@VERSIONE@/$V/" packaging/linux/control > "$P/DEBIAN/control"
+install -m 755 packaging/linux/prerm "$P/DEBIAN/prerm"
 echo "Installed-Size: $(du -sk "$P/usr" | cut -f1)" >> "$P/DEBIAN/control"
-find "$P" -type d -exec chmod 755 {} +; find "$P/usr/share" -type f -exec chmod 644 {} +
+find "$P" -type d -exec chmod 755 {} +; find "$P/usr/share" -type f -exec chmod 644 {} +; find "$P/usr/share" -name __pycache__ -prune -exec rm -rf {} +
 dpkg-deb --root-owner-group -Zxz --build "$P" "$D/consulente-digitale_${V}_all.deb" >/dev/null
 echo "   .deb   → $D/consulente-digitale_${V}_all.deb"
 

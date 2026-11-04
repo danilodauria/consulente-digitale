@@ -2,6 +2,16 @@
  "_nota": "Novità di ogni versione, dalla più recente. Le usa tools/prepara-pubblicazione.py per il sito e per aggiornamenti.json. Testi CC BY-NC-SA 4.0 - Danilo D'Auria",
  "versioni": [
   {
+   "versione": "1.5.2",
+   "data": "2026-11-04",
+   "novita": [
+    "Linux: il Consulente Digitale compare una sola volta nel menu delle applicazioni (prima poteva comparire in più categorie)",
+    "Linux: la disinstallazione toglie davvero tutti i file del programma (prima restava una cartella di file temporanei di Python)",
+    "La versione mostrata dal programma è sempre quella installata, anche quando si avvia dai sorgenti",
+    "Vademecum: impaginazione del capitolo sull'installazione su Windows corretta (niente più pagina quasi vuota)"
+   ]
+  },
+  {
    "versione": "1.5.1",
    "data": "2026-11-04",
    "novita": [

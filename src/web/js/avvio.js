@@ -14,7 +14,8 @@
     if (location.protocol === "file:") return Promise.resolve(false);
     return fetch("/api/status", { cache: "no-store" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) {
       if (!j || j.app !== "Consulente Digitale") return false;
-      CD.server = true; CD.stato = j; return true;
+      CD.server = true; CD.stato = j; if (j.versione) CD.versione = j.versione;   // la versione vera è quella del file VERSION
+      return true;
     }, function () { return false; });
   }
 

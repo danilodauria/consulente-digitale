@@ -1,46 +1,46 @@
 {
  "app": "Consulente Digitale",
  "autore": "Danilo D'Auria",
- "versione": "1.5.1",
+ "versione": "1.5.2",
  "data": "2026-11-04",
  "novita": [
-  "Aggiornamenti su Linux: non ricompaiono più sempre gli stessi. Gli aggiornamenti che Ubuntu, Zorin e Mint distribuiscono un po' alla volta, quelli trattenuti dalla distribuzione e il firmware che aspetta il riavvio vanno nel gruppo «⏳ In attesa» e non vengono contati",
-  "Aggiornamenti su Linux: niente più domande nascoste durante l'installazione e, se il sistema sta già aggiornando da solo, il programma aspetta invece di dare errore",
-  "Windows: l'elenco di winget non mostra più i programmi di versione sconosciuta, che ricomparivano a ogni controllo; Mac: i programmi bloccati in Homebrew vanno «in attesa»",
-  "Neura e la pagina Inizio contano solo gli aggiornamenti che si possono installare davvero"
+  "Linux: il Consulente Digitale compare una sola volta nel menu delle applicazioni (prima poteva comparire in più categorie)",
+  "Linux: la disinstallazione toglie davvero tutti i file del programma (prima restava una cartella di file temporanei di Python)",
+  "La versione mostrata dal programma è sempre quella installata, anche quando si avvia dai sorgenti",
+  "Vademecum: impaginazione del capitolo sull'installazione su Windows corretta (niente più pagina quasi vuota)"
  ],
  "sito": "https://danilodauria.github.io/consulente-digitale/",
  "progetto": "https://github.com/danilodauria/consulente-digitale",
  "scarica": {
   "windows": {
-   "nome": "ConsulenteDigitale-Setup-1.5.1.exe",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.5.1.exe",
-   "sha256": "1378337f4119d59afde416a6927329c334ecb6dec705af6bcbefe91d51eeeeca",
-   "byte": 11591135
+   "nome": "ConsulenteDigitale-Setup-1.5.2.exe",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-Setup-1.5.2.exe",
+   "sha256": "5a62d1646155b919cc1d9c88bc8fe39def09abc4758d70d75efa3cb2a6d3c078",
+   "byte": 11541344
   },
   "linux": {
-   "nome": "consulente-digitale_1.5.1_all.deb",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.5.1_all.deb",
-   "sha256": "5d0afe6b0ac34849e41e095602d66a4e3ecb0eb41ce2c1f1b2564c8711185beb",
-   "byte": 11230684
+   "nome": "consulente-digitale_1.5.2_all.deb",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/consulente-digitale_1.5.2_all.deb",
+   "sha256": "be296c37f1258af36af4f272f1c015e99dc9f691ab2345e1834912115d2651a5",
+   "byte": 11181076
   },
   "mac": {
-   "nome": "ConsulenteDigitale-1.5.1-macOS.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.5.1-macOS.zip",
-   "sha256": "20691acd362e234c860f0e876512812bb3fbddedb4924de2ced42ae6fefc5727",
-   "byte": 13308153
+   "nome": "ConsulenteDigitale-1.5.2-macOS.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.5.2-macOS.zip",
+   "sha256": "47750e1b02d0947fd92d579bb2613d6207160d79b18c3b00a8263b234d632c40",
+   "byte": 13260316
   },
   "portatile": {
-   "nome": "ConsulenteDigitale-1.5.1-portatile.zip",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.5.1-portatile.zip",
-   "sha256": "01008bb27fa4ccf7a17f96c921a41d81e1346fb1ed51be6aeb07b7aeceb9ffc5",
-   "byte": 12042883
+   "nome": "ConsulenteDigitale-1.5.2-portatile.zip",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/ConsulenteDigitale-1.5.2-portatile.zip",
+   "sha256": "64a6e9130ad1472a5e78fac874d9af5654b5b35a4618306e13c2663f5750c6e3",
+   "byte": 11995046
   },
   "vademecum": {
-   "nome": "Vademecum_Consulente_Digitale_1.5.1.pdf",
-   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.5.1.pdf",
-   "sha256": "0e6e0e6d8990b1e24d8bc2b85a33242080a70f7c4e399ea2695581794b39bf16",
-   "byte": 12988014
+   "nome": "Vademecum_Consulente_Digitale_1.5.2.pdf",
+   "url": "https://danilodauria.github.io/consulente-digitale/scarica/Vademecum_Consulente_Digitale_1.5.2.pdf",
+   "sha256": "52635b0d147d7be6924dd4c3bac5189ac56a2523b6713aa27dfe7e476cc98d20",
+   "byte": 12941990
   }
  },
  "licenze": {

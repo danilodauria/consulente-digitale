@@ -26,14 +26,14 @@ controlla che la <b>firma digitale</b> sia della Python Software Foundation e lo
 <h2>Come si apre il programma, dietro le quinte</h2>
 <p>L'icona avvia <code>avvia.vbs</code>, che lancia senza finestre nere <code>avvia.ps1</code>: trova Python (prima quello nella cartella del programma, poi quello installato, poi il lanciatore <code>py</code>,
 ignorando il finto «python» del Microsoft Store) e avvia il motore con <code>cd_server.py --apri</code>. Il motore apre la finestra con Edge (o Chrome o Brave) in «modalità app»
-con un profilo separato, così non mescola le vostre schede e i vostri dati di navigazione.</p>
+con un profilo separato: le vostre schede restano a parte.</p>
 <h2>Disinstallare</h2>
 <ol class="passi">
 <li>Chiudete il programma (Impostazioni → <b>⏻ Chiudi il programma</b>).</li>
 <li><b>Start → Impostazioni → App → App installate → Consulente Digitale → Disinstalla</b> (oppure Start → Consulente Digitale → Disinstalla).</li>
 <li>Vengono tolti il programma, il Python scaricato e le icone. Le vostre impostazioni e la conversazione restano in <code>%APPDATA%\ConsulenteDigitale</code>:
-se volete cancellare anche quelle, eliminate la cartella (scrivete <code>%APPDATA%</code> nella barra degli indirizzi di Esplora file).</li>
-<li>Ollama e i programmi installati dal catalogo sono programmi a sé: si tolgono anch'essi da <b>Impostazioni → App</b>.</li>
+se volete cancellare anche quelle, eliminate la cartella (scrivete <code>%APPDATA%</code> nella barra degli indirizzi di Esplora file).
+Ollama e i programmi del catalogo si tolgono a parte, da <b>Impostazioni → App</b>.</li>
 </ol>
 </section>
 

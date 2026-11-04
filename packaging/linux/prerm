@@ -1,0 +1,6 @@
+#!/bin/sh
+# Consulente Digitale: toglie i file .pyc creati da Python (non fanno parte del pacchetto), così la disinstallazione è pulita.
+# Ideato e sviluppato da Danilo D'Auria - Codice MIT
+set -e
+rm -rf /usr/share/consulente-digitale/server/__pycache__
+exit 0

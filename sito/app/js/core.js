@@ -8,7 +8,7 @@
 (function () {
   "use strict";
   var CD = window.CD = window.CD || {};
-  CD.versione = "1.5.0";
+  CD.versione = "1.5.1";
   CD.PROFESSORE_URL = "https://danilodauria.github.io/professore-digitale/";   // dalla 1.4.0 Nonni Teach sta nel Professore Digitale
 
   /* ------------------------------------------------------------------ utilita' */
@@ -174,6 +174,9 @@
   };
 
   /* ------------------------------------------------------------------ pagine */
+  /* aggiornamenti davvero da installare (senza quelli «in attesa»: graduali, trattenuti, bloccati, firmware al riavvio) */
+  CD.daInstallare = function (voci) { return (voci || []).filter(function (v) { return v.fonte !== "attesa"; }); };
+
   CD.viste = {};
   CD.registra = function (id, def) { def.id = id; CD.viste[id] = def; };
   CD.vai = function (h) { if (location.hash === h) CD.mostraVista(); else location.hash = h; };

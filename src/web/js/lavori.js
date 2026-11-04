@@ -37,7 +37,7 @@
     voci.forEach(function (v) { (gruppi[v.fonte] = gruppi[v.fonte] || []).push(v); });
     var NOMI = { sistema: "🪟 Sistema", programmi: "📦 Programmi", driver: "🧩 Driver", firmware: "🔩 Firmware", negozio: "🛍️ Negozio", periferica: "🔌 Periferiche",
       video: "🎮 Scheda video", strumento: "🧰 Strumenti ufficiali", disco: "💽 Dischi", batteria: "🔋 Batteria", controllo: "🛡️ Controlli", avvio: "🚦 Programmi all'avvio",
-      licenza: "📄 Licenza", estensione: "🧩 Estensioni" };
+      licenza: "📄 Licenza", estensione: "🧩 Estensioni", attesa: "⏳ In attesa (non serve fare nulla)", dispositivi: "🔩 Dispositivi con firmware (solo informazione)" };
     var h = "";
     Object.keys(gruppi).forEach(function (g) {
       h += "<h3>" + (NOMI[g] || esc(g)) + ' <span class="etichetta">' + gruppi[g].length + "</span></h3><table class=\"tab\"><tbody>";

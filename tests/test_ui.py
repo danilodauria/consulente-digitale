@@ -281,6 +281,20 @@ def main():
             controlla(".cdbackup" in (bk.headers.get("Content-Disposition") or "") and bk.read(2) == b"PK", "backup .cdbackup (zip)")
 
             # 1.2.0 - Lingue: inglese e ritorno all'italiano
+            print("Aggiornamenti in attesa")
+            api("/api/data/diario", {"token": st["token"], "valore": {"aggiornamenti": [
+                {"fonte": "sistema", "nome": "firefox", "attuale": "1", "nuova": "2", "id": "firefox", "nota": ""},
+                {"fonte": "attesa", "nome": "gnome-shell", "attuale": "1", "nuova": "2", "id": "gnome-shell", "nota": "Aggiornamento graduale"},
+                {"fonte": "attesa", "nome": "linux-generic", "attuale": "1", "nuova": "2", "id": "linux-generic", "nota": "Trattenuto"}], "info": {}, "quando": "oggi"}})
+            pg.goto(base + "#/aggiornamenti")
+            pg.wait_for_selector("#agg-installa")
+            t = pg.inner_text("#agg-ris")
+            controlla("Trovati 1 aggiornamenti" in t and "Altri 2 sono in attesa" in t and "In attesa" in t,
+                      "aggiornamenti graduali/trattenuti mostrati a parte e non contati (non ricompaiono come «da installare»)")
+            api("/api/data/diario", {"token": st["token"], "valore": {"aggiornamenti": [
+                {"fonte": "attesa", "nome": "gnome-shell", "attuale": "1", "nuova": "2", "id": "gnome-shell", "nota": ""}], "info": {}, "quando": "oggi"}})
+            pg.goto(base + "#/"); pg.goto(base + "#/aggiornamenti"); pg.wait_for_selector("#agg-installa"); time.sleep(0.5)
+            controlla("Tutto aggiornato" in pg.inner_text("#agg-ris"), "solo aggiornamenti in attesa → «Tutto aggiornato»")
             print("Salvadati, antivirus, kit, soccorso")
             pg.goto(base + "#/recupero")
             pg.wait_for_selector("#sd-analisi table", timeout=30000)

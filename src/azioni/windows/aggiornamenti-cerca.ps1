@@ -16,7 +16,7 @@ try {
 Passo 2 3 'Programmi installati (winget)'
 $m = 0
 if (Prepara-Winget) {
-    $righe = & winget upgrade --include-unknown --accept-source-agreements --disable-interactivity 2>$null | ForEach-Object { "$_" }
+    $righe = & winget upgrade --accept-source-agreements --disable-interactivity 2>$null | ForEach-Object { "$_" }
     $i = 0; $testa = -1
     for ($i = 0; $i -lt $righe.Count; $i++) { if ($righe[$i] -match '^-{10,}') { $testa = $i - 1; break } }
     if ($testa -ge 0) {

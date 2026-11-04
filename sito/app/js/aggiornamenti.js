@@ -18,10 +18,14 @@
     if (!j) { box.innerHTML = '<p class="vuoto">Premete «Cerca aggiornamenti»: controllo senza cambiare nulla.</p>'; return; }
     var fonti = {};
     j.voci.forEach(function (v) { fonti[v.fonte] = (fonti[v.fonte] || 0) + 1; });
+    // «in attesa»: aggiornamenti graduali o trattenuti dalla distribuzione, firmware che aspetta il riavvio, pacchetti bloccati.
+    // Si mostrano ma non si contano: «Installa» non può farli, e prima facevano sembrare che non finisse mai.
+    var daFare = j.voci.filter(function (v) { return v.fonte !== "attesa"; }).length, attesa = fonti.attesa || 0;
     var f = CD.sistema();
     var scelte = ["sistema", "programmi", "driver", "firmware"].concat(f === "windows" || f === "mac" ? ["negozio"] : []);
     box.innerHTML = (j.info.riavvio === "si" ? '<div class="avviso att">🔄 Il computer aspetta un riavvio per completare aggiornamenti precedenti.</div>' : "") +
-      (j.voci.length ? '<div class="avviso">Trovati <b>' + j.voci.length + "</b> aggiornamenti.</div>" : '<div class="avviso ok">✅ Tutto aggiornato! Ultimo controllo: ' + esc(j.quando || "") + "</div>") +
+      (daFare ? '<div class="avviso">Trovati <b>' + daFare + "</b> aggiornamenti da installare.</div>" : '<div class="avviso ok">✅ Tutto aggiornato! Ultimo controllo: ' + esc(j.quando || "") + "</div>") +
+      (attesa ? '<p class="piccolo-testo">⏳ Altri ' + attesa + " sono in attesa (arrivano da soli o dopo il riavvio): non serve fare nulla.</p>" : "") +
       '<h3>Cosa installare</h3><div class="opzioni">' + scelte.map(function (s) {
         return '<label class="opzione"><input type="checkbox" data-fonte="' + s + '"' + (s !== "firmware" || fonti.firmware ? " checked" : "") + "> " + NOMI[s] + (fonti[s] ? " (" + fonti[s] + ")" : "") + "</label>"; }).join("") +
       '</div><div class="riga" style="margin:.8rem 0"><button class="btn verde grande" id="agg-installa">⬇️ Scarica e installa</button><span class="piccolo-testo">Prima di installare il firmware collegate il caricabatterie.</span></div>' +

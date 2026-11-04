@@ -73,7 +73,8 @@
     var punti = [], comandi = [];
     if (R.analisi) { var p = CD.analisi.punteggi(R.analisi); punti.push("Hardware: voto <b>" + p.totale + "/10</b>." + (CD.analisi.migliorie(R.analisi)[0] ? " Miglioria più utile: " + esc(CD.analisi.migliorie(R.analisi)[0].titolo.toLowerCase()) + "." : "")); }
     var ag = R.aggiornamenti_cerca;
-    if (ag) { punti.push(ag.voci.length ? "Aggiornamenti: <b>" + ag.voci.length + " da installare</b>." : "Aggiornamenti: tutto aggiornato ✔."); if (ag.voci.length) comandi.push({ tipo: "azione", id: "aggiornamenti_installa", etichetta: "⬇️ Installa gli aggiornamenti" }); }
+    var agN = ag ? CD.daInstallare(ag.voci).length : 0;
+    if (ag) { punti.push(agN ? "Aggiornamenti: <b>" + agN + " da installare</b>." : "Aggiornamenti: tutto aggiornato ✔."); if (agN) comandi.push({ tipo: "azione", id: "aggiornamenti_installa", etichetta: "⬇️ Installa gli aggiornamenti" }); }
     var sc = R.sicurezza_controllo;
     if (sc) { var att = sc.voci.filter(function (v) { return /attenzione/i.test(v.nuova); }); punti.push(att.length ? "Sicurezza: <b>" + att.length + " punti da sistemare</b> (" + esc(att.map(function (v) { return v.nome; }).join(", ")) + ")." : "Sicurezza: nessun problema grave ✔."); }
     var ds = R.disco_salute;

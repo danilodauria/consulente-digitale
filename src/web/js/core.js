@@ -174,6 +174,9 @@
   };
 
   /* ------------------------------------------------------------------ pagine */
+  /* aggiornamenti davvero da installare (senza quelli «in attesa»: graduali, trattenuti, bloccati, firmware al riavvio) */
+  CD.daInstallare = function (voci) { return (voci || []).filter(function (v) { return v.fonte !== "attesa"; }); };
+
   CD.viste = {};
   CD.registra = function (id, def) { def.id = id; CD.viste[id] = def; };
   CD.vai = function (h) { if (location.hash === h) CD.mostraVista(); else location.hash = h; };

@@ -34,6 +34,11 @@ come_utente() {
     fi
 }
 
+# apt senza domande nascoste (non c'è un terminale per rispondere) e, se il sistema sta già aggiornando da solo
+# (unattended-upgrades, Software Updater), si aspetta fino a 5 minuti invece di fallire con «Could not get lock»
+export DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a APT_LISTCHANGES_FRONTEND=none
+apt-get() { command apt-get -o DPkg::Lock::Timeout=300 "$@"; }
+
 gestore() {
     if c_e apt-get; then echo apt
     elif c_e dnf; then echo dnf

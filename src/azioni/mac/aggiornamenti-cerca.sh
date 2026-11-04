@@ -14,8 +14,10 @@ passo 2 3 "Programmi Homebrew"
 m=0
 if [ -n "$BREW" ]; then
     come_utente "$BREW" update >/dev/null 2>&1
-    while read -r nome att _ nuova; do
-        [ -n "$nome" ] && voce programmi "$nome" "${att//[()]/}" "$nuova" "$nome" "Homebrew" && m=$((m+1))
+    while read -r nome att _ nuova resto; do
+        [ -n "$nome" ] || continue
+        case "$resto" in *pinned*) voce attesa "$nome" "${att//[()]/}" "$nuova" "$nome" "Bloccato (brew pin): non si aggiorna finché non lo sbloccate"; continue ;; esac
+        voce programmi "$nome" "${att//[()]/}" "$nuova" "$nome" "Homebrew" && m=$((m+1))
     done < <(come_utente "$BREW" outdated --verbose 2>/dev/null)
     ok "Programmi da aggiornare: $m"
 else

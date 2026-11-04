@@ -2,6 +2,16 @@
  "_nota": "Novità di ogni versione, dalla più recente. Le usa tools/prepara-pubblicazione.py per il sito e per aggiornamenti.json. Testi CC BY-NC-SA 4.0 - Danilo D'Auria",
  "versioni": [
   {
+   "versione": "1.5.1",
+   "data": "2026-11-04",
+   "novita": [
+    "Aggiornamenti su Linux: non ricompaiono più sempre gli stessi. Gli aggiornamenti che Ubuntu, Zorin e Mint distribuiscono un po' alla volta, quelli trattenuti dalla distribuzione e il firmware che aspetta il riavvio vanno nel gruppo «⏳ In attesa» e non vengono contati",
+    "Aggiornamenti su Linux: niente più domande nascoste durante l'installazione e, se il sistema sta già aggiornando da solo, il programma aspetta invece di dare errore",
+    "Windows: l'elenco di winget non mostra più i programmi di versione sconosciuta, che ricomparivano a ogni controllo; Mac: i programmi bloccati in Homebrew vanno «in attesa»",
+    "Neura e la pagina Inizio contano solo gli aggiornamenti che si possono installare davvero"
+   ]
+  },
+  {
    "versione": "1.5.0",
    "data": "2026-10-22",
    "novita": [

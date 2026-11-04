@@ -100,7 +100,7 @@
       CD.carica("diario").then(function (d) {
         if (!d) return;
         var a = CD.$("#home-agg", el); if (!a) return;
-        var n2 = (d.aggiornamenti || []).length;
+        var n2 = CD.daInstallare(d.aggiornamenti).length;
         a.innerHTML = "<h3>⬇️ Aggiornamenti</h3><p>" + (n2 ? "<b>" + n2 + "</b> aggiornamenti da installare" : "✔ Tutto aggiornato") + '<br><small>Controllo: ' + esc(d.quando || "") + "</small></p>" +
           (d.pilota ? '<p class="piccolo-testo">Ultimo pilota automatico: ' + esc(d.pilota.quando) + "</p>" : "") + '<a class="btn piccolo" href="#/aggiornamenti">Apri →</a>';
       });

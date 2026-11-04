@@ -36,7 +36,7 @@ if ((Vuole 'sistema') -or (Vuole 'driver') -or (Vuole 'firmware')) {
 if (Vuole 'programmi') {
     Passo 2 3 'Programmi (winget)'
     if (Prepara-Winget) {
-        $c = Nativo 'winget' @('upgrade', '--all', '--silent', '--include-unknown', '--accept-package-agreements', '--accept-source-agreements', '--disable-interactivity')
+        $c = Nativo 'winget' @('upgrade', '--all', '--silent', '--accept-package-agreements', '--accept-source-agreements', '--disable-interactivity')
         Ok 'Programmi aggiornati (quelli aperti si aggiornano alla chiusura).'
     } else { Nota 'winget non disponibile.' }
 }

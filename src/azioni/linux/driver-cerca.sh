@@ -23,9 +23,15 @@ if echo "$gpu" | grep -qi nvidia; then
 fi
 passo 2 3 "Driver aggiuntivi consigliati dalla distribuzione"
 if c_e ubuntu-drivers; then
+    # solo il driver «recommended» e solo se non è già installato (prima ricomparivano tutti, anche dopo l'installazione)
     while IFS= read -r p; do
-        [ -n "$p" ] && voce driver "$p" "" "consigliato" "$p" "ubuntu-drivers" && n=$((n+1))
-    done < <(ubuntu-drivers list 2>/dev/null | cut -d, -f1)
+        [ -n "$p" ] || continue
+        if dpkg-query -W -f='${Status}' "$p" 2>/dev/null | grep -q "install ok installed"; then
+            ok "Driver consigliato già installato: $p"
+        else
+            voce driver "$p" "" "consigliato" "$p" "ubuntu-drivers" && n=$((n+1))
+        fi
+    done < <(ubuntu-drivers devices 2>/dev/null | awk '/recommended/ && $1=="driver" {print $3}' | sort -u)
 elif c_e nvidia-detect; then
     nvidia-detect 2>/dev/null | tail -n 3
 fi
@@ -41,7 +47,7 @@ import json,sys
 try: d=json.load(sys.stdin)
 except Exception: sys.exit(0)
 for dev in d.get("Devices",[]):
-    if dev.get("Version"): print("@@VOCE|firmware|%s|%s|||%s" % (dev.get("Name",""), dev.get("Version",""), dev.get("Vendor","")))'
+    if dev.get("Version"): print("@@VOCE|dispositivi|%s|%s|||%s" % (dev.get("Name",""), dev.get("Version",""), dev.get("Vendor","")))'
 else
     nota "Per controllare il firmware installa «fwupd»."
 fi

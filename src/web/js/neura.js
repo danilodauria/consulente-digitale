@@ -423,8 +423,8 @@
     var t = null, c = [];
     if (j.stato === "negato") t = "Non ho avuto il permesso di amministratore, quindi non ho cambiato nulla. Riprovate quando volete.";
     else if (a.id === "aggiornamenti_cerca") {
-      var n = j.voci.length, f = {};
-      j.voci.forEach(function (v) { f[v.fonte] = (f[v.fonte] || 0) + 1; });
+      var vere = CD.daInstallare(j.voci), n = vere.length, f = {};
+      vere.forEach(function (v) { f[v.fonte] = (f[v.fonte] || 0) + 1; });
       if (!n) t = "Ottime notizie: è tutto aggiornato!" + (j.info.riavvio === "si" ? " Però il computer aspetta un riavvio per completare gli aggiornamenti precedenti." : "");
       else { t = "Ho trovato **" + n + " aggiornamenti**" + Object.keys(f).map(function (k) { return " · " + f[k] + " " + k; }).join("") + ". Volete che li scarichi e li installi?";
         c.push({ tipo: "azione", id: "aggiornamenti_installa", param: Object.keys(f).join(" "), etichetta: "⬇️ Installa tutto" }); }

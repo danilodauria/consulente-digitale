@@ -9,11 +9,27 @@ passo 2 4 "Sistema ($GESTORE)"
 n=0
 case "$GESTORE" in
     apt)
+        # Si mostra solo quello che «Installa» farà davvero: Ubuntu e derivate (Zorin, Mint…) distribuiscono alcuni
+        # aggiornamenti un po' alla volta («graduali», phased) e altri restano «trattenuti»: apt list li elenca
+        # ma apt non li installa, e prima ricomparivano a ogni controllo.
+        sim="$(LC_ALL=C apt-get -s -o Debug::NoLocking=1 --with-new-pkgs upgrade 2>/dev/null)"
+        installabili=" $(echo "$sim" | awk '/^Inst /{printf "%s ", $2}') "
+        rimandati=" $(echo "$sim" | awk '/deferred due to phasing:/{f=1;next} /^[^ ]/{f=0} f{printf "%s ", $0}') "
+        a=0
         while IFS= read -r riga; do
             nome="${riga%%/*}"; nuova="$(echo "$riga" | awk '{print $2}')"
             vecchia="$(echo "$riga" | sed -n 's/.*\[[^:]*: \(.*\)\]/\1/p')"
-            [ -n "$nome" ] && voce sistema "$nome" "$vecchia" "$nuova" "$nome" "" && n=$((n+1))
-        done < <(apt list --upgradable 2>/dev/null | grep -v '^Listing\|^Elenco\|^In elenco')
+            [ -n "$nome" ] || continue
+            case "$installabili" in
+                *" $nome "*) voce sistema "$nome" "$vecchia" "$nuova" "$nome" "" && n=$((n+1)) ;;
+                *) case "$rimandati" in
+                       *" $nome "*) voce attesa "$nome" "$vecchia" "$nuova" "$nome" "Aggiornamento graduale della distribuzione: arriverà da solo nei prossimi giorni" ;;
+                       *) voce attesa "$nome" "$vecchia" "$nuova" "$nome" "Trattenuto: serve l'aggiornamento completo di «Aggiornamenti software» della distribuzione" ;;
+                   esac
+                   a=$((a+1)) ;;
+            esac
+        done < <(LC_ALL=C apt list --upgradable 2>/dev/null | grep -v '^Listing')
+        [ "$a" -gt 0 ] && nota "$a aggiornamenti in attesa (graduali o trattenuti): non serve fare nulla, non vengono contati"
         ;;
     dnf)
         while read -r nome ver repo; do
@@ -54,15 +70,18 @@ ok "Aggiornamenti dei programmi: $m"
 passo 4 4 "Firmware (fwupd / LVFS)"
 f=0
 if c_e fwupdmgr; then
-    while IFS='|' read -r dev att nuova; do
-        [ -n "$dev" ] && voce firmware "$dev" "$att" "$nuova" "$dev" "LVFS" && f=$((f+1))
+    while IFS='|' read -r dev att nuova riavvio; do
+        [ -n "$dev" ] || continue
+        if [ "$riavvio" = "1" ]; then voce attesa "$dev" "$att" "$nuova" "$dev" "Firmware già pronto: si installa al prossimo riavvio"
+        else voce firmware "$dev" "$att" "$nuova" "$dev" "LVFS" && f=$((f+1)); fi
     done < <(timeout 120 fwupdmgr get-updates --json 2>/dev/null | python3 -c '
 import json,sys
 try: d=json.load(sys.stdin)
 except Exception: sys.exit(0)
 for dev in d.get("Devices",[]):
     rel=(dev.get("Releases") or [{}])[0]
-    print("%s|%s|%s" % (dev.get("Name",""), dev.get("Version",""), rel.get("Version","")))')
+    fl=dev.get("Flags") or []
+    print("%s|%s|%s|%s" % (dev.get("Name",""), dev.get("Version",""), rel.get("Version",""), "1" if ("needs-reboot" in fl or dev.get("UpdateState") in ("needs-reboot", 4)) else "0"))')
     ok "Aggiornamenti del firmware: $f"
 else
     nota "fwupd non installato: il firmware (BIOS, dischi, docking) non si può controllare da qui."
